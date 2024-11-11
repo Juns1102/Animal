@@ -21,12 +21,14 @@ var UIbtn3 = new Image();
 UIbtn3.src = "./UI/UIbtn3Up.png";
 var UIbtn4 = new Image();
 UIbtn4.src = "./UI/UIbtn4Up.png";
-var UIempt = new Image();
-UIbtn5.src = "./UI/UIbtn4Up.png";
-var UIempt = new Image();
-UIbtn6.src = "./UI/UIbtn4Up.png";
-var UIempt = new Image();
-UIbtn7.src = "./UI/UIbtn4Up.png";
+
+
+var UIbtn5 = new Image();
+UIbtn5.src = "./UI/UIbtn5Up.png";
+var UIbtn6 = new Image();
+UIbtn6.src = "./UI/UIbtn6Up.png";
+var UIbtn7 = new Image();
+UIbtn7.src = "./UI/UIbtn7Up.png";
 var UIempt = new Image();
 UIempt.src = "./UI/empty.png";
 
@@ -166,6 +168,9 @@ function drawUI(){
 	ctx.drawImage(UIbtn2, UI2Pos[0], UI2Pos[1]);
 	ctx.drawImage(UIbtn3, UI3Pos[0], UI3Pos[1]);
 	ctx.drawImage(UIbtn4, UI4Pos[0], UI4Pos[1]);
+	ctx.drawImage(UIbtn5, UI5Pos[0], UI5Pos[1]);
+	ctx.drawImage(UIbtn6, UI6Pos[0], UI6Pos[1]);
+	ctx.drawImage(UIbtn7, UI7Pos[0], UI7Pos[1]);
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
 }
 
@@ -288,9 +293,21 @@ function UIChanger(x, y){
 			UIbtn3.src = "./UI/UIbtn3Down.png"
 			UISelect = 3;
 		}
-		else if(x>=UI4Pos[0]){
+		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
 			UIbtn4.src = "./UI/UIbtn4Down.png"
 			UISelect = 4;
+		}
+		else if(x>=UI5Pos[0] && x<UI6Pos[0]){
+			UIbtn5.src = "./UI/UIbtn5Down.png"
+			UISelect = 0;
+		}
+		else if(x>=UI6Pos[0] && x<UI7Pos[0]){
+			UIbtn6.src = "./UI/UIbtn6Down.png"
+			UISelect = 0;
+		}
+		else if(x>=UI7Pos[0]){
+			UIbtn7.src = "./UI/UIbtn7Down.png"
+			UISelect = 0;
 		}
 	}
 }
@@ -300,6 +317,9 @@ function UIReset(){
 	UIbtn2.src = "./UI/UIbtn2Up.png";
 	UIbtn3.src = "./UI/UIbtn3Up.png";
 	UIbtn4.src = "./UI/UIbtn4Up.png";
+	UIbtn5.src = "./UI/UIbtn5Up.png";
+	UIbtn6.src = "./UI/UIbtn6Up.png";
+	UIbtn7.src = "./UI/UIbtn7Up.png";
 }
 
 function follow(x, y){
