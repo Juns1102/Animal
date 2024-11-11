@@ -244,6 +244,10 @@ function mobSpawn(){
 		if(phase < 4){
 			phase++;
 		}
+		else{
+			upgrade = true;
+			phase = 0;
+		}
 	}
 	if(spawnTimer > spawnRate[phase]){
 		spawnTimer = 0;
@@ -307,6 +311,7 @@ function UIChanger(x, y){
 		}
 		else if(x>=UI7Pos[0]){
 			UIbtn7.src = "./UI/UIbtn7Down.png"
+			upgrade = false;
 			UISelect = 0;
 		}
 	}
