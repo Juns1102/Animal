@@ -77,6 +77,12 @@ var phaseRate = 60*30;
 var round = 0;
 var upgrade = true;
 
+var animalPer = [[50, 45, 40, 35, 30], 
+			     [50, 45, 40, 35, 30],
+			     [0, 10, 20, 25, 30],
+			     [0, 0, 0, 5, 10]];
+
+
 class Chicken{
 	constructor(){
 		this.x = 0;
@@ -148,6 +154,18 @@ class Fox{
 	}
 }
 
+class Ratel{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.coolTime = 0;
+		this.hp = 100;
+	}
+	draw(){
+		ctx.drawImage(ratelImg, this.x, this.y);
+	}
+}
+
 class Crocodile{
 	constructor(){
 		this.x = 0;
@@ -157,18 +175,6 @@ class Crocodile{
 	}
 	draw(){
 		ctx.drawImage(crocodileImg, this.x, this.y);
-	}
-}
-
-class ratel{
-	constructor(){
-		this.x = 0;
-		this.y = 0;
-		this.coolTime = 0;
-		this.hp = 100;
-	}
-	draw(){
-		ctx.drawImage(ratelImg, this.x, this.y);
 	}
 }
 
@@ -295,11 +301,43 @@ function mobSpawn(){
 	}
 	if(spawnTimer > spawnRate[phase]){
 		spawnTimer = 0;
-		spawnPosY = Math.floor(Math.random() * 4) + 1;
-		var bear = new Bear();
-		bear.x = 32*10*4;
-		bear.y = spawnPosY*32*4 - 16;
-		bears.push(bear);
+		randomNum = Math.floor(Math.random() * 100) + 1;
+		console.log(randomNum, phase);
+		if(randomNum < animalPer[0][phase]){ //Fox
+			spawnPosY = Math.floor(Math.random() * 4) + 1;
+			var fox = new Fox();
+			fox.x = 32*10*4;
+			fox.y = spawnPosY*32*4 - 16;
+			foxes.push(fox);
+			console.log("fox");
+		}
+		else if(randomNum >= animalPer[0][phase] && //Ratel
+			    randomNum < animalPer[0][phase] + animalPer[1][phase]){
+			spawnPosY = Math.floor(Math.random() * 4) + 1;
+			var ratel = new Ratel();
+			ratel.x = 32*10*4;
+			ratel.y = spawnPosY*32*4 - 16;
+			ratels.push(ratel);
+			console.log("ratel");
+		}
+		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
+			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
+			spawnPosY = Math.floor(Math.random() * 4) + 1;
+			var crocodile = new Crocodile();
+			crocodile.x = 32*10*4;
+			crocodile.y = spawnPosY*32*4 - 16;
+			crocs.push(crocodile);
+			console.log("croc");
+		}
+		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
+			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
+					spawnPosY = Math.floor(Math.random() * 3) + 1;
+					var bear = new Bear();
+					bear.x = 32*10*4;
+					bear.y = spawnPosY*32*4 - 16;
+					bears.push(bear);	
+					console.log("bear");
+		}
 	}
 }
 
