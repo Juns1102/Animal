@@ -21,8 +21,6 @@ var UIbtn3 = new Image();
 UIbtn3.src = "./UI/UIbtn3Up.png";
 var UIbtn4 = new Image();
 UIbtn4.src = "./UI/UIbtn4Up.png";
-
-
 var UIbtn5 = new Image();
 UIbtn5.src = "./UI/UIbtn5Up.png";
 var UIbtn6 = new Image();
@@ -55,6 +53,14 @@ var squirrels = [];
 var foxImg = new Image();
 foxImg.src = "./Entity/fox.png";
 var foxes = [];
+
+var crocodileImg = new Image();
+crocodileImg.src = "./Entity/crocodile.png";
+var crocs = [];
+
+var ratelImg = new Image();
+ratelImg.src = "./Entity/ratel.png";
+var ratels = [];
 
 var bearImg = new Image();
 bearImg.src = "./Entity/bear.png";
@@ -142,6 +148,30 @@ class Fox{
 	}
 }
 
+class Crocodile{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.coolTime = 0;
+		this.hp = 100;
+	}
+	draw(){
+		ctx.drawImage(crocodileImg, this.x, this.y);
+	}
+}
+
+class ratel{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.coolTime = 0;
+		this.hp = 100;
+	}
+	draw(){
+		ctx.drawImage(ratelImg, this.x, this.y);
+	}
+}
+
 class Bear{
 	constructor(){
 		this.x = 0;
@@ -211,6 +241,20 @@ function drawMob(){
 		a.draw();
 	})
 	foxes.forEach((a, i, o)=>{
+		if(a.x < -32*2*4){
+			o.splice(i, 1)
+		}
+		a.x -= 3.5;
+		a.draw();
+	})
+	crocs.forEach((a, i, o)=>{
+		if(a.x < -32*2*4){
+			o.splice(i, 1)
+		}
+		a.x -= 3.5;
+		a.draw();
+	})
+	ratels.forEach((a, i, o)=>{
 		if(a.x < -32*2*4){
 			o.splice(i, 1)
 		}
