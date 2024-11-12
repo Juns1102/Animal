@@ -30,24 +30,32 @@ UIbtn7.src = "./UI/UIbtn7Up.png";
 var UIempt = new Image();
 UIempt.src = "./UI/empty.png";
 
-var chickenImg = new Image();
-chickenImg.src = "./Entity/chicken.png";
+var chickenIdle1 = new Image();
+var chickenIdle2 = new Image();
+chickenIdle1.src = "./Entity/Anim/chicken_idle_1.png";
+chickenIdle2.src = "./Entity/Anim/chicken_idle_2.png";
 var chickens = [];
 
 var eggImg = new Image();
 eggImg.src = "./Entity/egg.png"
 var eggs = [];
 
-var catImg = new Image();
-catImg.src = "./Entity/cat.png";
+var catIdle1 = new Image();
+var catIdle2 = new Image();
+catIdle1.src = "./Entity/Anim/cat_idle_1.png";
+catIdle2.src = "./Entity/Anim/cat_idle_2.png";
 var cats = [];
 
-var sheepImg = new Image();
-sheepImg.src = "./Entity/sheep.png";
+var sheepIdle1 = new Image();
+var sheepIdle2 = new Image();
+sheepIdle1.src = "./Entity/Anim/sheep_idle_1.png";
+sheepIdle2.src = "./Entity/Anim/sheep_idle_2.png";
 var sheeps = [];
 
-var squirrelImg = new Image();
-squirrelImg.src = "./Entity/squirrel.png";
+var squirrelIdle1 = new Image();
+var squirrelIdle2 = new Image();
+squirrelIdle1.src = "./Entity/Anim/squirrel_idle_1.png";
+squirrelIdle2.src = "./Entity/Anim/squirrel_idle_2.png";
 var squirrels = [];
 
 var foxImg = new Image();
@@ -88,9 +96,16 @@ class Chicken{
 		this.y = 0;
 		this.coolTime = 0;
 		this.hp = 100;
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(chickenImg, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(chickenIdle1, this.x, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(chickenIdle2, this.x, this.y);
+		}
 	}
 }
 
@@ -111,9 +126,16 @@ class Cat{
 		this.y = 0;
 		this.coolTime = 0;
 		this.hp = 100;
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(catImg, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(catIdle1, this.x, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(catIdle2, this.x, this.y);
+		}
 	}
 }
 
@@ -123,9 +145,16 @@ class Sheep{
 		this.y = 0;
 		this.coolTime = 0;
 		this.hp = 100;
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(sheepImg, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(sheepIdle1, this.x, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(sheepIdle2, this.x, this.y);
+		}
 	}
 }
 
@@ -135,9 +164,16 @@ class Squirrel{
 		this.y = 0;
 		this.coolTime = 0;
 		this.hp = 100;
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(squirrelImg, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(squirrelIdle1, this.x, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(squirrelIdle2, this.x, this.y);
+		}
 	}
 }
 
@@ -215,6 +251,16 @@ function drawMob(){
 			o.splice(i, 1)
 		}
 		a.coolTime++;
+		a.anim++;
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.frame == 1){
+				a.frame = 0;
+			}
+			a.anim = 0;
+		}
 		if(a.coolTime > 180){
 			a.coolTime = 0;
 			var egg = new Egg();
@@ -229,6 +275,16 @@ function drawMob(){
 			o.splice(i, 1)
 		}
 		a.coolTime++;
+		a.anim++;
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.frame == 1){
+				a.frame = 0;
+			}
+			a.anim = 0;
+		}
 		a.draw();
 	})
 	sheeps.forEach((a, i, o)=>{
@@ -236,6 +292,16 @@ function drawMob(){
 			o.splice(i, 1)
 		}
 		a.coolTime++;
+		a.anim++;
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.frame == 1){
+				a.frame = 0;
+			}
+			a.anim = 0;
+		}
 		a.draw();
 	})
 	squirrels.forEach((a, i, o)=>{
@@ -243,6 +309,16 @@ function drawMob(){
 			o.splice(i, 1)
 		}
 		a.coolTime++;
+		a.anim++;
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.frame == 1){
+				a.frame = 0;
+			}
+			a.anim = 0;
+		}
 		a.draw();
 	})
 	foxes.forEach((a, i, o)=>{
