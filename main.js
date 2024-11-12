@@ -82,7 +82,6 @@ var animalPer = [[50, 45, 40, 35, 30],
 			     [0, 10, 20, 25, 30],
 			     [0, 0, 0, 5, 10]];
 
-
 class Chicken{
 	constructor(){
 		this.x = 0;
