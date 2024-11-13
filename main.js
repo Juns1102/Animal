@@ -58,6 +58,8 @@ squirrelIdle1.src = "./Entity/Anim/squirrel_idle_1.png";
 squirrelIdle2.src = "./Entity/Anim/squirrel_idle_2.png";
 var squirrels = [];
 
+var enemies = [];
+
 var foxImg = new Image();
 foxImg.src = "./Entity/fox.png";
 var foxes = [];
@@ -83,7 +85,7 @@ var phase = 0;
 var phaseCnt = 0;
 var phaseRate = 60*30;
 var round = 0;
-var upgrade = true;
+var wait = true;
 
 var animalPer = [[50, 45, 40, 35, 30], 
 			     [50, 45, 40, 35, 30],
@@ -92,10 +94,11 @@ var animalPer = [[50, 45, 40, 35, 30],
 
 class Chicken{
 	constructor(){
+		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 		this.anim = 0;
 		this.frame = 0;
 	}
@@ -113,6 +116,9 @@ class Egg{
 	constructor(){
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
+		this.width = 7*4;
+		this.height = 6*4;
 		this.coolTime = 0;
 	}
 	draw(){
@@ -122,10 +128,11 @@ class Egg{
 
 class Cat{
 	constructor(){
+		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 		this.anim = 0;
 		this.frame = 0;
 	}
@@ -141,10 +148,11 @@ class Cat{
 
 class Sheep{
 	constructor(){
+		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 		this.anim = 0;
 		this.frame = 0;
 	}
@@ -160,10 +168,11 @@ class Sheep{
 
 class Squirrel{
 	constructor(){
+		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 		this.anim = 0;
 		this.frame = 0;
 	}
@@ -179,10 +188,11 @@ class Squirrel{
 
 class Fox{
 	constructor(){
+		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 	}
 	draw(){
 		ctx.drawImage(foxImg, this.x, this.y);
@@ -191,10 +201,11 @@ class Fox{
 
 class Ratel{
 	constructor(){
+		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 	}
 	draw(){
 		ctx.drawImage(ratelImg, this.x, this.y);
@@ -203,10 +214,11 @@ class Ratel{
 
 class Crocodile{
 	constructor(){
+		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 	}
 	draw(){
 		ctx.drawImage(crocodileImg, this.x, this.y);
@@ -215,10 +227,11 @@ class Crocodile{
 
 class Bear{
 	constructor(){
+		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.lane = 0;
 		this.coolTime = 0;
-		this.hp = 100;
 	}
 	draw(){
 		ctx.drawImage(bearImg, this.x, this.y);
@@ -229,7 +242,7 @@ function draw(){
 	ctx.drawImage(backGround, 0, 0);
 	drawUI();
 	drawMob();
-	if(upgrade == false){
+	if(wait == false){
 		drawPJT();
 	}
 }
@@ -266,6 +279,7 @@ function drawMob(){
 			var egg = new Egg();
 			egg.x = a.x + 32*4;
 			egg.y = a.y + 32*2-8;
+			egg.lane = a.lane;
 			eggs.push(egg);
 		}
 		a.draw();
@@ -321,7 +335,14 @@ function drawMob(){
 		}
 		a.draw();
 	})
-	foxes.forEach((a, i, o)=>{
+	enemies.forEach((a, i, o)=>{
+		if(a.x < -32*2*4){
+			o.splice(i, 1)
+		}
+		a.x -= 3.5;
+		a.draw();
+	})
+	/*foxes.forEach((a, i, o)=>{
 		if(a.x < -32*2*4){
 			o.splice(i, 1)
 		}
@@ -348,7 +369,7 @@ function drawMob(){
 		}
 		a.x -= 3.5;
 		a.draw();
-	})
+	})*/
 }
 
 function drawPJT(){//발사체
@@ -357,8 +378,32 @@ function drawPJT(){//발사체
 			o.splice(i, 1)
 		}
 		a.x += 5;
+		if(collision(a, enemies) == true){
+			o.splice(i, 1)
+		}
 		a.draw();
 	})
+}
+
+function collision(team, enemy){
+	var collide = false;
+	enemy.forEach((a, i, o)=>{
+		var difX = a.x - (team.x + team.width);
+		console.debug(a.lane, team.lane);
+		if(difX < 0 && (a.lane == team.lane)){
+			a.hp--;
+			if(a.hp <= 0){
+				o.splice(i, 1)
+			}
+			collide = true;
+		}
+	})
+	if(collide==true){
+		return true;
+	}
+	else{
+		return false;
+	}
 }
 
 function mobSpawn(){
@@ -370,7 +415,7 @@ function mobSpawn(){
 			phase++;
 		}
 		else{
-			upgrade = true;
+			wait = true;
 			phase = 0;
 		}
 	}
@@ -383,26 +428,29 @@ function mobSpawn(){
 			var fox = new Fox();
 			fox.x = 32*10*4;
 			fox.y = spawnPosY*32*4 - 16;
-			foxes.push(fox);
-			console.log("fox");
+			fox.lane = spawnPosY;
+			//foxes.push(fox);
+			enemies.push(fox);
 		}
 		else if(randomNum >= animalPer[0][phase] && //Ratel
 			    randomNum < animalPer[0][phase] + animalPer[1][phase]){
-			spawnPosY = Math.floor(Math.random() * 4) + 1;
-			var ratel = new Ratel();
-			ratel.x = 32*10*4;
-			ratel.y = spawnPosY*32*4 - 16;
-			ratels.push(ratel);
-			console.log("ratel");
+					spawnPosY = Math.floor(Math.random() * 4) + 1;
+					var ratel = new Ratel();
+					ratel.x = 32*10*4;
+					ratel.y = spawnPosY*32*4 - 16;
+					ratel.lane = spawnPosY;
+					//ratels.push(ratel);
+					enemies.push(ratel);
 		}
 		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
 			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
-			spawnPosY = Math.floor(Math.random() * 4) + 1;
-			var crocodile = new Crocodile();
-			crocodile.x = 32*10*4;
-			crocodile.y = spawnPosY*32*4 - 16;
-			crocs.push(crocodile);
-			console.log("croc");
+					spawnPosY = Math.floor(Math.random() * 4) + 1;
+					var crocodile = new Crocodile();
+					crocodile.x = 32*10*4;
+					crocodile.y = spawnPosY*32*4 - 16;
+					crocodile.lane = spawnPosY;
+					//crocs.push(crocodile);
+					enemies.push(crocodile);
 		}
 		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
 			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
@@ -410,15 +458,16 @@ function mobSpawn(){
 					var bear = new Bear();
 					bear.x = 32*10*4;
 					bear.y = spawnPosY*32*4 - 16;
-					bears.push(bear);	
-					console.log("bear");
+					bear.lane = spawnPosY;
+					//bears.push(bear);	
+					enemies.push(bear);
 		}
 	}
 }
 
 function update(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	if(upgrade == false){
+	if(wait == false){
 		mobSpawn();
 	}
 	draw();
@@ -468,7 +517,7 @@ function UIChanger(x, y){
 		}
 		else if(x>=UI7Pos[0]){
 			UIbtn7.src = "./UI/UIbtn7Down.png"
-			upgrade = false;
+			wait = false;
 			UISelect = 0;
 		}
 	}
@@ -509,24 +558,28 @@ function placeMob(x, y){
 		var chicken = new Chicken();
 		chicken.x = x-x%(32*4);
 		chicken.y = y-y%(32*4);
+		chicken.lane = parseInt(y/(32*4));
 		chickens.push(chicken);
 	}
 	else if(UISelect==2){
 		var cat = new Cat();
 		cat.x = x-x%(32*4);
 		cat.y = y-y%(32*4);
+		cat.lane = parseInt(y/(32*4));
 		cats.push(cat);
 	}
 	else if(UISelect==3){
 		var sheep = new Sheep();
 		sheep.x = x-x%(32*4);
 		sheep.y = y-y%(32*4);
+		sheep.lane = parseInt(y/(32*4));
 		sheeps.push(sheep);
 	}
 	else if(UISelect==4){
 		var squirrel = new Squirrel();
 		squirrel.x = x-x%(32*4);
 		squirrel.y = y-y%(32*4);
+		squirrel.lane = parseInt(y/(32*4));
 		squirrels.push(squirrel);
 	}
 	UIempt.src = "./UI/empty.png";
