@@ -86,6 +86,8 @@ var phaseCnt = 0;
 var phaseRate = 60*30;
 var round = 0;
 var wait = true;
+var gold = 1000;
+var goldCnt = 0;
 
 var animalPer = [[50, 45, 40, 35, 30], 
 			     [50, 45, 40, 35, 30],
@@ -193,6 +195,7 @@ class Fox{
 		this.y = 0;
 		this.lane = 0;
 		this.coolTime = 0;
+		this.gold = 50;
 	}
 	draw(){
 		ctx.drawImage(foxImg, this.x, this.y);
@@ -206,6 +209,7 @@ class Ratel{
 		this.y = 0;
 		this.lane = 0;
 		this.coolTime = 0;
+		this.gold = 80;
 	}
 	draw(){
 		ctx.drawImage(ratelImg, this.x, this.y);
@@ -219,6 +223,7 @@ class Crocodile{
 		this.y = 0;
 		this.lane = 0;
 		this.coolTime = 0;
+		this.gold = 100;
 	}
 	draw(){
 		ctx.drawImage(crocodileImg, this.x, this.y);
@@ -232,6 +237,7 @@ class Bear{
 		this.y = 0;
 		this.lane = 0;
 		this.coolTime = 0;
+		this.gold = 200;
 	}
 	draw(){
 		ctx.drawImage(bearImg, this.x, this.y);
@@ -247,6 +253,12 @@ function draw(){
 	}
 }
 
+function font(){
+	ctx.fillStyle = "yellow";
+	ctx.font = "48px serif";
+	ctx.fillText(gold, 32*8*4, 32*2);
+}
+
 function drawUI(){
 	ctx.drawImage(UIbtn1, UI1Pos[0], UI1Pos[1]);
 	ctx.drawImage(UIbtn2, UI2Pos[0], UI2Pos[1]);
@@ -256,6 +268,7 @@ function drawUI(){
 	ctx.drawImage(UIbtn6, UI6Pos[0], UI6Pos[1]);
 	ctx.drawImage(UIbtn7, UI7Pos[0], UI7Pos[1]);
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
+	 font();
 }
 
 function drawMob(){
@@ -393,6 +406,7 @@ function collision(team, enemy){
 		if(difX < 0 && (a.lane == team.lane)){
 			a.hp--;
 			if(a.hp <= 0){
+				gold += a.gold;
 				o.splice(i, 1)
 			}
 			collide = true;
@@ -465,9 +479,18 @@ function mobSpawn(){
 	}
 }
 
+function goldUp(){
+	goldCnt++
+	if(goldCnt >= 60){
+		goldCnt = 0;
+		gold += 10;
+	}
+}
+
 function update(){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if(wait == false){
+		goldUp();
 		mobSpawn();
 	}
 	draw();
@@ -493,19 +516,31 @@ function UIChanger(x, y){
 	if(y>=UI1Pos[1]){
 		if(x>=UI1Pos[0] && x<UI2Pos[0]){
 			UIbtn1.src = "./UI/UIbtn1Down.png"
-			UISelect = 1;
+			if(gold >= 100){
+				gold -= 100;
+				UISelect = 1;
+			}
 		}
 		else if(x>=UI2Pos[0] && x<UI3Pos[0]){
 			UIbtn2.src = "./UI/UIbtn2Down.png"
-			UISelect = 2;
+			if(gold >= 200){
+				gold -= 200;
+				UISelect = 2;
+			}
 		}
 		else if(x>=UI3Pos[0] && x<UI4Pos[0]){
 			UIbtn3.src = "./UI/UIbtn3Down.png"
-			UISelect = 3;
+			if(gold >= 300){
+				gold -= 300;
+				UISelect = 3;
+			}
 		}
 		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
 			UIbtn4.src = "./UI/UIbtn4Down.png"
-			UISelect = 4;
+			if(gold >= 400){
+				gold -= 400;
+				UISelect = 4;
+			}
 		}
 		else if(x>=UI5Pos[0] && x<UI6Pos[0]){
 			UIbtn5.src = "./UI/UIbtn5Down.png"
