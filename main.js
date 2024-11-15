@@ -46,6 +46,15 @@ catIdle1.src = "./Entity/Anim/cat_idle_1.png";
 catIdle2.src = "./Entity/Anim/cat_idle_2.png";
 var cats = [];
 
+var catAttack1 = new Image();
+var catAttack2 = new Image();
+catAttack1.src = "./Entity/Anim/cat_attack_1.png";
+catAttack2.src = "./Entity/Anim/cat_attack_2.png";
+
+var catAttackEffect = new Image();
+catAttackEffect.src = "./Entity/Anim/cat_attack_effect.png";
+var catAttackEffects = [];
+
 var sheepIdle1 = new Image();
 var sheepIdle2 = new Image();
 sheepIdle1.src = "./Entity/Anim/sheep_idle_1.png";
@@ -88,6 +97,7 @@ var round = 0;
 var wait = true;
 var gold = 1000;
 var goldCnt = 0;
+var sellMod = false;
 
 var animalPer = [[50, 45, 40, 35, 30], 
 			     [50, 45, 40, 35, 30],
@@ -99,10 +109,14 @@ class Chicken{
 		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.width = 32*4;
+		this.height = 32*4;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.anim = 0;
 		this.frame = 0;
+		this.gold = 100;
 	}
 	draw(){
 		if(this.frame==0){
@@ -118,10 +132,12 @@ class Egg{
 	constructor(){
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.width = 7*4;
 		this.height = 6*4;
 		this.coolTime = 0;
+		this.damage = 1;
 	}
 	draw(){
 		ctx.drawImage(eggImg, this.x, this.y);
@@ -133,18 +149,51 @@ class Cat{
 		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
-		this.coolTime = 0;
+		this.width = 32*4;
+		this.height = 32*4;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.coolTime = 100;
 		this.anim = 0;
 		this.frame = 0;
+		this.onAttack = false;
+		this.afterAttack = false;
+		this.gold = 200;
 	}
 	draw(){
-		if(this.frame==0){
-			ctx.drawImage(catIdle1, this.x, this.y);
+		if(this.onAttack){
+			if(this.frame==0){
+				ctx.drawImage(catAttack1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(catAttack2, this.x, this.y);
+			}
 		}
-		else if(this.frame==1){
-			ctx.drawImage(catIdle2, this.x, this.y);
+		else{
+			if(this.frame==0){
+				ctx.drawImage(catIdle1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(catIdle2, this.x, this.y);
+			}
 		}
+	}
+}
+
+class CatAttack{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.width = 16*4;
+		this.height = 32*4;
+		this.holdTime = 0;
+		this.attack = true;
+		this.damage = 3;
+	}
+	draw(){
+		ctx.drawImage(catAttackEffect, this.x, this.y);
 	}
 }
 
@@ -153,10 +202,14 @@ class Sheep{
 		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.width = 32*4;
+		this.height = 32*4;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.anim = 0;
 		this.frame = 0;
+		this.gold = 300;
 	}
 	draw(){
 		if(this.frame==0){
@@ -173,10 +226,15 @@ class Squirrel{
 		this.hp = 1;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.width = 32*4;
+		this.height = 32*4;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.anim = 0;
 		this.frame = 0;
+		this.onAttack = false;
+		this.gold = 400;
 	}
 	draw(){
 		if(this.frame==0){
@@ -193,9 +251,13 @@ class Fox{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.gold = 50;
+		this.onAttack = false;
+		this.speed = 3.5;
+		this.maxSpeed = 3.5;
 	}
 	draw(){
 		ctx.drawImage(foxImg, this.x, this.y);
@@ -207,9 +269,13 @@ class Ratel{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.gold = 80;
+		this.onAttack = false;
+		this.speed = 3.5;
+		this.maxSpeed = 3.5;
 	}
 	draw(){
 		ctx.drawImage(ratelImg, this.x, this.y);
@@ -221,9 +287,13 @@ class Crocodile{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.gold = 100;
+		this.onAttack = false;
+		this.speed = 3.5;
+		this.maxSpeed = 3.5;
 	}
 	draw(){
 		ctx.drawImage(crocodileImg, this.x, this.y);
@@ -235,9 +305,13 @@ class Bear{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
-		this.lane = 0;
+		this.laneX = 0;
+		this.laneY = 0;
 		this.coolTime = 0;
 		this.gold = 200;
+		this.onAttack = false;
+		this.speed = 3.5;
+		this.maxSpeed = 3.5;
 	}
 	draw(){
 		ctx.drawImage(bearImg, this.x, this.y);
@@ -255,7 +329,7 @@ function draw(){
 
 function font(){
 	ctx.fillStyle = "yellow";
-	ctx.font = "48px serif";
+	ctx.font = "48px HomeVideo-BLG6G";
 	ctx.fillText(gold, 32*8*4, 32*2);
 }
 
@@ -287,12 +361,12 @@ function drawMob(){
 			}
 			a.anim = 0;
 		}
-		if(a.coolTime > 180){
+		if(a.coolTime > 180 && !wait){
 			a.coolTime = 0;
 			var egg = new Egg();
 			egg.x = a.x + 32*4;
 			egg.y = a.y + 32*2-8;
-			egg.lane = a.lane;
+			egg.laneY = a.laneY;
 			eggs.push(egg);
 		}
 		a.draw();
@@ -301,16 +375,43 @@ function drawMob(){
 		if(a.x < 0){
 			o.splice(i, 1)
 		}
-		a.coolTime++;
 		a.anim++;
-		if(a.anim >= 30){
-			if(a.frame == 0){
-				a.frame = 1;
-			}
-			else if(a.frame == 1){
-				a.frame = 0;
-			}
+		if(attackRange(a, enemies) == true && a.coolTime >= 60){
+			a.afterAttack = false;
+			a.coolTime = 0;
 			a.anim = 0;
+			a.onAttack = true;
+			a.frame = 0;
+		}
+		if(a.onAttack){
+			if(a.anim >= 30 && a.frame == 0){
+				a.frame = 1;
+				a.anim = 0;
+				var catAttackEffect = new CatAttack();
+				catAttackEffect.x = a.x + 32*4;
+				catAttackEffect.y = a.y;
+				catAttackEffect.laneY = a.laneY;
+				catAttackEffect.draw();
+				catAttackEffects.push(catAttackEffect);
+			}
+			else if(a.anim >= 30 && a.frame == 1){
+				a.afterAttack = true;
+				a.onAttack = false;
+			}
+		}
+		else{
+			if(a.afterAttack){
+				a.coolTime++;
+			}
+			if(a.anim >= 30){
+				if(a.frame == 0){
+					a.frame = 1;
+				}
+				else if(a.frame == 1){
+					a.frame = 0;
+				}
+				a.anim = 0;
+			}
 		}
 		a.draw();
 	})
@@ -352,7 +453,13 @@ function drawMob(){
 		if(a.x < -32*2*4){
 			o.splice(i, 1)
 		}
-		a.x -= 3.5;
+		if(mobStop(a) == true){
+			a.speed = 0;
+		}
+		else{
+			a.speed = a.maxSpeed;
+		}
+		a.x -= a.speed;
 		a.draw();
 	})
 	/*foxes.forEach((a, i, o)=>{
@@ -385,6 +492,39 @@ function drawMob(){
 	})*/
 }
 
+function mobStop(enemy){
+	var stop = false;
+	chickens.forEach((a, i, o)=>{
+		if(enemy.laneY == a.laneY){
+			if(enemy.x <= a.x + a.width){
+				stop = true;
+			}
+		}
+	})
+	cats.forEach((a, i, o)=>{
+		if(enemy.laneY == a.laneY){
+			if(enemy.x <= a.x + a.width){
+				stop = true;
+			}
+		}
+	})
+	sheeps.forEach((a, i, o)=>{
+		if(enemy.laneY == a.laneY){
+			if(enemy.x <= a.x + a.width){
+				stop = true;
+			}
+		}
+	})
+	squirrels.forEach((a, i, o)=>{
+		if(enemy.laneY == a.laneY){
+			if(enemy.x <= a.x + a.width){
+				stop = true;
+			}
+		}
+	})
+	return stop;
+}
+
 function drawPJT(){//발사체
 	eggs.forEach((a, i, o)=>{
 		if(a.x > 10*32*4){
@@ -396,15 +536,26 @@ function drawPJT(){//발사체
 		}
 		a.draw();
 	})
+	catAttackEffects.forEach((a, i, o)=>{
+		if(a.attack==true){
+			if(collision(a, enemies) == true){
+				a.attack = false;
+			}
+		}
+		a.holdTime++;
+		if(a.holdTime >= 30){
+			o.splice(i, 1)
+		}
+		a.draw();
+	})
 }
 
 function collision(team, enemy){
 	var collide = false;
 	enemy.forEach((a, i, o)=>{
 		var difX = a.x - (team.x + team.width);
-		console.debug(a.lane, team.lane);
-		if(difX < 0 && (a.lane == team.lane)){
-			a.hp--;
+		if(difX < 0 && (a.laneY == team.laneY)){
+			a.hp -= team.damage;
 			if(a.hp <= 0){
 				gold += a.gold;
 				o.splice(i, 1)
@@ -412,12 +563,18 @@ function collision(team, enemy){
 			collide = true;
 		}
 	})
-	if(collide==true){
-		return true;
-	}
-	else{
-		return false;
-	}
+	return collide;
+}
+
+function attackRange(team, enemy){
+	var collide = false;
+	enemy.forEach((a)=>{
+		var difX = a.x - (team.x + team.width + 32*4);
+		if(difX < 0 && (a.laneY == team.laneY)){
+			collide = true;
+		}
+	})
+	return collide;
 }
 
 function mobSpawn(){
@@ -442,7 +599,7 @@ function mobSpawn(){
 			var fox = new Fox();
 			fox.x = 32*10*4;
 			fox.y = spawnPosY*32*4 - 16;
-			fox.lane = spawnPosY;
+			fox.laneY = spawnPosY;
 			//foxes.push(fox);
 			enemies.push(fox);
 		}
@@ -452,7 +609,7 @@ function mobSpawn(){
 					var ratel = new Ratel();
 					ratel.x = 32*10*4;
 					ratel.y = spawnPosY*32*4 - 16;
-					ratel.lane = spawnPosY;
+					ratel.laneY = spawnPosY;
 					//ratels.push(ratel);
 					enemies.push(ratel);
 		}
@@ -462,7 +619,7 @@ function mobSpawn(){
 					var crocodile = new Crocodile();
 					crocodile.x = 32*10*4;
 					crocodile.y = spawnPosY*32*4 - 16;
-					crocodile.lane = spawnPosY;
+					crocodile.laneY = spawnPosY;
 					//crocs.push(crocodile);
 					enemies.push(crocodile);
 		}
@@ -472,7 +629,7 @@ function mobSpawn(){
 					var bear = new Bear();
 					bear.x = 32*10*4;
 					bear.y = spawnPosY*32*4 - 16;
-					bear.lane = spawnPosY;
+					bear.laneY = spawnPosY;
 					//bears.push(bear);	
 					enemies.push(bear);
 		}
@@ -517,28 +674,24 @@ function UIChanger(x, y){
 		if(x>=UI1Pos[0] && x<UI2Pos[0]){
 			UIbtn1.src = "./UI/UIbtn1Down.png"
 			if(gold >= 100){
-				gold -= 100;
 				UISelect = 1;
 			}
 		}
 		else if(x>=UI2Pos[0] && x<UI3Pos[0]){
 			UIbtn2.src = "./UI/UIbtn2Down.png"
 			if(gold >= 200){
-				gold -= 200;
 				UISelect = 2;
 			}
 		}
 		else if(x>=UI3Pos[0] && x<UI4Pos[0]){
 			UIbtn3.src = "./UI/UIbtn3Down.png"
 			if(gold >= 300){
-				gold -= 300;
 				UISelect = 3;
 			}
 		}
 		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
 			UIbtn4.src = "./UI/UIbtn4Down.png"
 			if(gold >= 400){
-				gold -= 400;
 				UISelect = 4;
 			}
 		}
@@ -548,7 +701,8 @@ function UIChanger(x, y){
 		}
 		else if(x>=UI6Pos[0] && x<UI7Pos[0]){
 			UIbtn6.src = "./UI/UIbtn6Down.png"
-			UISelect = 0;
+			UISelect = 6;
+			sellMod = true;
 		}
 		else if(x>=UI7Pos[0]){
 			UIbtn7.src = "./UI/UIbtn7Down.png"
@@ -586,39 +740,121 @@ function follow(x, y){
 	else if(UISelect==4){
 		UIempt.src = "./UI/UI4SLT.png";
 	}
+	else if(UISelect==6){
+		UIempt.src = "./UI/sell.png";
+	}
 }
 
 function placeMob(x, y){
 	if(UISelect==1){
-		var chicken = new Chicken();
-		chicken.x = x-x%(32*4);
-		chicken.y = y-y%(32*4);
-		chicken.lane = parseInt(y/(32*4));
-		chickens.push(chicken);
+		if(searchMob(parseInt(x/(32*4)), parseInt(y/(32*4))) == false){
+			var chicken = new Chicken();
+			chicken.x = x-x%(32*4);
+			chicken.y = y-y%(32*4);
+			chicken.laneX = parseInt(x/(32*4));
+			chicken.laneY = parseInt(y/(32*4));
+			gold -= chicken.gold;
+			chickens.push(chicken);
+			UIempt.src = "./UI/empty.png";
+			UISelect=0;
+		}
 	}
 	else if(UISelect==2){
-		var cat = new Cat();
-		cat.x = x-x%(32*4);
-		cat.y = y-y%(32*4);
-		cat.lane = parseInt(y/(32*4));
-		cats.push(cat);
+		if(searchMob(parseInt(x/(32*4)), parseInt(y/(32*4))) == false){
+			var cat = new Cat();
+			cat.x = x-x%(32*4);
+			cat.y = y-y%(32*4);
+			cat.laneX = parseInt(x/(32*4));
+			cat.laneY = parseInt(y/(32*4));
+			gold -= cat.gold;
+			cats.push(cat);
+			UIempt.src = "./UI/empty.png";
+			UISelect=0;
+		}
 	}
 	else if(UISelect==3){
-		var sheep = new Sheep();
-		sheep.x = x-x%(32*4);
-		sheep.y = y-y%(32*4);
-		sheep.lane = parseInt(y/(32*4));
-		sheeps.push(sheep);
+		if(searchMob(parseInt(x/(32*4)), parseInt(y/(32*4))) == false){
+			var sheep = new Sheep();
+			sheep.x = x-x%(32*4);
+			sheep.y = y-y%(32*4);
+			sheep.laneX = parseInt(x/(32*4));
+			sheep.laneY = parseInt(y/(32*4));
+			gold -= sheep.gold;
+			sheeps.push(sheep);
+			UIempt.src = "./UI/empty.png";
+			UISelect=0;
+		}
 	}
 	else if(UISelect==4){
-		var squirrel = new Squirrel();
-		squirrel.x = x-x%(32*4);
-		squirrel.y = y-y%(32*4);
-		squirrel.lane = parseInt(y/(32*4));
-		squirrels.push(squirrel);
+		if(searchMob(parseInt(x/(32*4)), parseInt(y/(32*4))) == false){
+			var squirrel = new Squirrel();
+			squirrel.x = x-x%(32*4);
+			squirrel.y = y-y%(32*4);
+			squirrel.laneX = parseInt(x/(32*4));
+			squirrel.laneY = parseInt(y/(32*4));
+			gold -= squirrel.gold;
+			squirrels.push(squirrel);
+			UIempt.src = "./UI/empty.png";
+			UISelect=0;
+		}
 	}
-	UIempt.src = "./UI/empty.png";
-	UISelect=0;
+	else if(UISelect==6){
+		sellMob(parseInt(x/(32*4)), parseInt(y/(32*4)))
+		UIempt.src = "./UI/empty.png";
+		UISelect=0;
+	}
+}
+
+function sellMob(x, y){
+	chickens.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			gold += a.gold/2;
+			o.splice(i, 1)
+		}
+	})
+	cats.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			gold += a.gold/2;
+			o.splice(i, 1)
+		}
+	})
+	sheeps.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			gold += a.gold/2;
+			o.splice(i, 1)
+		}
+	})
+	squirrels.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			gold += a.gold/2;
+			o.splice(i, 1)
+		}
+	})
+}
+
+function searchMob(x, y){
+	var placeIn = false;
+	chickens.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			placeIn = true;
+		}
+	})
+	cats.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			placeIn = true;
+		}
+	})
+	sheeps.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			placeIn = true;
+		}
+	})
+	squirrels.forEach((a, i, o)=>{
+		if(a.laneX == x && a.laneY == y){
+			placeIn = true;
+		}
+	})
+	return placeIn;
 }
 
 canvas.addEventListener('mousedown', clickPointer);
