@@ -4,13 +4,13 @@ var ctx = canvas.getContext('2d');
 var backGround = new Image();
 backGround.src = "./background.png";
 
-var UI1Pos = [0, 5*32*4];
-var UI2Pos = [1*32*4, 5*32*4];
-var UI3Pos = [2*32*4, 5*32*4];
-var UI4Pos = [3*32*4, 5*32*4];
-var UI5Pos = [4*32*4, 5*32*4];
-var UI6Pos = [6*32*4, 5*32*4];
-var UI7Pos = [8*32*4, 5*32*4];
+var UI1Pos = [0, 7*32*4];
+var UI2Pos = [1*32*4, 7*32*4];
+var UI3Pos = [2*32*4, 7*32*4];
+var UI4Pos = [3*32*4, 7*32*4];
+var UI5Pos = [4*32*4, 7*32*4];
+var UI6Pos = [6*32*4, 7*32*4];
+var UI7Pos = [8*32*4, 7*32*4];
 var UIemptPos = [0, 0];
 
 var UIbtn1 = new Image();
@@ -37,7 +37,7 @@ chickenIdle2.src = "./Entity/Anim/chicken_idle_2.png";
 var chickens = [];
 
 var eggImg = new Image();
-eggImg.src = "./Entity/egg.png"
+eggImg.src = "./Entity/egg.png";
 var eggs = [];
 
 var catIdle1 = new Image();
@@ -98,6 +98,7 @@ var wait = true;
 var gold = 1000;
 var goldCnt = 0;
 var sellMod = false;
+var endPhase = false;
 
 var animalPer = [[50, 45, 40, 35, 30], 
 			     [50, 45, 40, 35, 30],
@@ -117,6 +118,7 @@ class Chicken{
 		this.anim = 0;
 		this.frame = 0;
 		this.gold = 100;
+		this.tag = "chicken";
 	}
 	draw(){
 		if(this.frame==0){
@@ -138,6 +140,7 @@ class Egg{
 		this.height = 6*4;
 		this.coolTime = 0;
 		this.damage = 1;
+		this.tag = "egg";
 	}
 	draw(){
 		ctx.drawImage(eggImg, this.x, this.y);
@@ -159,6 +162,7 @@ class Cat{
 		this.onAttack = false;
 		this.afterAttack = false;
 		this.gold = 200;
+		this.tag = "cat";
 	}
 	draw(){
 		if(this.onAttack){
@@ -191,6 +195,7 @@ class CatAttack{
 		this.holdTime = 0;
 		this.attack = true;
 		this.damage = 3;
+		this.tag = "catAttack";
 	}
 	draw(){
 		ctx.drawImage(catAttackEffect, this.x, this.y);
@@ -210,6 +215,7 @@ class Sheep{
 		this.anim = 0;
 		this.frame = 0;
 		this.gold = 300;
+		this.tag = "sheep";
 	}
 	draw(){
 		if(this.frame==0){
@@ -235,6 +241,7 @@ class Squirrel{
 		this.frame = 0;
 		this.onAttack = false;
 		this.gold = 400;
+		this.tag = "squirrel";
 	}
 	draw(){
 		if(this.frame==0){
@@ -258,6 +265,7 @@ class Fox{
 		this.onAttack = false;
 		this.speed = 3.5;
 		this.maxSpeed = 3.5;
+		this.tag = "fox";
 	}
 	draw(){
 		ctx.drawImage(foxImg, this.x, this.y);
@@ -276,6 +284,7 @@ class Ratel{
 		this.onAttack = false;
 		this.speed = 3.5;
 		this.maxSpeed = 3.5;
+		this.tag = "ratel";
 	}
 	draw(){
 		ctx.drawImage(ratelImg, this.x, this.y);
@@ -294,6 +303,7 @@ class Crocodile{
 		this.onAttack = false;
 		this.speed = 3.5;
 		this.maxSpeed = 3.5;
+		this.tag = "crocodile";
 	}
 	draw(){
 		ctx.drawImage(crocodileImg, this.x, this.y);
@@ -312,6 +322,7 @@ class Bear{
 		this.onAttack = false;
 		this.speed = 3.5;
 		this.maxSpeed = 3.5;
+		this.tag = "bear";
 	}
 	draw(){
 		ctx.drawImage(bearImg, this.x, this.y);
@@ -330,7 +341,7 @@ function draw(){
 function font(){
 	ctx.fillStyle = "yellow";
 	ctx.font = "48px HomeVideo-BLG6G";
-	ctx.fillText(gold, 32*8*4, 32*2);
+	ctx.fillText(gold, 32*9*4, 32*2);
 }
 
 function drawUI(){
@@ -495,30 +506,66 @@ function drawMob(){
 function mobStop(enemy){
 	var stop = false;
 	chickens.forEach((a, i, o)=>{
-		if(enemy.laneY == a.laneY){
-			if(enemy.x <= a.x + a.width){
-				stop = true;
+		if(enemy.tag=="bear"){
+			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
+			}
+		}
+		else{
+			if(enemy.laneY == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
 			}
 		}
 	})
 	cats.forEach((a, i, o)=>{
-		if(enemy.laneY == a.laneY){
-			if(enemy.x <= a.x + a.width){
-				stop = true;
+		if(enemy.tag=="bear"){
+			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
+			}
+		}
+		else{
+			if(enemy.laneY == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
 			}
 		}
 	})
 	sheeps.forEach((a, i, o)=>{
-		if(enemy.laneY == a.laneY){
-			if(enemy.x <= a.x + a.width){
-				stop = true;
+		if(enemy.tag=="bear"){
+			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
+			}
+		}
+		else{
+			if(enemy.laneY == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
 			}
 		}
 	})
 	squirrels.forEach((a, i, o)=>{
-		if(enemy.laneY == a.laneY){
-			if(enemy.x <= a.x + a.width){
-				stop = true;
+		if(enemy.tag=="bear"){
+			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
+			}
+		}
+		else{
+			if(enemy.laneY == a.laneY){
+				if(enemy.x <= a.x + a.width){
+					stop = true;
+				}
 			}
 		}
 	})
@@ -554,13 +601,25 @@ function collision(team, enemy){
 	var collide = false;
 	enemy.forEach((a, i, o)=>{
 		var difX = a.x - (team.x + team.width);
-		if(difX < 0 && (a.laneY == team.laneY)){
-			a.hp -= team.damage;
-			if(a.hp <= 0){
-				gold += a.gold;
-				o.splice(i, 1)
+		if(a.tag=="bear"){
+			if(difX < 0 && ((a.laneY == team.laneY) || (a.laneY + 1) == team.laneY)){
+				a.hp -= team.damage;
+				if(a.hp <= 0){
+					gold += a.gold;
+					o.splice(i, 1)
+				}
+				collide = true;
 			}
-			collide = true;
+		}
+		else{
+			if(difX < 0 && (a.laneY == team.laneY)){
+				a.hp -= team.damage;
+				if(a.hp <= 0){
+					gold += a.gold;
+					o.splice(i, 1)
+				}
+				collide = true;
+			}
 		}
 	})
 	return collide;
@@ -570,8 +629,15 @@ function attackRange(team, enemy){
 	var collide = false;
 	enemy.forEach((a)=>{
 		var difX = a.x - (team.x + team.width + 32*4);
-		if(difX < 0 && (a.laneY == team.laneY)){
-			collide = true;
+		if(a.tag=="bear"){
+			if(difX < 0 && ((a.laneY == team.laneY) || (a.laneY + 1) == team.laneY)){
+				collide = true;
+			}
+		}
+		else{
+			if(difX < 0 && (a.laneY == team.laneY)){
+				collide = true;
+			}
 		}
 	})
 	return collide;
@@ -581,57 +647,64 @@ function mobSpawn(){
 	spawnTimer++;
 	phaseCnt++;
 	if(phaseCnt > phaseRate){
-		phaseCnt = 0;
 		if(phase < 4){
+			phaseCnt = 0;
 			phase++;
 		}
 		else{
-			wait = true;
-			phase = 0;
+			endPhase = true;
+			if(enemies[0]==undefined){
+				wait = true;
+				phaseCnt = 0;
+				UIbtn7.src = "./UI/UIbtn7Up.png";
+				phase = 0;
+				endPhase = false;
+			}
 		}
 	}
-	if(spawnTimer > spawnRate[phase]){
-		spawnTimer = 0;
-		randomNum = Math.floor(Math.random() * 100) + 1;
-		console.log(randomNum, phase);
-		if(randomNum < animalPer[0][phase]){ //Fox
-			spawnPosY = Math.floor(Math.random() * 4) + 1;
-			var fox = new Fox();
-			fox.x = 32*10*4;
-			fox.y = spawnPosY*32*4 - 16;
-			fox.laneY = spawnPosY;
-			//foxes.push(fox);
-			enemies.push(fox);
-		}
-		else if(randomNum >= animalPer[0][phase] && //Ratel
-			    randomNum < animalPer[0][phase] + animalPer[1][phase]){
-					spawnPosY = Math.floor(Math.random() * 4) + 1;
-					var ratel = new Ratel();
-					ratel.x = 32*10*4;
-					ratel.y = spawnPosY*32*4 - 16;
-					ratel.laneY = spawnPosY;
-					//ratels.push(ratel);
-					enemies.push(ratel);
-		}
-		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
-			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
-					spawnPosY = Math.floor(Math.random() * 4) + 1;
-					var crocodile = new Crocodile();
-					crocodile.x = 32*10*4;
-					crocodile.y = spawnPosY*32*4 - 16;
-					crocodile.laneY = spawnPosY;
-					//crocs.push(crocodile);
-					enemies.push(crocodile);
-		}
-		else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
-			    randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
-					spawnPosY = Math.floor(Math.random() * 3) + 1;
-					var bear = new Bear();
-					bear.x = 32*10*4;
-					bear.y = spawnPosY*32*4 - 16;
-					bear.laneY = spawnPosY;
-					//bears.push(bear);	
-					enemies.push(bear);
+	if(phase <= 4 && !endPhase){
+		if(spawnTimer > spawnRate[phase]){
+			spawnTimer = 0;
+			randomNum = Math.floor(Math.random() * 100) + 1;
+			if(randomNum < animalPer[0][phase]){ //Fox
+				spawnPosY = Math.floor(Math.random() * 4) + 1;
+				var fox = new Fox();
+				fox.x = 32*10*4;
+				fox.y = spawnPosY*32*4 - 16;
+				fox.laneY = spawnPosY;
+				//foxes.push(fox);
+				enemies.push(fox);
+			}
+			else if(randomNum >= animalPer[0][phase] && //Ratel
+					randomNum < animalPer[0][phase] + animalPer[1][phase]){
+						spawnPosY = Math.floor(Math.random() * 4) + 1;
+						var ratel = new Ratel();
+						ratel.x = 32*10*4;
+						ratel.y = spawnPosY*32*4 - 16;
+						ratel.laneY = spawnPosY;
+						//ratels.push(ratel);
+						enemies.push(ratel);
+			}
+			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
+					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
+						spawnPosY = Math.floor(Math.random() * 4) + 1;
+						var crocodile = new Crocodile();
+						crocodile.x = 32*10*4;
+						crocodile.y = spawnPosY*32*4 - 16;
+						crocodile.laneY = spawnPosY;
+						//crocs.push(crocodile);
+						enemies.push(crocodile);
+			}
+			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
+					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
+						spawnPosY = Math.floor(Math.random() * 3) + 1;
+						var bear = new Bear();
+						bear.x = 32*10*4;
+						bear.y = spawnPosY*32*4 - 16;
+						bear.laneY = spawnPosY;
+						//bears.push(bear);	
+						enemies.push(bear);
+			}
 		}
 	}
 }
@@ -663,7 +736,7 @@ function clickPointer(event){
 		UIChanger(dx, dy);
 	}
 	else{
-		if(dy > 32*4 && dy < UI1Pos[1]){
+		if(dy > 32*4 && dy < UI1Pos[1] && dx >= 32*4){
 			placeMob(dx, dy);
 		}
 	}
@@ -704,7 +777,7 @@ function UIChanger(x, y){
 			UISelect = 6;
 			sellMod = true;
 		}
-		else if(x>=UI7Pos[0]){
+		else if(x>=UI7Pos[0] && wait){
 			UIbtn7.src = "./UI/UIbtn7Down.png"
 			wait = false;
 			UISelect = 0;
@@ -719,7 +792,12 @@ function UIReset(){
 	UIbtn4.src = "./UI/UIbtn4Up.png";
 	UIbtn5.src = "./UI/UIbtn5Up.png";
 	UIbtn6.src = "./UI/UIbtn6Up.png";
-	UIbtn7.src = "./UI/UIbtn7Up.png";
+	if(wait){
+		UIbtn7.src = "./UI/UIbtn7Up.png";
+	}
+	else{
+		UIbtn7.src = "./UI/UIbtn7X.png";
+	}
 }
 
 function follow(x, y){
