@@ -2,7 +2,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 var backGround = new Image();
-backGround.src = "./background.png";
+backGround.src = "./UI/background.png";
 
 var UI1Pos = [0, 7*32*4];
 var UI2Pos = [1*32*4, 7*32*4];
@@ -12,6 +12,11 @@ var UI5Pos = [4*32*4, 7*32*4];
 var UI6Pos = [6*32*4, 7*32*4];
 var UI7Pos = [8*32*4, 7*32*4];
 var UIemptPos = [0, 0];
+
+var heart = new Image();
+heart.src = "./UI/heart.png"
+var coin = new Image();
+coin.src = "./UI/coin.png"
 
 var UIbtn1 = new Image();
 UIbtn1.src = "./UI/UIbtn1Up.png";
@@ -112,11 +117,12 @@ var phaseCnt = 0;
 var phaseRate = 60*30;
 var round = 0;
 var wait = true;
-var gold = 10000;
+var gold = 1000;
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
 var score = 0;
+var hearts = 3;
 
 var animalPer = [[50, 45, 40, 35, 30], 
 			     [50, 45, 40, 35, 30],
@@ -424,14 +430,14 @@ function font(){
 	ctx.textAlign = "left"
 	ctx.fillStyle = "yellow";
 	ctx.font = "48px Home Video";
-	ctx.fillText(gold, 16*4, 32*2-15);
+	ctx.fillText(gold, 16*4 + 16, 32*3 - 11);
 	ctx.textAlign = "end";
 	ctx.fillStyle = "white";
-	ctx.fillText("score", 32*5*4+32*2 + 10, 0);
+	ctx.fillText("score", 32*5*4+32*2 + 10, 8);
 	ctx.fillStyle = "white";
-	ctx.fillText(score, 32*5*4+32*2 + 10, 32*2-15);
+	ctx.fillText(score, 32*5*4+32*2 + 10, 32*2-15 + 8);
 	ctx.fillStyle = "white";
-	ctx.fillText((round+1)+"-"+(phase+1), 32*10*4, 0);
+	ctx.fillText((round+1)+"-"+(phase+1), 32*10*4 - 8, 8);
 }
 
 function drawUI(){
@@ -443,6 +449,16 @@ function drawUI(){
 	ctx.drawImage(UIbtn6, UI6Pos[0], UI6Pos[1]);
 	ctx.drawImage(UIbtn7, UI7Pos[0], UI7Pos[1]);
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
+	if(hearts>=1){
+		ctx.drawImage(heart, 8, 8);
+	}
+	if(hearts>=2){
+		ctx.drawImage(heart, 16+16*4, 8);
+	}
+	if(hearts>=3){
+		ctx.drawImage(heart, 24+16*4*2, 8);
+	}
+	ctx.drawImage(coin, 8, 16 + 16*4);
 	font();
 }
 
@@ -580,8 +596,8 @@ function drawMob(){
 	enemies.forEach((a, i, o)=>{
 		if(a.x < -32*2*4){
 			o.splice(i, 1)
+			hearts--;
 		}
-		console.debug(a.stun);
 		if(mobStop(a) == true || a.stun > 0){
 			a.speed = 0;
 			a.stun--;
