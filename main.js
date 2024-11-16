@@ -443,7 +443,7 @@ function drawUI(){
 	ctx.drawImage(UIbtn6, UI6Pos[0], UI6Pos[1]);
 	ctx.drawImage(UIbtn7, UI7Pos[0], UI7Pos[1]);
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
-	 font();
+	font();
 }
 
 function drawMob(){
