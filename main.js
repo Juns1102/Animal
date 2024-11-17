@@ -43,7 +43,6 @@ bgm.src = './Sound/wait.mp3';
 bgm.autoplay = true;
 bgm.volume = 0.2;
 bgm.loop = true;
-//bgm.play();
 
 var popSounds = [];
 for(var i=0; i < 20; i++){
