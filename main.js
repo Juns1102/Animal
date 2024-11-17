@@ -17,10 +17,9 @@ var heart = new Image();
 heart.src = "./UI/heart.png"
 var coin = new Image();
 coin.src = "./UI/coin.png"
-var bgmOn = new Image();
-bgmOn.src = "./UI/bgmOn.src"
-var bgmOff = new Image();
-bgmOff.src = "./UI/bgmOff.src"
+var bgmImage = new Image();
+bgmImage.src = "./UI/bgmOff.png"
+var bgmSelect = false;
 
 var UIbtn1 = new Image();
 UIbtn1.src = "./UI/UIbtn1Up.png";
@@ -41,8 +40,8 @@ UIempt.src = "./UI/empty.png";
 
 var bgm = new Audio('./Sound/battle.mp3');
 bgm.volume = 0.5;
-//bgm.loop = true;
-bgm.play();
+bgm.loop = true;
+//bgm.play();
 
 var popSounds = [];
 for(var i=0; i < 20; i++){
@@ -479,6 +478,16 @@ function drawUI(){
 	ctx.drawImage(UIbtn6, UI6Pos[0], UI6Pos[1]);
 	ctx.drawImage(UIbtn7, UI7Pos[0], UI7Pos[1]);
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
+	if(bgmSelect == false){
+		bgmImage.src = "./UI/bgmOff.png";
+		bgm.load();
+	}
+	else{
+		bgmImage.src = "./UI/bgmOn.png";
+		bgm.play();
+		
+	}
+	ctx.drawImage(bgmImage, 32*9*4 + 50, 16 + 16*4);
 	if(hearts>=1){
 		ctx.drawImage(heart, 8, 8);
 	}
@@ -925,6 +934,18 @@ var interval = setInterval(update, 16);
 function clickPointer(event){
 	const dx = event.clientX - ctx.canvas.offsetLeft;
 	const dy = event.clientY - ctx.canvas.offsetTop;
+	console.debug(dx,dy)
+	console.debug(16+16*4)
+	if(dy >= 16 + 16*4 && dy<16 + 16*4 + 16*4){
+		if(dx>=32*9*4 + 50 && dx<32*9*4 + 50+16*4){
+			if(bgmSelect){
+				bgmSelect=false;
+			}
+			else{
+				bgmSelect=true;
+			}
+		}
+	}
 	if(dy>=UI1Pos[1]){
 		UIChanger(dx, dy);
 	}
@@ -1003,6 +1024,7 @@ function UIChanger(x, y){
 			UISelect = 0;
 		}
 	}
+	
 }
 
 function UIReset(){
