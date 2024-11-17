@@ -188,10 +188,10 @@ var endPhase = false;
 var score = 0;
 var hearts = 3;
 
-var animalPer = [[0, 45, 40, 35, 30], 
-			     [0, 45, 40, 35, 30],
+var animalPer = [[50, 45, 40, 35, 30], 
+			     [50, 45, 40, 35, 30],
 			     [0, 10, 20, 25, 30],
-			     [100, 0, 0, 5, 10]];
+			     [0, 0, 0, 5, 10]];
 
 class Chicken{
 	constructor(){
