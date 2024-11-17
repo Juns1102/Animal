@@ -123,19 +123,30 @@ var enemies = [];
 
 var foxImg = new Image();
 foxImg.src = "./Entity/fox.png";
-var foxes = [];
+
+var foxIdle1 = new Image();
+var foxIdle2 = new Image();
+foxIdle1.src = "./Entity/fox_idle_1.png";
+foxIdle2.src = "./Entity/fox_idle_1.png";
+
+var foxMove1 = new Image();
+var foxMove2 = new Image();
+foxMove1.src = "./Entity/fox_move_1.png";
+foxMove2.src = "./Entity/fox_move_1.png";
+
+var foxAttack1 = new Image();
+var foxAttack2 = new Image();
+foxAttack1.src = "./Entity/fox_attack_1.png";
+foxAttack2.src = "./Entity/fox_attack_1.png";
 
 var crocodileImg = new Image();
 crocodileImg.src = "./Entity/crocodile.png";
-var crocs = [];
 
 var ratelImg = new Image();
 ratelImg.src = "./Entity/ratel.png";
-var ratels = [];
 
 var bearImg = new Image();
 bearImg.src = "./Entity/bear.png";
-var bears = [];
 
 var UISelect = 0;
 var spawnTimer = 0;
@@ -376,7 +387,32 @@ class Fox{
 		this.score = 100;
 	}
 	draw(){
-		ctx.drawImage(foxImg, this.x, this.y);
+		if(this.speed == 0){
+			if(this.onAttack == true){
+				if(this.frame==0){
+					ctx.drawImage(foxAttack1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(foxAttack2, this.x, this.y);
+				}
+			}
+			else{
+				if(this.frame==0){
+					ctx.drawImage(foxIdle1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(foxIdle2, this.x, this.y);
+				}
+			}
+		}
+		else{
+			if(this.frame==0){
+				ctx.drawImage(foxMove1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(foxMove2, this.x, this.y);
+			}
+		}
 	}
 }
 
