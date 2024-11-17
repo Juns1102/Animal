@@ -38,8 +38,10 @@ UIbtn7.src = "./UI/UIbtn7Up.png";
 var UIempt = new Image();
 UIempt.src = "./UI/empty.png";
 
-var bgm = new Audio('./Sound/battle.mp3');
-bgm.volume = 0.5;
+var bgm = new Audio();
+bgm.src = './Sound/wait.mp3';
+bgm.autoplay = true;
+bgm.volume = 0.2;
 bgm.loop = true;
 //bgm.play();
 
@@ -480,7 +482,7 @@ function drawUI(){
 	ctx.drawImage(UIempt, UIemptPos[0], UIemptPos[1]);
 	if(bgmSelect == false){
 		bgmImage.src = "./UI/bgmOff.png";
-		bgm.load();
+		bgm.pause();
 	}
 	else{
 		bgmImage.src = "./UI/bgmOn.png";
@@ -857,6 +859,7 @@ function mobSpawn(){
 			endPhase = true;
 			if(enemies[0]==undefined){
 				wait = true;
+				bgm.src = "./Sound/battle.mp3";
 				phaseCnt = 0;
 				UIbtn7.src = "./UI/UIbtn7Up.png";
 				phase = 0;
@@ -1020,6 +1023,7 @@ function UIChanger(x, y){
 		}
 		else if(x>=UI7Pos[0] && wait){
 			UIbtn7.src = "./UI/UIbtn7Down.png"
+			bgm.src = "./Sound/battle.mp3"
 			wait = false;
 			UISelect = 0;
 		}
