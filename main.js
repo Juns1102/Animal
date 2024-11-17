@@ -17,6 +17,10 @@ var heart = new Image();
 heart.src = "./UI/heart.png"
 var coin = new Image();
 coin.src = "./UI/coin.png"
+var bgmOn = new Image();
+bgmOn.src = "./UI/bgmOn.src"
+var bgmOff = new Image();
+bgmOff.src = "./UI/bgmOff.src"
 
 var UIbtn1 = new Image();
 UIbtn1.src = "./UI/UIbtn1Up.png";
