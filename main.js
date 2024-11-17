@@ -35,6 +35,32 @@ UIbtn7.src = "./UI/UIbtn7Up.png";
 var UIempt = new Image();
 UIempt.src = "./UI/empty.png";
 
+var bgm = new Audio('./Sound/battle.mp3');
+bgm.volume = 0.5;
+//bgm.loop = true;
+bgm.play();
+
+var popSounds = [];
+for(var i=0; i < 20; i++){
+	var popSound = new Audio('./Sound/pop.mp3');
+	popSound.volume = 0.3;
+	popSounds.push(popSound);
+}
+
+var swingSounds = [];
+for(var i=0; i < 20; i++){
+	var swingSound = new Audio('./Sound/swing.mp3');
+	swingSound.volume = 0.4;
+	swingSounds.push(swingSound);
+}
+
+var sparkSounds = [];
+for(var i=0; i < 20; i++){
+	var sparkSound = new Audio('./Sound/spark.mp3');
+	sparkSound.volume = 0.2;
+	sparkSounds.push(sparkSound);
+}
+
 var chickenIdle1 = new Image();
 var chickenIdle2 = new Image();
 chickenIdle1.src = "./Entity/Anim/chicken_idle_1.png";
@@ -479,6 +505,12 @@ function drawMob(){
 			a.anim = 0;
 		}
 		if(a.coolTime > a.maxCoolTime && !wait){
+			for(var i=0; i<popSounds.length; i++){
+				if(popSounds[i].paused){
+					popSounds[i].play();
+					break;
+				}
+			}
 			a.coolTime = 0;
 			var egg = new Egg();
 			egg.x = a.x + 32*4;
@@ -502,6 +534,12 @@ function drawMob(){
 		}
 		if(a.onAttack){
 			if(a.anim >= 30 && a.frame == 0){
+				for(var i=0; i<swingSounds.length; i++){
+					if(swingSounds[i].paused){
+						swingSounds[i].play();
+						break;
+					}
+				}
 				a.frame = 1;
 				a.anim = 0;
 				var catAttackEffect = new CatAttack();
@@ -563,6 +601,12 @@ function drawMob(){
 		}
 		if(a.onAttack){
 			if(a.anim >= 15 && a.frame == 0){
+				for(var i=0; i<sparkSounds.length; i++){
+					if(sparkSounds[i].paused){
+						sparkSounds[i].play();
+						break;
+					}
+				}
 				a.frame = 1;
 				a.anim = 0;
 				var squirrelAttack = new SquirrelAttack();
