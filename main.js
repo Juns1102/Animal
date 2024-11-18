@@ -3,6 +3,8 @@ var ctx = canvas.getContext('2d');
 
 var backGround = new Image();
 backGround.src = "./UI/background.png";
+var backGroundUI = new Image();
+backGroundUI.src = "./UI/backgroundUI.png";
 
 //UIPos
 var UI1Pos = [0, 7*32*4];
@@ -326,10 +328,10 @@ var score = 0;
 var hearts = 3;
 
 //몬스터 확률     라운드
-var animalPer = [[0, 40, 35, 20, 10], //killBee
-				 [0, 25, 25, 30, 20], //fox
-			     [0, 25, 25, 30, 20], //ratel
-			     [100, 10, 15, 15, 35], //crocodile
+var animalPer = [[80, 40, 35, 20, 10], //killBee
+				 [10, 25, 25, 30, 20], //fox
+			     [10, 25, 25, 30, 20], //ratel
+			     [0, 10, 15, 15, 35], //crocodile
 			     [0, 0, 0, 5, 15]]; //bear
 
 class Chicken{
@@ -1027,9 +1029,12 @@ function draw(){ //drawUI, drawmob, drawPTJ
 	if(hearts > 0){
 		drawUI();
 		drawMob();
+		if(wait == false){
+			drawPJT();
+		}
 	}
-	if(wait == false && hearts > 0){
-		drawPJT();
+	else{
+		drawEnd();
 	}
 }
 
@@ -1049,6 +1054,7 @@ function font(){
 }
 
 function drawUI(){
+	ctx.drawImage(backGroundUI, 0, 0);
 	ctx.drawImage(UIbtn1, UI1Pos[0], UI1Pos[1]);
 	ctx.drawImage(UIbtn2, UI2Pos[0], UI2Pos[1]);
 	ctx.drawImage(UIbtn3, UI3Pos[0], UI3Pos[1]);
