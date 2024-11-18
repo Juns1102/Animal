@@ -128,6 +128,7 @@ var squirrelAttackEffects = [];
 
 var enemies = [];
 
+//벌 애니메이션
 var kbIdle1 = new Image();
 var kbIdle2 = new Image();
 kbIdle1.src = "./Entity/Anim/killerBee_idle_1.png";
@@ -147,6 +148,7 @@ var kbAttackEffect = new Image();
 kbAttackEffect.src = "./UI/empty.png";
 var kbAttackEffects = [];
 
+//여우 애니메이션
 var foxIdle1 = new Image();
 var foxIdle2 = new Image();
 foxIdle1.src = "./Entity/Anim/fox_idle_1.png";
@@ -166,6 +168,7 @@ var foxAttackEffect = new Image();
 foxAttackEffect.src = "./UI/empty.png";
 var foxAttackEffects = [];
 
+//벌꿀오소리 애니메이션
 var ratelIdle1 = new Image();
 var ratelIdle2 = new Image();
 ratelIdle1.src = "./Entity/Anim/ratel_idle_1.png";
@@ -185,6 +188,7 @@ var ratelAttackEffect = new Image();
 ratelAttackEffect.src = "./UI/empty.png";
 var ratelAttackEffects = [];
 
+//악어 애니메이션
 var crocodileIdle1 = new Image();
 var crocodileIdle2 = new Image();
 crocodileIdle1.src = "./Entity/Anim/crocodile_idle_1.png";
@@ -204,6 +208,7 @@ var crocodileAttackEffect = new Image();
 crocodileAttackEffect.src = "./UI/empty.png";
 var crocodileAttackEffects = [];
 
+//곰 애니메이션
 var bearImg = new Image();
 bearImg.src = "./Entity/bear.png";
 var bearIdle1 = new Image();
@@ -229,6 +234,7 @@ var bearAttackEffect = new Image();
 bearAttackEffect.src = "./Entity/Anim/bear_attack_effect.png";
 var bearAttackEffects = [];
 
+//etc...
 var UISelect = 0;
 var spawnTimer = 0;
 var spawnRate = [10*60, 8*60, 6*60, 4*60, 2*60];
@@ -246,6 +252,7 @@ var endPhase = false;
 var score = 0;
 var hearts = 3;
 
+//몬스터 확률     라운드
 var animalPer = [[100, 40, 35, 20, 10], //killBee
 				 [0, 25, 25, 30, 20], //fox
 			     [0, 25, 25, 30, 20], //ratel
@@ -839,7 +846,7 @@ class BearAttack{
 	}
 }
 
-function draw(){
+function draw(){ //drawUI, drawmob, drawPTJ
 	ctx.drawImage(backGround, 0, 0);
 	drawUI();
 	drawMob();
@@ -848,7 +855,7 @@ function draw(){
 	}
 }
 
-function font(){
+function font(){ 
 	ctx.textBaseline = "top";
 	ctx.textAlign = "left"
 	ctx.fillStyle = "yellow";
@@ -1138,7 +1145,7 @@ function drawMob(){
 	})
 }
 
-function mobStop(enemy){
+function mobStop(enemy){ //앞에 오브젝트가 있는지 검사 -> 있으면 멈추기 (enemy전용)
 	var stop = false;
 	chickens.forEach((a, i, o)=>{
 		if(enemy.tag=="bear"){
@@ -1207,7 +1214,7 @@ function mobStop(enemy){
 	return stop;
 }
 
-function drawPJT(){//발사체
+function drawPJT(){ //발사체
 	eggs.forEach((a, i, o)=>{
 		if(a.x > 10*32*4){
 			o.splice(i, 1)
@@ -1322,7 +1329,7 @@ function drawPJT(){//발사체
 	})
 }
 
-function collision(team, enemy){
+function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 전용)
 	var collide = false;
 	enemy.forEach((a, i, o)=>{
 		var difX = a.x - (team.x + team.width);
@@ -1358,7 +1365,7 @@ function collision(team, enemy){
 	return collide;
 }
 
-function collision2(enemy){
+function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전용)
 	var stop = false;
 	chickens.forEach((a, i, o)=>{
 		if(enemy.tag=="bearAttack"){
@@ -1435,7 +1442,7 @@ function collision2(enemy){
 	return stop;
 }
 
-function attackRange(team, enemy){
+function attackRange(team, enemy){ //공격 사거리에 적이 들어왔는지 검사(아군 전용)
 	var collide = false;
 	enemy.forEach((a)=>{
 		var difX = a.x - (team.x + team.width + team.attackRange);
@@ -1453,7 +1460,7 @@ function attackRange(team, enemy){
 	return collide;
 }
 
-function mobSpawn(){
+function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 	spawnTimer++;
 	phaseCnt++;
 	if(phaseCnt > phaseRate){
@@ -1525,7 +1532,7 @@ function mobSpawn(){
 	}
 }
 
-function goldUp(){
+function goldUp(){ //기본 골드 증가..
 	goldCnt++
 	if(goldCnt >= 60){
 		goldCnt = 0;
@@ -1533,7 +1540,7 @@ function goldUp(){
 	}
 }
 
-function update(){
+function update(){ //draw, goldUP, mobSpawn
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	if(wait == false){
 		goldUp();
@@ -1543,9 +1550,9 @@ function update(){
 	//clearInterval(interval);
 }
 
-var interval = setInterval(update, 16);
+var interval = setInterval(update, 16); //대략 60프레임으로 고정... update반복
 
-function clickPointer(event){
+function clickPointer(event){ //마우스로 클릭한 지점 읽어오기
 	const dx = event.clientX - ctx.canvas.offsetLeft;
 	const dy = event.clientY - ctx.canvas.offsetTop;
 	if(dy >= 16 + 16*4 && dy<16 + 16*4 + 16*4){
@@ -1568,7 +1575,7 @@ function clickPointer(event){
 	}
 }
 
-function UIChanger(x, y){
+function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 	if(y>=UI1Pos[1]){
 		if(x>=UI1Pos[0] && x<UI2Pos[0]){
 			UIbtn1.src = "./UI/UIbtn1Down.png"
@@ -1614,8 +1621,16 @@ function UIChanger(x, y){
 				UIempt.src = "./UI/UI4SLT.png";
 			}
 		}
-		else if(x>=UI5Pos[0] && x<UI6Pos[0]){
+		else if(x>=UI5Pos[0] && x<UI6Pos[0] && wait){
 			UIbtn5.src = "./UI/UIbtn5Down.png"
+			if(UISelect == 5){
+				UISelect = 0;
+				UIempt.src = "./UI/empty.png";
+			}
+			else{
+				UISelect = 6;
+				UIempt.src = "./UI/upgrade.png";
+			}
 			UISelect = 0;
 		}
 		else if(x>=UI6Pos[0] && x<UI7Pos[0]){
@@ -1640,22 +1655,23 @@ function UIChanger(x, y){
 	
 }
 
-function UIReset(){
+function UIReset(){ //UIReset
 	UIbtn1.src = "./UI/UIbtn1Up.png";
 	UIbtn2.src = "./UI/UIbtn2Up.png";
 	UIbtn3.src = "./UI/UIbtn3Up.png";
 	UIbtn4.src = "./UI/UIbtn4Up.png";
-	UIbtn5.src = "./UI/UIbtn5Up.png";
 	UIbtn6.src = "./UI/UIbtn6Up.png";
 	if(wait){
+		UIbtn5.src = "./UI/UIbtn5Up.png";
 		UIbtn7.src = "./UI/UIbtn7Up.png";
 	}
 	else{
+		UIbtn5.src = "./UI/UIbtn5X.png";
 		UIbtn7.src = "./UI/UIbtn7X.png";
 	}
 }
 
-function follow(x, y){
+function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 	UIemptPos[0] = x - ctx.canvas.offsetLeft - 64;
 	UIemptPos[1] = y - ctx.canvas.offsetTop - 64;
 	if(UISelect==0){
@@ -1678,7 +1694,7 @@ function follow(x, y){
 	}
 }
 
-function placeMob(x, y){
+function placeMob(x, y){ //클릭한 몹을 좌표에 배치하기
 	if(UISelect==1){
 		if(searchMob(parseInt(x/(32*4)), parseInt(y/(32*4))) == false){
 			var chicken = new Chicken();
@@ -1738,7 +1754,7 @@ function placeMob(x, y){
 	}
 }
 
-function sellMob(x, y){
+function sellMob(x, y){ //클릭한 몹을 팔기
 	chickens.forEach((a, i, o)=>{
 		if(a.laneX == x && a.laneY == y){
 			gold += a.gold/2;
@@ -1765,7 +1781,7 @@ function sellMob(x, y){
 	})
 }
 
-function searchMob(x, y){
+function searchMob(x, y){ //같은 좌표에 중복설치 못하게 막기...
 	var placeIn = false;
 	chickens.forEach((a, i, o)=>{
 		if(a.laneX == x && a.laneY == y){
@@ -1790,8 +1806,8 @@ function searchMob(x, y){
 	return placeIn;
 }
 
-canvas.addEventListener('mousedown', clickPointer);
-canvas.addEventListener('mouseup', UIReset);
-canvas.addEventListener('mousemove', (e)=> {
+canvas.addEventListener('mousedown', clickPointer); //마우스 버튼down시 event 발생
+canvas.addEventListener('mouseup', UIReset); //마우스 버튼up시 event 발생
+canvas.addEventListener('mousemove', (e)=> { //마우스 움직일때마다 event 발생
 	follow(e.pageX, e.pageY);
 });
