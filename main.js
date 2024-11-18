@@ -44,11 +44,11 @@ var UI4SLT = ["./UI/UI4SLT1.png", "./UI/UI4SLT2.png", "./UI/UI4SLT3.png"]
 var UIbtn1 = new Image();
 UIbtn1.src = "./UI/UIbtn1_1Up.png";
 var UIbtn2 = new Image();
-UIbtn2.src = "./UI/UIbtn2Up.png";
+UIbtn2.src = "./UI/UIbtn2_1Up.png";
 var UIbtn3 = new Image();
 UIbtn3.src = "./UI/UIbtn3_1Up.png";
 var UIbtn4 = new Image();
-UIbtn4.src = "./UI/UIbtn4Up.png";
+UIbtn4.src = "./UI/UIbtn4_1Up.png";
 var UIbtn5 = new Image();
 UIbtn5.src = "./UI/UIbtn5Up.png";
 var UIbtn6 = new Image();
@@ -108,17 +108,34 @@ var eggImg = new Image();
 eggImg.src = "./Entity/Anim/egg.png";
 var eggs = [];
 
+//고양이 애니메이션
 var catLevel = 1;
-var catIdle1 = new Image();
-var catIdle2 = new Image();
-catIdle1.src = "./Entity/Anim/cat_idle_1.png";
-catIdle2.src = "./Entity/Anim/cat_idle_2.png";
-var cats = [];
+var catIdleLv1_1 = new Image();
+var catIdleLv1_2 = new Image();
+catIdleLv1_1.src = "./Entity/Anim/cat_idle_lv1_1.png";
+catIdleLv1_2.src = "./Entity/Anim/cat_idle_lv1_2.png";
+var catIdleLv2_1 = new Image();
+var catIdleLv2_2 = new Image();
+catIdleLv2_1.src = "./Entity/Anim/cat_idle_lv2_1.png";
+catIdleLv2_2.src = "./Entity/Anim/cat_idle_lv2_2.png";
+var catIdleLv3_1 = new Image();
+var catIdleLv3_2 = new Image();
+catIdleLv3_1.src = "./Entity/Anim/cat_idle_lv3_1.png";
+catIdleLv3_2.src = "./Entity/Anim/cat_idle_lv3_2.png";
 
-var catAttack1 = new Image();
-var catAttack2 = new Image();
-catAttack1.src = "./Entity/Anim/cat_attack_1.png";
-catAttack2.src = "./Entity/Anim/cat_attack_2.png";
+var catAttackLv1_1 = new Image();
+var catAttackLv1_2 = new Image();
+catAttackLv1_1.src = "./Entity/Anim/cat_attack_lv1_1.png";
+catAttackLv1_2.src = "./Entity/Anim/cat_attack_lv1_2.png";
+var catAttackLv2_1 = new Image();
+var catAttackLv2_2 = new Image();
+catAttackLv2_1.src = "./Entity/Anim/cat_attack_lv2_1.png";
+catAttackLv2_2.src = "./Entity/Anim/cat_attack_lv2_2.png";
+var catAttackLv3_1 = new Image();
+var catAttackLv3_2 = new Image();
+catAttackLv3_1.src = "./Entity/Anim/cat_attack_lv3_1.png";
+catAttackLv3_2.src = "./Entity/Anim/cat_attack_lv3_2.png";
+var cats = [];
 
 var catAttackEffect = new Image();
 catAttackEffect.src = "./Entity/Anim/cat_attack_effect.png";
@@ -127,11 +144,6 @@ var catAttackEffects = [];
 
 //양 애니메이션
 var sheepLevel = 1;
-var sheepIdle1 = new Image();
-var sheepIdle2 = new Image();
-sheepIdle1.src = "./Entity/Anim/sheep_idle_1.png";
-sheepIdle2.src = "./Entity/Anim/sheep_idle_2.png";
-
 var sheepIdleLv1_1 = new Image();
 var sheepIdleLv1_2 = new Image();
 sheepIdleLv1_1.src = "./Entity/Anim/sheep_idle_lv1_1.png";
@@ -149,16 +161,32 @@ var sheeps = [];
 
 //다람쥐 애니메이션
 var squirrelLevel = 1;
-var squirrelIdle1 = new Image();
-var squirrelIdle2 = new Image();
-squirrelIdle1.src = "./Entity/Anim/squirrel_idle_1.png";
-squirrelIdle2.src = "./Entity/Anim/squirrel_idle_2.png";
-var squirrels = [];
+var squirrelIdleLv1_1 = new Image();
+var squirrelIdleLv1_2 = new Image();
+squirrelIdleLv1_1.src = "./Entity/Anim/squirrel_idle_lv1_1.png";
+squirrelIdleLv1_2.src = "./Entity/Anim/squirrel_idle_lv1_2.png";
+var squirrelIdleLv2_1 = new Image();
+var squirrelIdleLv2_2 = new Image();
+squirrelIdleLv2_1.src = "./Entity/Anim/squirrel_idle_lv2_1.png";
+squirrelIdleLv2_2.src = "./Entity/Anim/squirrel_idle_lv2_2.png";
+var squirrelIdleLv3_1 = new Image();
+var squirrelIdleLv3_2 = new Image();
+squirrelIdleLv3_1.src = "./Entity/Anim/squirrel_idle_lv3_1.png";
+squirrelIdleLv3_2.src = "./Entity/Anim/squirrel_idle_lv3_2.png";
 
-var squirrelAttack1 = new Image();
-var squirrelAttack2 = new Image();
-squirrelAttack1.src = "./Entity/Anim/squirrel_attack_1.png";
-squirrelAttack2.src = "./Entity/Anim/squirrel_attack_2.png";
+var squirrelAttackLv1_1 = new Image();
+var squirrelAttackLv1_2 = new Image();
+squirrelAttackLv1_1.src = "./Entity/Anim/squirrel_attack_lv1_1.png";
+squirrelAttackLv1_2.src = "./Entity/Anim/squirrel_attack_lv1_2.png";
+var squirrelAttackLv2_1 = new Image();
+var squirrelAttackLv2_2 = new Image();
+squirrelAttackLv2_1.src = "./Entity/Anim/squirrel_attack_lv2_1.png";
+squirrelAttackLv2_2.src = "./Entity/Anim/squirrel_attack_lv2_2.png";
+var squirrelAttackLv3_1 = new Image();
+var squirrelAttackLv3_2 = new Image();
+squirrelAttackLv3_1.src = "./Entity/Anim/squirrel_attack_lv3_1.png";
+squirrelAttackLv3_2.src = "./Entity/Anim/squirrel_attack_lv3_2.png";
+var squirrels = [];
 
 var squirrelAttackEffect1 = new Image();
 var squirrelAttackEffect2 = new Image();
@@ -299,11 +327,11 @@ var score = 0;
 var hearts = 3;
 
 //몬스터 확률     라운드
-var animalPer = [[100, 40, 35, 20, 10], //killBee
+var animalPer = [[0, 40, 35, 20, 10], //killBee
 				 [0, 25, 25, 30, 20], //fox
 			     [0, 25, 25, 30, 20], //ratel
 			     [0, 10, 15, 15, 35], //crocodile
-			     [0, 0, 0, 5, 15]]; //bear
+			     [100, 0, 0, 5, 15]]; //bear
 
 class Chicken{
 	constructor(){
@@ -389,18 +417,50 @@ class Cat{
 	draw(){
 		if(this.onAttack){
 			if(this.frame==0){
-				ctx.drawImage(catAttack1, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(catAttackLv1_1, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(catAttackLv2_1, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(catAttackLv3_1, this.x, this.y);
+				}
 			}
 			else if(this.frame==1){
-				ctx.drawImage(catAttack2, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(catAttackLv1_2, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(catAttackLv2_2, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(catAttackLv3_2, this.x, this.y);
+				}
 			}
 		}
 		else{
 			if(this.frame==0){
-				ctx.drawImage(catIdle1, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(catIdleLv1_1, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(catIdleLv2_1, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(catIdleLv3_1, this.x, this.y);
+				}
 			}
 			else if(this.frame==1){
-				ctx.drawImage(catIdle2, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(catIdleLv1_2, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(catIdleLv2_2, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(catIdleLv3_2, this.x, this.y);
+				}
 			}
 		}
 	}
@@ -491,18 +551,50 @@ class Squirrel{
 	draw(){
 		if(this.onAttack){
 			if(this.frame==0){
-				ctx.drawImage(squirrelAttack1, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(squirrelAttackLv1_1, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(squirrelAttackLv2_1, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(squirrelAttackLv3_1, this.x, this.y);
+				}
 			}
 			else if(this.frame==1){
-				ctx.drawImage(squirrelAttack2, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(squirrelAttackLv1_2, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(squirrelAttackLv2_2, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(squirrelAttackLv3_2, this.x, this.y);
+				}
 			}
 		}
 		else{
 			if(this.frame==0){
-				ctx.drawImage(squirrelIdle1, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(squirrelIdleLv1_1, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(squirrelIdleLv2_1, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(squirrelIdleLv3_1, this.x, this.y);
+				}
 			}
 			else if(this.frame==1){
-				ctx.drawImage(squirrelIdle2, this.x, this.y);
+				if(this.level==1){
+					ctx.drawImage(squirrelIdleLv1_2, this.x, this.y);
+				}
+				else if(this.level==2){
+					ctx.drawImage(squirrelIdleLv2_2, this.x, this.y);
+				}
+				else if(this.level>2){
+					ctx.drawImage(squirrelIdleLv3_2, this.x, this.y);
+				}
 			}
 		}
 	}
@@ -612,7 +704,7 @@ class KBAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 1, 1, 1];
 		this.tag = "kbAttack";
 	}
 	draw(){
@@ -689,7 +781,7 @@ class FoxAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 1, 1, 1];
 		this.tag = "foxAttack";
 	}
 	draw(){
@@ -765,7 +857,7 @@ class RatelAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 1, 1, 1];
 		this.tag = "ratelAttack";
 	}
 	draw(){
@@ -841,7 +933,7 @@ class CrocodileAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 1, 1, 1];
 		this.tag = "crocodileAttack";
 	}
 	draw(){
@@ -923,7 +1015,7 @@ class BearAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 1, 1, 1];
 		this.tag = "bearAttack";
 	}
 	draw(){
@@ -1459,7 +1551,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		if(enemy.tag=="bearAttack"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
 				if(enemy.x + enemy.width <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1467,7 +1559,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		else{
 			if(enemy.laneY == a.laneY){
 				if(enemy.x <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1477,7 +1569,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		if(enemy.tag=="bearAttack"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
 				if(enemy.x + enemy.width <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1485,7 +1577,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		else{
 			if(enemy.laneY == a.laneY){
 				if(enemy.x <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1495,7 +1587,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		if(enemy.tag=="bearAttack"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
 				if(enemy.x + enemy.width <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1503,7 +1595,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		else{
 			if(enemy.laneY == a.laneY){
 				if(enemy.x <= a.x + a.width){
-					a.hp -= enemy.damage;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1513,7 +1605,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		if(enemy.tag=="bearAttack"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
 				if(enemy.x + enemy.width <= a.x + a.width){
-					a.hp--;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1521,7 +1613,7 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		else{
 			if(enemy.laneY == a.laneY){
 				if(enemy.x <= a.x + a.width){
-					a.hp--;
+					a.hp -= enemy.damage[round];
 					stop = true;
 				}
 			}
@@ -1689,14 +1781,26 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 		}
 		else if(x>=UI2Pos[0] && x<UI3Pos[0]){
-			UIbtn2.src = "./UI/UIbtn2Down.png"
+			UIbtn2.src = UIbtn2Down[catLevel-1];
 			if(UISelect == 2){
 				UISelect = 0;
 				UIempt.src = "./UI/empty.png";
 			}
+			else if(UISelect == 5){
+				UISelect = 0;
+				UIempt.src = "./UI/empty.png";
+				if(catLevel == 1 && gold >= 100){
+					catLevel = 2;
+					gold -= 100;
+				}
+				else if(catLevel == 2 && gold >= 200){
+					catLevel = 3;
+					gold -= 200;
+				}
+			}
 			else if(gold >= 200){
 				UISelect = 2;
-				UIempt.src = "./UI/UI2SLT.png";
+				UIempt.src = UIbtn2Up[catLevel-1];
 			}
 		}
 		else if(x>=UI3Pos[0] && x<UI4Pos[0]){
@@ -1723,14 +1827,26 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 		}
 		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
-			UIbtn4.src = "./UI/UIbtn4Down.png"
+			UIbtn4.src = UIbtn4Down[squirrelLevel-1];
 			if(UISelect == 4){
 				UISelect = 0;
 				UIempt.src = "./UI/empty.png";
 			}
+			else if(UISelect == 5){
+				UISelect = 0;
+				UIempt.src = "./UI/empty.png";
+				if(squirrelLevel == 1 && gold >= 100){
+					squirrelLevel = 2;
+					gold -= 100;
+				}
+				else if(squirrelLevel == 2 && gold >= 200){
+					squirrelLevel = 3;
+					gold -= 200;
+				}
+			}
 			else if(gold >= 400){
 				UISelect = 4;
-				UIempt.src = "./UI/UI4SLT.png";
+				UIempt.src = UIbtn4Up[squirrelLevel-1];
 			}
 		}
 		else if(x>=UI5Pos[0] && x<UI6Pos[0] && wait){
@@ -1768,9 +1884,9 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 
 function UIReset(){ //UIReset
 	UIbtn1.src = UIbtn1Up[chickenLevel-1];
-	UIbtn2.src = "./UI/UIbtn2Up.png";
+	UIbtn2.src = UIbtn2Up[catLevel-1];
 	UIbtn3.src = UIbtn3Up[sheepLevel-1];
-	UIbtn4.src = "./UI/UIbtn4Up.png";
+	UIbtn4.src = UIbtn4Up[squirrelLevel-1];
 	UIbtn6.src = "./UI/UIbtn6Up.png";
 	if(wait){
 		UIbtn5.src = "./UI/UIbtn5Up.png";
@@ -1792,13 +1908,13 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 		UIempt.src = UI1SLT[chickenLevel-1];
 	}
 	else if(UISelect==2){
-		UIempt.src = "./UI/UI2SLT.png";
+		UIempt.src = UI2SLT[catLevel-1];
 	}
 	else if(UISelect==3){
 		UIempt.src = UI3SLT[sheepLevel-1];
 	}
 	else if(UISelect==4){
-		UIempt.src = "./UI/UI4SLT.png";
+		UIempt.src = UI4SLT[squirrelLevel-1];
 	}
 	else if(UISelect==5){
 		UIempt.src = "./UI/upgrade.png";
