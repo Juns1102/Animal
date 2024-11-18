@@ -1026,7 +1026,7 @@ function draw(){ //drawUI, drawmob, drawPTJ
 	ctx.drawImage(backGround, 0, 0);
 	drawUI();
 	drawMob();
-	if(wait == false){
+	if(wait == false && hearts > 0){
 		drawPJT();
 	}
 }
@@ -1777,7 +1777,7 @@ function goldUp(){ //기본 골드 증가..
 
 function update(){ //draw, goldUP, mobSpawn
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	if(wait == false){
+	if(wait == false && hearts > 0){
 		goldUp();
 		mobSpawn();
 	}
