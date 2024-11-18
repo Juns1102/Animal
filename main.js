@@ -44,13 +44,15 @@ bgm.autoplay = true;
 bgm.volume = 0.2;
 bgm.loop = true;
 
-var popSounds = [];
+//닭 공격 효과음
+var popSounds = []; 
 for(var i=0; i < 20; i++){
 	var popSound = new Audio('./Sound/pop.mp3');
 	popSound.volume = 0.3;
 	popSounds.push(popSound);
 }
 
+//고양이 공격 효과음
 var swingSounds = [];
 for(var i=0; i < 20; i++){
 	var swingSound = new Audio('./Sound/swing.mp3');
@@ -58,6 +60,7 @@ for(var i=0; i < 20; i++){
 	swingSounds.push(swingSound);
 }
 
+//다람쥐 공격 효과음
 var sparkSounds = [];
 for(var i=0; i < 20; i++){
 	var sparkSound = new Audio('./Sound/spark.mp3');
@@ -65,6 +68,7 @@ for(var i=0; i < 20; i++){
 	sparkSounds.push(sparkSound);
 }
 
+//닭 애니메이션
 var chickenIdle1 = new Image();
 var chickenIdle2 = new Image();
 chickenIdle1.src = "./Entity/Anim/chicken_idle_1.png";
@@ -90,12 +94,15 @@ var catAttackEffect = new Image();
 catAttackEffect.src = "./Entity/Anim/cat_attack_effect.png";
 var catAttackEffects = [];
 
+
+//양 애니메이션
 var sheepIdle1 = new Image();
 var sheepIdle2 = new Image();
 sheepIdle1.src = "./Entity/Anim/sheep_idle_1.png";
 sheepIdle2.src = "./Entity/Anim/sheep_idle_2.png";
 var sheeps = [];
 
+//다람쥐 애니메이션
 var squirrelIdle1 = new Image();
 var squirrelIdle2 = new Image();
 squirrelIdle1.src = "./Entity/Anim/squirrel_idle_1.png";
