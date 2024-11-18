@@ -121,6 +121,25 @@ var squirrelAttackEffects = [];
 
 var enemies = [];
 
+var kbIdle1 = new Image();
+var kbIdle2 = new Image();
+kbIdle1.src = "./Entity/Anim/killerBee_idle_1.png";
+kbIdle2.src = "./Entity/Anim/killerBee_idle_2.png";
+
+var kbMove1 = new Image();
+var kbMove2 = new Image();
+kbMove1.src = "./Entity/Anim/killerBee_move_1.png";
+kbMove2.src = "./Entity/Anim/killerBee_move_2.png";
+
+var kbAttack1 = new Image();
+var kbAttack2 = new Image();
+kbAttack1.src = "./Entity/Anim/killerBee_attack_1.png";
+kbAttack2.src = "./Entity/Anim/killerBee_attack_2.png";
+
+var kbAttackEffect = new Image();
+kbAttackEffect.src = "./UI/empty.png";
+var kbAttackEffects = [];
+
 var foxIdle1 = new Image();
 var foxIdle2 = new Image();
 foxIdle1.src = "./Entity/Anim/fox_idle_1.png";
@@ -140,11 +159,43 @@ var foxAttackEffect = new Image();
 foxAttackEffect.src = "./UI/empty.png";
 var foxAttackEffects = [];
 
-var crocodileImg = new Image();
-crocodileImg.src = "./Entity/crocodile.png";
+var ratelIdle1 = new Image();
+var ratelIdle2 = new Image();
+ratelIdle1.src = "./Entity/Anim/ratel_idle_1.png";
+ratelIdle2.src = "./Entity/Anim/ratel_idle_2.png";
 
-var ratelImg = new Image();
-ratelImg.src = "./Entity/ratel.png";
+var ratelMove1 = new Image();
+var ratelMove2 = new Image();
+ratelMove1.src = "./Entity/Anim/ratel_move_1.png";
+ratelMove2.src = "./Entity/Anim/ratel_move_2.png";
+
+var ratelAttack1 = new Image();
+var ratelAttack2 = new Image();
+ratelAttack1.src = "./Entity/Anim/ratel_attack_1.png";
+ratelAttack2.src = "./Entity/Anim/ratel_attack_2.png";
+
+var ratelAttackEffect = new Image();
+ratelAttackEffect.src = "./UI/empty.png";
+var ratelAttackEffects = [];
+
+var crocodileIdle1 = new Image();
+var crocodileIdle2 = new Image();
+crocodileIdle1.src = "./Entity/Anim/crocodile_idle_1.png";
+crocodileIdle2.src = "./Entity/Anim/crocodile_idle_2.png";
+
+var crocodileMove1 = new Image();
+var crocodileMove2 = new Image();
+crocodileMove1.src = "./Entity/Anim/crocodile_move_1.png";
+crocodileMove2.src = "./Entity/Anim/crocodile_move_2.png";
+
+var crocodileAttack1 = new Image();
+var crocodileAttack2 = new Image();
+crocodileAttack1.src = "./Entity/Anim/crocodile_attack_1.png";
+crocodileAttack2.src = "./Entity/Anim/crocodile_attack_2.png";
+
+var crocodileAttackEffect = new Image();
+crocodileAttackEffect.src = "./UI/empty.png";
+var crocodileAttackEffects = [];
 
 var bearImg = new Image();
 bearImg.src = "./Entity/bear.png";
@@ -188,10 +239,11 @@ var endPhase = false;
 var score = 0;
 var hearts = 3;
 
-var animalPer = [[50, 45, 40, 35, 30], 
-			     [50, 45, 40, 35, 30],
-			     [0, 10, 20, 25, 30],
-			     [0, 0, 0, 5, 10]];
+var animalPer = [[100, 40, 35, 20, 10], //killBee
+				 [0, 25, 25, 30, 20], //fox
+			     [0, 25, 25, 30, 20], //ratel
+			     [0, 10, 15, 15, 35], //crocodile
+			     [0, 0, 0, 5, 15]]; //bear
 
 class Chicken{
 	constructor(){
@@ -392,6 +444,83 @@ class SquirrelAttack{
 	}
 }
 
+class KillBee{
+	constructor(){
+		this.hp = 3;
+		this.x = 0;
+		this.y = 0;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.coolTime = 100;
+		this.maxCoolTime = 100;
+		this.anim = 0;
+		this.frame = 0;
+		this.frameTiming = 30;
+		this.gold = 50;
+		this.onAttack = false;
+		this.afterAttack = false;
+		this.speed = 3.5;
+		this.maxSpeed = 3.5;
+		this.tag = "killBee";
+		this.stun = 0;
+		this.score = 100;
+	}
+	draw(){
+		if(this.speed == 0){
+			if(this.onAttack == true){
+				if(this.frame==0){
+					ctx.drawImage(kbAttack1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(kbAttack2, this.x, this.y);
+				}
+			}
+			else{
+				if(this.frame==0){
+					ctx.drawImage(kbIdle1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(kbIdle2, this.x, this.y);
+				}
+			}
+		}
+		else{
+			if(this.frame==0){
+				ctx.drawImage(kbMove1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(kbMove2, this.x, this.y);
+			}
+		}
+	}
+	attack(){
+		var kbEffect = new KBAttack();
+		kbEffect.x = this.x - kbEffect.width;
+		kbEffect.y = this.y;
+		kbEffect.laneY = this.laneY;
+		kbEffect.draw();
+		kbAttackEffects.push(kbEffect);
+	}
+}
+
+class KBAttack{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.width = 16*4;
+		this.height = 32*4;
+		this.holdTime = 0;
+		this.attack = true;
+		this.damage = 1;
+		this.tag = "kbAttack";
+	}
+	draw(){
+		ctx.drawImage(kbAttackEffect, this.x, this.y);
+	}
+}
+
 class Fox{
 	constructor(){
 		this.hp = 3;
@@ -490,15 +619,58 @@ class Ratel{
 		this.score = 200;
 	}
 	draw(){
-		ctx.drawImage(ratelImg, this.x, this.y);
+		if(this.speed == 0){
+			if(this.onAttack == true){
+				if(this.frame==0){
+					ctx.drawImage(ratelAttack1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(ratelAttack2, this.x, this.y);
+				}
+			}
+			else{
+				if(this.frame==0){
+					ctx.drawImage(ratelIdle1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(ratelIdle2, this.x, this.y);
+				}
+			}
+		}
+		else{
+			if(this.frame==0){
+				ctx.drawImage(ratelMove1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(ratelMove2, this.x, this.y);
+			}
+		}
 	}
 	attack(){
-		// var catAttackEffect = new CatAttack();
-		// catAttackEffect.x = a.x + 32*4;
-		// catAttackEffect.y = a.y;
-		// catAttackEffect.laneY = a.laneY;
-		// catAttackEffect.draw();
-		// catAttackEffects.push(catAttackEffect);
+		var ratelEffect = new RatelAttack();
+		ratelEffect.x = this.x - ratelEffect.width;
+		ratelEffect.y = this.y;
+		ratelEffect.laneY = this.laneY;
+		ratelEffect.draw();
+		ratelAttackEffects.push(ratelEffect);
+	}
+}
+
+class RatelAttack{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.width = 16*4;
+		this.height = 32*4;
+		this.holdTime = 0;
+		this.attack = true;
+		this.damage = 1;
+		this.tag = "ratelAttack";
+	}
+	draw(){
+		ctx.drawImage(ratelAttackEffect, this.x, this.y);
 	}
 }
 
@@ -523,15 +695,58 @@ class Crocodile{
 		this.score = 300;
 	}
 	draw(){
-		ctx.drawImage(crocodileImg, this.x, this.y);
+		if(this.speed == 0){
+			if(this.onAttack == true){
+				if(this.frame==0){
+					ctx.drawImage(crocodileAttack1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(crocodileAttack2, this.x, this.y);
+				}
+			}
+			else{
+				if(this.frame==0){
+					ctx.drawImage(crocodileIdle1, this.x, this.y);
+				}
+				else if(this.frame==1){
+					ctx.drawImage(crocodileIdle2, this.x, this.y);
+				}
+			}
+		}
+		else{
+			if(this.frame==0){
+				ctx.drawImage(crocodileMove1, this.x, this.y);
+			}
+			else if(this.frame==1){
+				ctx.drawImage(crocodileMove2, this.x, this.y);
+			}
+		}
 	}
 	attack(){
-		// var catAttackEffect = new CatAttack();
-		// catAttackEffect.x = a.x + 32*4;
-		// catAttackEffect.y = a.y;
-		// catAttackEffect.laneY = a.laneY;
-		// catAttackEffect.draw();
-		// catAttackEffects.push(catAttackEffect);
+		var crocodileEffect = new FoxAttack();
+		crocodileEffect.x = this.x - crocodileEffect.width;
+		crocodileEffect.y = this.y;
+		crocodileEffect.laneY = this.laneY;
+		crocodileEffect.draw();
+		crocodileAttackEffects.push(crocodileEffect);
+	}
+}
+
+class CrocodileAttack{
+	constructor(){
+		this.x = 0;
+		this.y = 0;
+		this.laneX = 0;
+		this.laneY = 0;
+		this.width = 16*4;
+		this.height = 32*4;
+		this.holdTime = 0;
+		this.attack = true;
+		this.damage = 1;
+		this.tag = "crocodileAttack";
+	}
+	draw(){
+		ctx.drawImage(crocodileAttackEffect, this.x, this.y);
 	}
 }
 
@@ -1050,6 +1265,42 @@ function drawPJT(){//발사체
 		}
 		a.draw();
 	})
+	ratelAttackEffects.forEach((a, i, o)=>{
+		if(a.attack==true){
+			if(collision2(a) == true){
+				a.attack = false;
+			}
+		}
+		a.holdTime++;
+		if(a.holdTime >= 30){
+			o.splice(i, 1)
+		}
+		a.draw();
+	})
+	crocodileAttackEffects.forEach((a, i, o)=>{
+		if(a.attack==true){
+			if(collision2(a) == true){
+				a.attack = false;
+			}
+		}
+		a.holdTime++;
+		if(a.holdTime >= 30){
+			o.splice(i, 1)
+		}
+		a.draw();
+	})
+	kbAttackEffects.forEach((a, i, o)=>{
+		if(a.attack==true){
+			if(collision2(a) == true){
+				a.attack = false;
+			}
+		}
+		a.holdTime++;
+		if(a.holdTime >= 30){
+			o.splice(i, 1)
+		}
+		a.draw();
+	})
 	bearAttackEffects.forEach((a, i, o)=>{
 		if(a.attack==true){
 			if(collision2(a) == true){
@@ -1221,43 +1472,48 @@ function mobSpawn(){
 			randomNum = Math.floor(Math.random() * 100) + 1;
 			if(randomNum < animalPer[0][phase]){ //Fox
 				spawnPosY = Math.floor(Math.random() * 4) + 3;
-				var fox = new Fox();
-				fox.x = 32*10*4;
-				fox.y = spawnPosY*32*4 - 16;
-				fox.laneY = spawnPosY;
-				//foxes.push(fox);
-				enemies.push(fox);
+				var kb = new KillBee();
+				kb.x = 32*10*4;
+				kb.y = spawnPosY*32*4 - 16;
+				kb.laneY = spawnPosY;
+				enemies.push(kb);
 			}
 			else if(randomNum >= animalPer[0][phase] && //Ratel
 					randomNum < animalPer[0][phase] + animalPer[1][phase]){
+						spawnPosY = Math.floor(Math.random() * 4) + 3;
+						var fox = new Fox();
+						fox.x = 32*10*4;
+						fox.y = spawnPosY*32*4 - 16;
+						fox.laneY = spawnPosY;
+						enemies.push(fox);
+			}
+			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
+					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var ratel = new Ratel();
 						ratel.x = 32*10*4;
 						ratel.y = spawnPosY*32*4 - 16;
 						ratel.laneY = spawnPosY;
-						//ratels.push(ratel);
 						enemies.push(ratel);
 			}
-			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
-					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
+			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
+					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var crocodile = new Crocodile();
 						crocodile.x = 32*10*4;
 						crocodile.y = spawnPosY*32*4 - 16;
 						crocodile.laneY = spawnPosY;
-						//crocs.push(crocodile);
 						enemies.push(crocodile);
 			}
-			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
-					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
+			else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase] &&
+					randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase] + animalPer[4][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 2;
 						var bear = new Bear();
 						bear.x = 32*10*4;
 						bear.y = spawnPosY*32*4 - 16;
 						bear.laneY = spawnPosY;
-						//bears.push(bear);	
 						enemies.push(bear);
-			}
+		}
 		}
 	}
 }
