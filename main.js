@@ -357,8 +357,9 @@ class Egg{
 		this.width = 7*4;
 		this.height = 6*4;
 		this.coolTime = 0;
-		this.damage = 1;
+		this.damage = [1, 2, 3];
 		this.tag = "egg";
+		this.level = 0;
 	}
 	draw(){
 		ctx.drawImage(eggImg, this.x, this.y);
@@ -415,8 +416,9 @@ class CatAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 3;
+		this.damage = [2, 3, 4];
 		this.tag = "catAttack";
+		this.level = 0;
 	}
 	draw(){
 		ctx.drawImage(catAttackEffect, this.x, this.y);
@@ -516,8 +518,9 @@ class SquirrelAttack{
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
-		this.damage = 1;
+		this.damage = [1, 1, 2];
 		this.tag = "squirrelAttack";
+		this.level = 0;
 		this.anim = 0;
 		this.frame = 0;
 	}
@@ -1012,6 +1015,7 @@ function drawMob(){
 			egg.x = a.x + 32*4;
 			egg.y = a.y + 32*2-8;
 			egg.laneY = a.laneY;
+			egg.level = a.level;
 			eggs.push(egg);
 		}
 		a.draw();
@@ -1042,6 +1046,7 @@ function drawMob(){
 				catAttackEffect.x = a.x + 32*4;
 				catAttackEffect.y = a.y;
 				catAttackEffect.laneY = a.laneY;
+				catAttackEffect.level = a.level;
 				catAttackEffect.draw();
 				catAttackEffects.push(catAttackEffect);
 			}
@@ -1109,6 +1114,7 @@ function drawMob(){
 				squirrelAttack.x = a.x + 32*4;
 				squirrelAttack.y = a.y;
 				squirrelAttack.laneY = a.laneY;
+				squirrelAttack.level = a.level;
 				squirrelAttack.draw();
 				squirrelAttackEffects.push(squirrelAttack);
 			}
@@ -1417,7 +1423,7 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 		var difX = a.x - (team.x + team.width);
 		if(a.tag=="bear"){
 			if(difX < -32 && ((a.laneY == team.laneY) || (a.laneY + 1) == team.laneY)){
-				a.hp -= team.damage;
+				a.hp -= team.damage[team.level-1];
 				if(team.tag == "squirrelAttack"){
 					a.stun = 30;
 				}
@@ -1431,7 +1437,7 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 		}
 		else{
 			if(difX < 0 && (a.laneY == team.laneY)){
-				a.hp -= team.damage;
+				a.hp -= team.damage[team.level-1];
 				if(team.tag == "squirrelAttack"){
 					a.stun = 30;
 				}
