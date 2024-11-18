@@ -4,6 +4,7 @@ var ctx = canvas.getContext('2d');
 var backGround = new Image();
 backGround.src = "./UI/background.png";
 
+//UIPos
 var UI1Pos = [0, 7*32*4];
 var UI2Pos = [1*32*4, 7*32*4];
 var UI3Pos = [2*32*4, 7*32*4];
@@ -13,6 +14,7 @@ var UI6Pos = [6*32*4, 7*32*4];
 var UI7Pos = [8*32*4, 7*32*4];
 var UIemptPos = [0, 0];
 
+//UI Image
 var heart = new Image();
 heart.src = "./UI/heart.png"
 var coin = new Image();
@@ -21,12 +23,30 @@ var bgmImage = new Image();
 bgmImage.src = "./UI/bgmOff.png"
 var bgmSelect = false;
 
+//UI Image
+var UIbtn1Up = ["./UI/UIbtn1_1Up.png", "./UI/UIbtn1_2Up.png", "./UI/UIbtn1_3Up.png"]
+var UIbtn1Down = ["./UI/UIbtn1_1Down.png", "./UI/UIbtn1_2Down.png", "./UI/UIbtn1_3Down.png"]
+var UI1SLT = ["./UI/UI1SLT1.png", "./UI/UI1SLT2.png", "./UI/UI1SLT3.png"]
+
+var UIbtn2Up = ["./UI/UIbtn2_1Up.png", "./UI/UIbtn2_2Up.png", "./UI/UIbtn2_3Up.png"]
+var UIbtn2Down = ["./UI/UIbtn2_1Down.png", "./UI/UIbtn2_2Down.png", "./UI/UIbtn2_3Down.png"]
+var UI2SLT = ["./UI/UI2SLT1.png", "./UI/UI2SLT2.png", "./UI/UI2SLT3.png"]
+
+var UIbtn3Up = ["./UI/UIbtn3_1Up.png", "./UI/UIbtn3_2Up.png", "./UI/UIbtn3_3Up.png"]
+var UIbtn3Down = ["./UI/UIbtn3_1Down.png", "./UI/UIbtn3_2Down.png", "./UI/UIbtn3_3Down.png"]
+var UI3SLT = ["./UI/UI3SLT1.png", "./UI/UI3SLT2.png", "./UI/UI3SLT3.png"]
+
+var UIbtn4Up = ["./UI/UIbtn4_1Up.png", "./UI/UIbtn4_2Up.png", "./UI/UIbtn4_3Up.png"]
+var UIbtn4Down = ["./UI/UIbtn4_1Down.png", "./UI/UIbtn4_2Down.png", "./UI/UIbtn4_3Down.png"]
+var UI4SLT = ["./UI/UI4SLT1.png", "./UI/UI4SLT2.png", "./UI/UI4SLT3.png"]
+
+//UI
 var UIbtn1 = new Image();
-UIbtn1.src = "./UI/UIbtn1Up.png";
+UIbtn1.src = "./UI/UIbtn1_1Up.png";
 var UIbtn2 = new Image();
 UIbtn2.src = "./UI/UIbtn2Up.png";
 var UIbtn3 = new Image();
-UIbtn3.src = "./UI/UIbtn3Up.png";
+UIbtn3.src = "./UI/UIbtn3_1Up.png";
 var UIbtn4 = new Image();
 UIbtn4.src = "./UI/UIbtn4Up.png";
 var UIbtn5 = new Image();
@@ -69,10 +89,19 @@ for(var i=0; i < 20; i++){
 }
 
 //닭 애니메이션
-var chickenIdle1 = new Image();
-var chickenIdle2 = new Image();
-chickenIdle1.src = "./Entity/Anim/chicken_idle_1.png";
-chickenIdle2.src = "./Entity/Anim/chicken_idle_2.png";
+var chickenLevel = 1;
+var chickenIdleLv1_1 = new Image();
+var chickenIdleLv1_2 = new Image();
+chickenIdleLv1_1.src = "./Entity/Anim/chicken_idle_lv1_1.png";
+chickenIdleLv1_2.src = "./Entity/Anim/chicken_idle_lv1_2.png";
+var chickenIdleLv2_1 = new Image();
+var chickenIdleLv2_2 = new Image();
+chickenIdleLv2_1.src = "./Entity/Anim/chicken_idle_lv2_1.png";
+chickenIdleLv2_2.src = "./Entity/Anim/chicken_idle_lv2_2.png";
+var chickenIdleLv3_1 = new Image();
+var chickenIdleLv3_2 = new Image();
+chickenIdleLv3_1.src = "./Entity/Anim/chicken_idle_lv3_1.png";
+chickenIdleLv3_2.src = "./Entity/Anim/chicken_idle_lv3_2.png";
 var chickens = [];
 
 var eggImg = new Image();
@@ -96,10 +125,25 @@ var catAttackEffects = [];
 
 
 //양 애니메이션
+var sheepLevel = 1;
 var sheepIdle1 = new Image();
 var sheepIdle2 = new Image();
 sheepIdle1.src = "./Entity/Anim/sheep_idle_1.png";
 sheepIdle2.src = "./Entity/Anim/sheep_idle_2.png";
+
+var sheepIdleLv1_1 = new Image();
+var sheepIdleLv1_2 = new Image();
+sheepIdleLv1_1.src = "./Entity/Anim/sheep_idle_lv1_1.png";
+sheepIdleLv1_2.src = "./Entity/Anim/sheep_idle_lv1_2.png";
+var sheepIdleLv2_1 = new Image();
+var sheepIdleLv2_2 = new Image();
+sheepIdleLv2_1.src = "./Entity/Anim/sheep_idle_lv2_1.png";
+sheepIdleLv2_2.src = "./Entity/Anim/sheep_idle_lv2_2.png";
+var sheepIdleLv3_1 = new Image();
+var sheepIdleLv3_2 = new Image();
+sheepIdleLv3_1.src = "./Entity/Anim/sheep_idle_lv3_1.png";
+sheepIdleLv3_2.src = "./Entity/Anim/sheep_idle_lv3_2.png";
+
 var sheeps = [];
 
 //다람쥐 애니메이션
@@ -262,6 +306,7 @@ var animalPer = [[100, 40, 35, 20, 10], //killBee
 class Chicken{
 	constructor(){
 		this.hp = 1;
+		this.level = chickenLevel;
 		this.x = 0;
 		this.y = 0;
 		this.width = 32*4;
@@ -277,10 +322,26 @@ class Chicken{
 	}
 	draw(){
 		if(this.frame==0){
-			ctx.drawImage(chickenIdle1, this.x, this.y);
+			if(this.level==1){
+				ctx.drawImage(chickenIdleLv1_1, this.x, this.y);
+			}
+			else if(this.level==2){
+				ctx.drawImage(chickenIdleLv2_1, this.x, this.y);
+			}
+			else if(this.level>2){
+				ctx.drawImage(chickenIdleLv3_1, this.x, this.y);
+			}
 		}
 		else if(this.frame==1){
-			ctx.drawImage(chickenIdle2, this.x, this.y);
+			if(this.level==1){
+				ctx.drawImage(chickenIdleLv1_2, this.x, this.y);
+			}
+			else if(this.level==2){
+				ctx.drawImage(chickenIdleLv2_2, this.x, this.y);
+			}
+			else if(this.level>2){
+				ctx.drawImage(chickenIdleLv3_2, this.x, this.y);
+			}
 		}
 	}
 }
@@ -305,6 +366,7 @@ class Egg{
 class Cat{
 	constructor(){
 		this.hp = 1;
+		this.level = catLevel;
 		this.x = 0;
 		this.y = 0;
 		this.width = 32*4;
@@ -362,6 +424,7 @@ class CatAttack{
 class Sheep{
 	constructor(){
 		this.hp = 2;
+		this.level = sheepLevel;
 		this.x = 0;
 		this.y = 0;
 		this.width = 32*4;
@@ -377,10 +440,26 @@ class Sheep{
 	}
 	draw(){
 		if(this.frame==0){
-			ctx.drawImage(sheepIdle1, this.x, this.y);
+			if(this.level==1){
+				ctx.drawImage(sheepIdleLv1_1, this.x, this.y);
+			}
+			else if(this.level==2){
+				ctx.drawImage(sheepIdleLv2_1, this.x, this.y);
+			}
+			else if(this.level>2){
+				ctx.drawImage(sheepIdleLv3_1, this.x, this.y);
+			}
 		}
 		else if(this.frame==1){
-			ctx.drawImage(sheepIdle2, this.x, this.y);
+			if(this.level==1){
+				ctx.drawImage(sheepIdleLv1_2, this.x, this.y);
+			}
+			else if(this.level==2){
+				ctx.drawImage(sheepIdleLv2_2, this.x, this.y);
+			}
+			else if(this.level>2){
+				ctx.drawImage(sheepIdleLv3_2, this.x, this.y);
+			}
 		}
 	}
 }
@@ -388,6 +467,7 @@ class Sheep{
 class Squirrel{
 	constructor(){
 		this.hp = 1;
+		this.level = squirrelLevel;
 		this.x = 0;
 		this.y = 0;
 		this.width = 32*4;
@@ -1578,14 +1658,26 @@ function clickPointer(event){ //마우스로 클릭한 지점 읽어오기
 function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 	if(y>=UI1Pos[1]){
 		if(x>=UI1Pos[0] && x<UI2Pos[0]){
-			UIbtn1.src = "./UI/UIbtn1Down.png"
+			UIbtn1.src = UIbtn1Down[chickenLevel-1];
 			if(UISelect == 1){
 				UISelect = 0;
 				UIempt.src = "./UI/empty.png";
 			}
+			else if(UISelect == 5){
+				UISelect = 0;
+				UIempt.src = "./UI/empty.png";
+				if(chickenLevel == 1 && gold >= 100){
+					chickenLevel = 2;
+					gold -= 100;
+				}
+				else if(chickenLevel == 2 && gold >= 200){
+					chickenLevel = 3;
+					gold -= 200;
+				}
+			}
 			else if(gold >= 100){
 				UISelect = 1;
-				UIempt.src = "./UI/UI1SLT.png";
+				UIempt.src = UIbtn1Up[chickenLevel-1];
 			}
 		}
 		else if(x>=UI2Pos[0] && x<UI3Pos[0]){
@@ -1600,14 +1692,26 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 		}
 		else if(x>=UI3Pos[0] && x<UI4Pos[0]){
-			UIbtn3.src = "./UI/UIbtn3Down.png"
+			UIbtn3.src = UIbtn3Down[sheepLevel-1];
 			if(UISelect == 3){
 				UISelect = 0;
 				UIempt.src = "./UI/empty.png";
 			}
+			else if(UISelect == 5){
+				UISelect = 0;
+				UIempt.src = "./UI/empty.png";
+				if(sheepLevel == 1 && gold >= 100){
+					sheepLevel = 2;
+					gold -= 100;
+				}
+				else if(sheepLevel == 2 && gold >= 100){
+					sheepLevel = 3;
+					gold -= 100;
+				}
+			}
 			else if(gold >= 300){
 				UISelect = 3;
-				UIempt.src = "./UI/UI3SLT.png";
+				UIempt.src = UIbtn3Up[sheepLevel-1];
 			}
 		}
 		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
@@ -1628,10 +1732,9 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 				UIempt.src = "./UI/empty.png";
 			}
 			else{
-				UISelect = 6;
+				UISelect = 5;
 				UIempt.src = "./UI/upgrade.png";
 			}
-			UISelect = 0;
 		}
 		else if(x>=UI6Pos[0] && x<UI7Pos[0]){
 			UIbtn6.src = "./UI/UIbtn6Down.png"
@@ -1656,9 +1759,9 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 }
 
 function UIReset(){ //UIReset
-	UIbtn1.src = "./UI/UIbtn1Up.png";
+	UIbtn1.src = UIbtn1Up[chickenLevel-1];
 	UIbtn2.src = "./UI/UIbtn2Up.png";
-	UIbtn3.src = "./UI/UIbtn3Up.png";
+	UIbtn3.src = UIbtn3Up[sheepLevel-1];
 	UIbtn4.src = "./UI/UIbtn4Up.png";
 	UIbtn6.src = "./UI/UIbtn6Up.png";
 	if(wait){
@@ -1678,16 +1781,19 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 		UIempt.src = "./UI/empty.png";
 	}
 	else if(UISelect==1){
-		UIempt.src = "./UI/UI1SLT.png";
+		UIempt.src = UI1SLT[chickenLevel-1];
 	}
 	else if(UISelect==2){
 		UIempt.src = "./UI/UI2SLT.png";
 	}
 	else if(UISelect==3){
-		UIempt.src = "./UI/UI3SLT.png";
+		UIempt.src = UI3SLT[sheepLevel-1];
 	}
 	else if(UISelect==4){
 		UIempt.src = "./UI/UI4SLT.png";
+	}
+	else if(UISelect==5){
+		UIempt.src = "./UI/upgrade.png";
 	}
 	else if(UISelect==6){
 		UIempt.src = "./UI/sell.png";
