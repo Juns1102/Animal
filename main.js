@@ -156,7 +156,6 @@ var sheepIdleLv3_1 = new Image();
 var sheepIdleLv3_2 = new Image();
 sheepIdleLv3_1.src = "./Entity/Anim/sheep_idle_lv3_1.png";
 sheepIdleLv3_2.src = "./Entity/Anim/sheep_idle_lv3_2.png";
-
 var sheeps = [];
 
 //다람쥐 애니메이션
@@ -316,7 +315,7 @@ var spawnNum = 0;
 var spawnPosY = 0;
 var phase = 0;
 var phaseCnt = 0;
-var phaseRate = 60*30;
+var phaseRate = 60*30; //60*30
 var round = 0;
 var wait = true;
 var gold = 1000;
@@ -330,8 +329,8 @@ var hearts = 3;
 var animalPer = [[0, 40, 35, 20, 10], //killBee
 				 [0, 25, 25, 30, 20], //fox
 			     [0, 25, 25, 30, 20], //ratel
-			     [0, 10, 15, 15, 35], //crocodile
-			     [100, 0, 0, 5, 15]]; //bear
+			     [100, 10, 15, 15, 35], //crocodile
+			     [0, 0, 0, 5, 15]]; //bear
 
 class Chicken{
 	constructor(){
@@ -914,7 +913,7 @@ class Crocodile{
 		}
 	}
 	attack(){
-		var crocodileEffect = new FoxAttack();
+		var crocodileEffect = new CrocodileAttack();
 		crocodileEffect.x = this.x - crocodileEffect.width;
 		crocodileEffect.y = this.y;
 		crocodileEffect.laneY = this.laneY;
@@ -929,7 +928,7 @@ class CrocodileAttack{
 		this.y = 0;
 		this.laneX = 0;
 		this.laneY = 0;
-		this.width = 16*4;
+		this.width = 16*4 + 32*4;
 		this.height = 32*4;
 		this.holdTime = 0;
 		this.attack = true;
@@ -1642,25 +1641,81 @@ function attackRange(team, enemy){ //공격 사거리에 적이 들어왔는지 
 
 function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 	spawnTimer++;
-	phaseCnt++;
-	if(phaseCnt > phaseRate){
-		if(phase < 4){
-			phaseCnt = 0;
-			phase++;
-		}
-		else{
-			endPhase = true;
-			if(enemies[0]==undefined){
-				wait = true;
-				bgm.src = "./Sound/battle.mp3";
+	if(round < 4){
+		phaseCnt++;
+		if(phaseCnt > phaseRate){
+			if(phase < 4){
 				phaseCnt = 0;
-				UIbtn7.src = "./UI/UIbtn7Up.png";
-				phase = 0;
-				endPhase = false;
+				phase++;
+			}
+			else{
+				endPhase = true;
+				if(round==3 && phase==4){
+					round++;
+				}
+				else if(enemies[0]==undefined){
+					round++;
+					wait = true;
+					bgm.src = "./Sound/wait.mp3";
+					phaseCnt = 0;
+					UIbtn7.src = "./UI/UIbtn7Up.png";
+					phase = 0;
+					endPhase = false;
+				}
+			}
+		}
+		if(phase <= 4 && !endPhase){
+			if(spawnTimer > spawnRate[phase]){
+				spawnTimer = 0;
+				randomNum = Math.floor(Math.random() * 100) + 1;
+				if(randomNum < animalPer[0][phase]){ //Fox
+					spawnPosY = Math.floor(Math.random() * 4) + 3;
+					var kb = new KillBee();
+					kb.x = 32*10*4;
+					kb.y = spawnPosY*32*4 - 16;
+					kb.laneY = spawnPosY;
+					enemies.push(kb);
+				}
+				else if(randomNum >= animalPer[0][phase] && //Ratel
+						randomNum < animalPer[0][phase] + animalPer[1][phase]){
+							spawnPosY = Math.floor(Math.random() * 4) + 3;
+							var fox = new Fox();
+							fox.x = 32*10*4;
+							fox.y = spawnPosY*32*4 - 16;
+							fox.laneY = spawnPosY;
+							enemies.push(fox);
+				}
+				else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] && //Crocodile
+						randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase]){
+							spawnPosY = Math.floor(Math.random() * 4) + 3;
+							var ratel = new Ratel();
+							ratel.x = 32*10*4;
+							ratel.y = spawnPosY*32*4 - 16;
+							ratel.laneY = spawnPosY;
+							enemies.push(ratel);
+				}
+				else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] &&
+						randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase]){
+							spawnPosY = Math.floor(Math.random() * 4) + 3;
+							var crocodile = new Crocodile();
+							crocodile.x = 32*10*4;
+							crocodile.y = spawnPosY*32*4 - 16;
+							crocodile.laneY = spawnPosY;
+							enemies.push(crocodile);
+				}
+				else if(randomNum >= animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase] &&
+						randomNum < animalPer[0][phase] + animalPer[1][phase] + animalPer[2][phase] + animalPer[3][phase] + animalPer[4][phase]){
+							spawnPosY = Math.floor(Math.random() * 4) + 2;
+							var bear = new Bear();
+							bear.x = 32*10*4;
+							bear.y = spawnPosY*32*4 - 16;
+							bear.laneY = spawnPosY;
+							enemies.push(bear);
+				}
 			}
 		}
 	}
-	if(phase <= 4 && !endPhase){
+	else{
 		if(spawnTimer > spawnRate[phase]){
 			spawnTimer = 0;
 			randomNum = Math.floor(Math.random() * 100) + 1;
@@ -1707,7 +1762,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 						bear.y = spawnPosY*32*4 - 16;
 						bear.laneY = spawnPosY;
 						enemies.push(bear);
-		}
+			}
 		}
 	}
 }
