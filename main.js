@@ -108,6 +108,7 @@ var eggImg = new Image();
 eggImg.src = "./Entity/Anim/egg.png";
 var eggs = [];
 
+var catLevel = 1;
 var catIdle1 = new Image();
 var catIdle2 = new Image();
 catIdle1.src = "./Entity/Anim/cat_idle_1.png";
@@ -147,6 +148,7 @@ sheepIdleLv3_2.src = "./Entity/Anim/sheep_idle_lv3_2.png";
 var sheeps = [];
 
 //다람쥐 애니메이션
+var squirrelLevel = 1;
 var squirrelIdle1 = new Image();
 var squirrelIdle2 = new Image();
 squirrelIdle1.src = "./Entity/Anim/squirrel_idle_1.png";
