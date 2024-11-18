@@ -1024,8 +1024,10 @@ class BearAttack{
 
 function draw(){ //drawUI, drawmob, drawPTJ
 	ctx.drawImage(backGround, 0, 0);
-	drawUI();
-	drawMob();
+	if(hearts > 0){
+		drawUI();
+		drawMob();
+	}
 	if(wait == false && hearts > 0){
 		drawPJT();
 	}
