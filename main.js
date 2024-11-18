@@ -1034,7 +1034,7 @@ function draw(){ //drawUI, drawmob, drawPTJ
 		}
 	}
 	else{
-		drawEnd();
+		//drawEnd();
 	}
 }
 
