@@ -751,6 +751,7 @@ class KBAttack{
 
 var foxHp = [80, 80, 130, 130, 180];
 var foxCt = [200, 200, 200, 200, 200];
+var foxDamage = [22, 22, 30, 30, 40];
 class Fox{
 	constructor(){
 		this.hp = 3;
@@ -758,7 +759,7 @@ class Fox{
 		this.y = 0;
 		this.laneX = 0;
 		this.laneY = 0;
-		this.coolTime = 100;
+		this.coolTime = 10000;
 		this.maxCoolTime = 100;
 		this.anim = 0;
 		this.frame = 0;
@@ -811,7 +812,6 @@ class Fox{
 	}
 }
 
-var foxDamage = [22, 22, 30, 30, 40];
 class FoxAttack{
 	constructor(){
 		this.x = 0;
@@ -832,6 +832,7 @@ class FoxAttack{
 
 var ratelHp = [100, 100, 160, 160, 220];
 var ratelCt = [200, 200, 200, 200, 200];
+var ratelDamage = [30, 30, 40, 40, 50];
 class Ratel{
 	constructor(){
 		this.hp = 3;
@@ -839,7 +840,7 @@ class Ratel{
 		this.y = 0;
 		this.laneX = 0;
 		this.laneY = 0;
-		this.coolTime = 100;
+		this.coolTime = 10000;
 		this.maxCoolTime = 100;
 		this.anim = 0;
 		this.frame = 0;
@@ -891,7 +892,6 @@ class Ratel{
 	}
 }
 
-var ratelDamage = [30, 30, 40, 40, 50];
 class RatelAttack{
 	constructor(){
 		this.x = 0;
@@ -912,7 +912,7 @@ class RatelAttack{
 
 var crocsHp = [300, 300, 300, 300, 600];
 var crocsCt = [300, 300, 300, 300, 300];
-var crocsSpeed = [1, 1, 1, 1, 1];
+var crocsDamage = [45, 45, 45, 45, 70];
 class Crocodile{
 	constructor(){
 		this.hp = 3;
@@ -920,7 +920,7 @@ class Crocodile{
 		this.y = 0;
 		this.laneX = 0;
 		this.laneY = 0;
-		this.coolTime = 100;
+		this.coolTime = 10000;
 		this.maxCoolTime = 100;
 		this.anim = 0;
 		this.frame = 0;
@@ -972,7 +972,6 @@ class Crocodile{
 	}
 }
 
-var crocsDamage = [45, 45, 45, 45, 70];
 class CrocodileAttack{
 	constructor(){
 		this.x = 0;
@@ -993,7 +992,7 @@ class CrocodileAttack{
 
 var bearHp = [1200, 1200, 1200, 1200, 1200];
 var bearCt = [250, 250, 250, 250, 250];
-var bearSpeed = [0.5, 0.5, 0.5, 0.5, 0.5];
+var bearDamage = [150, 150, 150, 150, 150];
 class Bear{
 	constructor(){
 		this.hp = 1500;
@@ -1001,7 +1000,7 @@ class Bear{
 		this.y = 0;
 		this.laneX = 0;
 		this.laneY = 0;
-		this.coolTime = 100;
+		this.coolTime = 10000;
 		this.maxCoolTime = 100;
 		this.anim = 0;
 		this.frame = 0;
@@ -1059,7 +1058,6 @@ class Bear{
 	}
 }
 
-var bearDamage = [150, 150, 150, 150, 150];
 class BearAttack{
 	constructor(){
 		this.x = 0;
@@ -1737,7 +1735,9 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 				if(randomNum < animalPer[round][0][phase]){ //Fox
 					spawnPosY = Math.floor(Math.random() * 4) + 3;
 					var kb = new KillBee();
+					kb.hp = kbHp[round];
 					kb.speed = kbSpeed[round];
+					kb.maxCoolTime = kbCt[round];
 					kb.x = 32*10*4;
 					kb.y = spawnPosY*32*4 - 16;
 					kb.laneY = spawnPosY;
@@ -1747,6 +1747,8 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 						randomNum < animalPer[round][0][phase] + animalPer[round][1][phase]){
 							spawnPosY = Math.floor(Math.random() * 4) + 3;
 							var fox = new Fox();
+							fox.hp = foxHp[round];
+							fox.maxCoolTime = foxCt[round];
 							fox.x = 32*10*4;
 							fox.y = spawnPosY*32*4 - 16;
 							fox.laneY = spawnPosY;
@@ -1756,6 +1758,8 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 						randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase]){
 							spawnPosY = Math.floor(Math.random() * 4) + 3;
 							var ratel = new Ratel();
+							ratel.hp = ratelHp[round];
+							ratel.maxCoolTime = ratelCt[round];
 							ratel.x = 32*10*4;
 							ratel.y = spawnPosY*32*4 - 16;
 							ratel.laneY = spawnPosY;
@@ -1765,6 +1769,8 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 						randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase]){
 							spawnPosY = Math.floor(Math.random() * 4) + 3;
 							var crocodile = new Crocodile();
+							crocodile.hp = crocsHp[round];
+							crocodile.maxCoolTime = crocsCt[round];
 							crocodile.x = 32*10*4;
 							crocodile.y = spawnPosY*32*4 - 16;
 							crocodile.laneY = spawnPosY;
@@ -1774,6 +1780,8 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 						randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase] + animalPer[round][4][phase]){
 							spawnPosY = Math.floor(Math.random() * 2) + 3;
 							var bear = new Bear();
+							bear.hp = bearHp[round];
+							bear.maxCoolTime = bearCt[round];
 							bear.x = 32*10*4;
 							bear.y = spawnPosY*32*4 - 16;
 							bear.laneY = spawnPosY;
@@ -1899,15 +1907,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 			else if(chickenLevel == 1 && gold >= 75){
 				UISelect = 1;
-				UIempt.src = UIbtn1Up[chickenLevel-1];
+				UIempt.src = UI1SLT[chickenLevel-1];
 			}
 			else if(chickenLevel == 2 && gold >= 100){
 				UISelect = 1;
-				UIempt.src = UIbtn1Up[chickenLevel-1];
+				UIempt.src = UI1SLT[chickenLevel-1];
 			}
 			else if(chickenLevel == 3 && gold >= 150){
 				UISelect = 1;
-				UIempt.src = UIbtn1Up[chickenLevel-1];
+				UIempt.src = UI1SLT[chickenLevel-1];
 			}
 		}
 		else if(x>=UI2Pos[0] && x<UI3Pos[0]){
@@ -1930,15 +1938,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 			else if(catLevel == 1 && gold >= 100){
 				UISelect = 2;
-				UIempt.src = UIbtn2Up[catLevel-1];
+				UIempt.src = UI2SLT[catLevel-1];
 			}
 			else if(catLevel == 2 && gold >= 150){
 				UISelect = 2;
-				UIempt.src = UIbtn2Up[catLevel-1];
+				UIempt.src = UI2SLT[catLevel-1];
 			}
 			else if(catLevel == 3 && gold >= 200){
 				UISelect = 2;
-				UIempt.src = UIbtn2Up[catLevel-1];
+				UIempt.src = UI2SLT[catLevel-1];
 			}
 		}
 		else if(x>=UI3Pos[0] && x<UI4Pos[0]){
@@ -1961,15 +1969,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 			else if(sheepLevel == 1 && gold >= 150){
 				UISelect = 3;
-				UIempt.src = UIbtn3Up[sheepLevel-1];
+				UIempt.src = UI3SLT[sheepLevel-1];
 			}
 			else if(sheepLevel == 2 && gold >= 200){
 				UISelect = 3;
-				UIempt.src = UIbtn3Up[sheepLevel-1];
+				UIempt.src = UI3SLT[sheepLevel-1];
 			}
 			else if(sheepLevel == 3 && gold >= 250){
 				UISelect = 3;
-				UIempt.src = UIbtn3Up[sheepLevel-1];
+				UIempt.src = UI3SLT[sheepLevel-1];
 			}
 		}
 		else if(x>=UI4Pos[0] && x<UI5Pos[0]){
@@ -1992,15 +2000,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			}
 			else if(squirrelLevel == 1 && gold >= 400){
 				UISelect = 4;
-				UIempt.src = UIbtn4Up[squirrelLevel-1];
+				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
 			else if(squirrelLevel == 2 && gold >= 500){
 				UISelect = 4;
-				UIempt.src = UIbtn4Up[squirrelLevel-1];
+				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
 			else if(squirrelLevel == 3 && gold >= 600){
 				UISelect = 4;
-				UIempt.src = UIbtn4Up[squirrelLevel-1];
+				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
 		}
 		else if(x>=UI5Pos[0] && x<UI6Pos[0] && wait){
