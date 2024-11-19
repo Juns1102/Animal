@@ -324,7 +324,7 @@ var phaseCnt = 0;
 var phaseRate = 60*20;
 var round = 0;
 var wait = true;
-var gold = 500; //500
+var gold = 5000000; //500
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
@@ -332,11 +332,11 @@ var score = 0;
 var hearts = 3;
 
 //몬스터 확률     페이즈
-var animalPer = [[[100, 90, 80, 70, 65],
+var animalPer = [[[0, 90, 80, 70, 65],
 				  [0, 10, 15, 20, 20],
 				  [0, 0, 5, 10, 15],
 				  [0, 0, 0, 0, 0],
-				  [0, 0, 0, 0, 0]],
+				  [100, 0, 0, 0, 0]],
 				[[65, 60, 55, 45, 40], //killerBee
 				 [25, 25, 25, 30, 30], //fox
 			     [10, 15, 17, 20, 23], //ratel
@@ -1029,10 +1029,10 @@ class Bear{
 				}
 			}
 			else{
-				if(this.frame==0){
+				if(this.frame==0 || this.frame==2){
 					ctx.drawImage(bearIdle1, this.x, this.y);
 				}
-				else if(this.frame==1){
+				else if(this.frame==1 || this.frame==3){
 					ctx.drawImage(bearIdle2, this.x, this.y);
 				}
 			}
@@ -1081,7 +1081,7 @@ class BearAttack{
 	}
 }
 
-function draw(){ //drawUI, drawmob, drawPTJ
+function draw(){ //drawUI, drawmob, drawPJT
 	ctx.drawImage(backGround, 0, 0);
 	if(hearts > 0){
 		drawUI();
@@ -1093,6 +1093,10 @@ function draw(){ //drawUI, drawmob, drawPTJ
 	else{
 		//drawEnd();
 	}
+}
+
+function drawEnd(){
+	
 }
 
 function font(){ 
@@ -1148,7 +1152,12 @@ function drawMob(){
 		if(a.hp <= 0){
 			o.splice(i, 1)
 		}
-		a.coolTime++;
+		if(wait){
+			a.coolTime = 0;
+		}
+		else{
+			a.coolTime++;
+		}
 		a.anim++;
 		if(a.anim >= 30){
 			if(a.frame == 0){
@@ -1346,11 +1355,21 @@ function drawMob(){
 		}
 		else{
 			if(a.afterAttack){
-				a.coolTime++;
+				if(a.stun==0){
+					a.coolTime++;
+				}
 			}
 			if(a.tag == "bear"){
 				if(a.anim >= 30){
 					if(a.speed == 0){
+						if(a.stun>0){
+							if(a.frame == 0 || a.frame == 2){
+								a.frame = 0;
+							}
+							else if(a.frame == 1 || a.frame == 3){
+								a.frame = 1;
+							}
+						}
 						if(a.frame == 0){
 							a.frame = 1;
 						}
@@ -1739,6 +1758,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					phase = 0;
 					endPhase = false;
 					spawnTimer = 0;
+					eggs.splice(0, eggs.length);
 				}
 			}
 		}
