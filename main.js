@@ -1169,7 +1169,7 @@ function drawMob(){
 			a.coolTime = 0;
 			var egg = new Egg();
 			egg.level = a.level;
-			egg.damage = eggDamage[a.level];
+			egg.damage = eggDamage[a.level-1];
 			egg.x = a.x + 32*4;
 			egg.y = a.y + 32*2-8;
 			egg.laneY = a.laneY;
