@@ -1657,7 +1657,6 @@ function collision2(enemy){ //공격이 아군과 맞았는지 검사(enemy전�
 		else{
 			if(enemy.laneY == a.laneY){
 				if(enemy.x <= a.x + a.width){
-					console.debug(a.hp, enemy.damage);
 					a.hp -= enemy.damage;
 					stop = true;
 				}
@@ -1725,6 +1724,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					UIbtn7.src = "./UI/UIbtn7Up.png";
 					phase = 0;
 					endPhase = false;
+					spawnTimer = 0;
 				}
 			}
 		}
