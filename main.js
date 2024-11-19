@@ -29,18 +29,22 @@ var bgmSelect = false;
 var UIbtn1Up = ["./UI/UIbtn1_1Up.png", "./UI/UIbtn1_2Up.png", "./UI/UIbtn1_3Up.png"]
 var UIbtn1Down = ["./UI/UIbtn1_1Down.png", "./UI/UIbtn1_2Down.png", "./UI/UIbtn1_3Down.png"]
 var UI1SLT = ["./UI/UI1SLT1.png", "./UI/UI1SLT2.png", "./UI/UI1SLT3.png"]
+var UI1G = ["./UI/75G.png", "./UI/100G.png", "./UI/150G.png", "./UI/1000G.png", "./UI/2000G.png"]
 
 var UIbtn2Up = ["./UI/UIbtn2_1Up.png", "./UI/UIbtn2_2Up.png", "./UI/UIbtn2_3Up.png"]
 var UIbtn2Down = ["./UI/UIbtn2_1Down.png", "./UI/UIbtn2_2Down.png", "./UI/UIbtn2_3Down.png"]
 var UI2SLT = ["./UI/UI2SLT1.png", "./UI/UI2SLT2.png", "./UI/UI2SLT3.png"]
+var UI2G = ["./UI/100G.png", "./UI/150G.png", "./UI/200G.png", "./UI/1000G.png", "./UI/2000G.png"]
 
 var UIbtn3Up = ["./UI/UIbtn3_1Up.png", "./UI/UIbtn3_2Up.png", "./UI/UIbtn3_3Up.png"]
 var UIbtn3Down = ["./UI/UIbtn3_1Down.png", "./UI/UIbtn3_2Down.png", "./UI/UIbtn3_3Down.png"]
 var UI3SLT = ["./UI/UI3SLT1.png", "./UI/UI3SLT2.png", "./UI/UI3SLT3.png"]
+var UI3G = ["./UI/150G.png", "./UI/200G.png", "./UI/250G.png", "./UI/1000G.png", "./UI/2000G.png"]
 
 var UIbtn4Up = ["./UI/UIbtn4_1Up.png", "./UI/UIbtn4_2Up.png", "./UI/UIbtn4_3Up.png"]
 var UIbtn4Down = ["./UI/UIbtn4_1Down.png", "./UI/UIbtn4_2Down.png", "./UI/UIbtn4_3Down.png"]
 var UI4SLT = ["./UI/UI4SLT1.png", "./UI/UI4SLT2.png", "./UI/UI4SLT3.png"]
+var UI4G = ["./UI/400G.png", "./UI/500G.png", "./UI/600G.png", "./UI/1000G.png", "./UI/2000G.png"]
 
 //UI
 var UIbtn1 = new Image();
@@ -320,7 +324,7 @@ var phaseCnt = 0;
 var phaseRate = 60*20; //60*30
 var round = 0;
 var wait = true;
-var gold = 500;
+var gold = 500; //500
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
@@ -2065,6 +2069,38 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 	UIemptPos[1] = y - ctx.canvas.offsetTop - 64;
 	if(UISelect==0){
 		UIempt.src = "./UI/empty.png";
+		if(UIemptPos[1] + 64>=UI1Pos[1]){
+			if(UIemptPos[0] + 64>=UI1Pos[0] && UIemptPos[0] + 64<UI2Pos[0]){
+				UIbtn1.src = UI1G[chickenLevel-1];
+			}
+			else{
+				UIbtn1.src = UIbtn1Up[chickenLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI2Pos[0] && UIemptPos[0] + 64<UI3Pos[0]){
+				UIbtn2.src = UI2G[catLevel-1];
+			}
+			else{
+				UIbtn2.src = UIbtn2Up[catLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI3Pos[0] && UIemptPos[0] + 64<UI4Pos[0]){
+				UIbtn3.src = UI3G[sheepLevel-1];
+			}
+			else{
+				UIbtn3.src = UIbtn3Up[sheepLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI4Pos[0] && UIemptPos[0] + 64<UI5Pos[0]){
+				UIbtn4.src = UI4G[squirrelLevel-1];
+			}
+			else{
+				UIbtn4.src = UIbtn4Up[squirrelLevel-1];
+			}
+		}
+		else{
+			UIbtn1.src = UIbtn1Up[chickenLevel-1];
+			UIbtn2.src = UIbtn2Up[catLevel-1];
+			UIbtn3.src = UIbtn3Up[sheepLevel-1];
+			UIbtn4.src = UIbtn4Up[squirrelLevel-1];
+		}
 	}
 	else if(UISelect==1){
 		UIempt.src = UI1SLT[chickenLevel-1];
@@ -2080,6 +2116,46 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 	}
 	else if(UISelect==5){
 		UIempt.src = "./UI/upgrade.png";
+		if(UIemptPos[1] + 64>=UI1Pos[1]){
+			if(UIemptPos[0] + 64>=UI1Pos[0] && UIemptPos[0] + 64<UI2Pos[0]){
+				if(chickenLevel <= 2){
+					UIbtn1.src = UI1G[chickenLevel+2];
+				}
+			}
+			else{
+				UIbtn1.src = UIbtn1Up[chickenLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI2Pos[0] && UIemptPos[0] + 64<UI3Pos[0]){
+				if(catLevel <= 2){
+					UIbtn2.src = UI2G[catLevel+2];
+				}
+			}
+			else{
+				UIbtn2.src = UIbtn2Up[catLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI3Pos[0] && UIemptPos[0] + 64<UI4Pos[0]){
+				if(sheepLevel <= 2){
+					UIbtn3.src = UI3G[sheepLevel+2];
+				}
+			}
+			else{
+				UIbtn3.src = UIbtn3Up[sheepLevel-1];
+			}
+			if(UIemptPos[0] + 64>=UI4Pos[0] && UIemptPos[0] + 64<UI5Pos[0]){
+				if(squirrelLevel <= 2){
+					UIbtn4.src = UI4G[squirrelLevel+2];
+				}
+			}
+			else{
+				UIbtn4.src = UIbtn4Up[squirrelLevel-1];
+			}
+		}
+		else{
+			UIbtn1.src = UIbtn1Up[chickenLevel-1];
+			UIbtn2.src = UIbtn2Up[catLevel-1];
+			UIbtn3.src = UIbtn3Up[sheepLevel-1];
+			UIbtn4.src = UIbtn4Up[squirrelLevel-1];
+		}
 	}
 	else if(UISelect==6){
 		UIempt.src = "./UI/sell.png";
