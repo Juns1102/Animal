@@ -324,7 +324,7 @@ var phaseCnt = 0;
 var phaseRate = 60*20; //60*30
 var round = 0;
 var wait = true;
-var gold = 500; //500
+var gold = 10000; //500
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
@@ -414,6 +414,7 @@ class Egg{
 		this.height = 6*4;
 		this.coolTime = 0;
 		this.damage = 0;
+		this.attack = true;
 		this.tag = "egg";
 		this.level = 0;
 	}
@@ -1167,11 +1168,11 @@ function drawMob(){
 			}
 			a.coolTime = 0;
 			var egg = new Egg();
-			egg.damage = eggDamage[this.level];
+			egg.level = a.level;
+			egg.damage = eggDamage[a.level];
 			egg.x = a.x + 32*4;
 			egg.y = a.y + 32*2-8;
 			egg.laneY = a.laneY;
-			egg.level = a.level;
 			eggs.push(egg);
 		}
 		a.draw();
