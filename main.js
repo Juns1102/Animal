@@ -321,7 +321,7 @@ var spawnNum = 0;
 var spawnPosY = 0;
 var phase = 0;
 var phaseCnt = 0;
-var phaseRate = 60*20; //60*30
+var phaseRate = 60*20;
 var round = 0;
 var wait = true;
 var gold = 500; //500
@@ -1596,7 +1596,15 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 		}
 		else{
 			if(difX < 0 && (a.laneY == team.laneY)){
-				a.hp -= team.damage;
+				if(team.tag == "egg"){
+					if(team.attack == true){
+						a.hp -= team.damage;
+						team.attack = false;
+					}
+				}
+				else{
+					a.hp -= team.damage;
+				}
 				if(team.tag == "squirrelAttack"){
 					a.stun = 30;
 				}
@@ -1726,6 +1734,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					wait = true;
 					bgm.src = "./Sound/wait.mp3";
 					phaseCnt = 0;
+					UIbtn5.src = "./UI/UIbtn5Up.png";
 					UIbtn7.src = "./UI/UIbtn7Up.png";
 					phase = 0;
 					endPhase = false;
@@ -1849,7 +1858,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 
 function goldUp(){ //기본 골드 증가..
 	goldCnt++
-	if(goldCnt >= 60){
+	if(goldCnt >= 60 && round < 4){
 		goldCnt = 0;
 		gold += 10;
 	}
