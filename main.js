@@ -715,6 +715,7 @@ class KillBee{
 		this.hp = 30;
 		this.x = 0;
 		this.y = 0;
+		this.width = 32*4;
 		this.laneX = 0;
 		this.laneY = 0;
 		this.coolTime = 100;
@@ -794,6 +795,7 @@ class Fox{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.width = 64*4;
 		this.laneX = 0;
 		this.laneY = 0;
 		this.coolTime = 10000;
@@ -880,6 +882,7 @@ class Ratel{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.width = 64*4;
 		this.laneX = 0;
 		this.laneY = 0;
 		this.coolTime = 10000;
@@ -965,6 +968,7 @@ class Crocodile{
 		this.hp = 3;
 		this.x = 0;
 		this.y = 0;
+		this.width = 112*4;
 		this.laneX = 0;
 		this.laneY = 0;
 		this.coolTime = 10000;
@@ -1050,6 +1054,7 @@ class Bear{
 		this.hp = 1500;
 		this.x = 0;
 		this.y = 0;
+		this.width = 48*32;
 		this.laneX = 0;
 		this.laneY = 0;
 		this.coolTime = 10000;
@@ -1497,14 +1502,14 @@ function mobStop(enemy){ //앞에 오브젝트가 있는지 검사 -> 있으면 
 	chickens.forEach((a, i, o)=>{
 		if(enemy.tag=="bear"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
-				if(enemy.x <= a.x + a.width - 32){
+				if(enemy.x <= a.x + a.width - 32 && enemy.x + enemy.width - 16*4 >= a.x){
 					stop = true;
 				}
 			}
 		}
 		else{
 			if(enemy.laneY == a.laneY){
-				if(enemy.x <= a.x + a.width){
+				if(enemy.x <= a.x + a.width && enemy.x + enemy.width/3 >= a.x){
 					stop = true;
 				}
 			}
@@ -1513,14 +1518,14 @@ function mobStop(enemy){ //앞에 오브젝트가 있는지 검사 -> 있으면 
 	cats.forEach((a, i, o)=>{
 		if(enemy.tag=="bear"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
-				if(enemy.x <= a.x + a.width - 32){
+				if(enemy.x <= a.x + a.width - 32 && enemy.x + enemy.width - 16*4 >= a.x){
 					stop = true;
 				}
 			}
 		}
 		else{
 			if(enemy.laneY == a.laneY){
-				if(enemy.x <= a.x + a.width){
+				if(enemy.x <= a.x + a.width && enemy.x + enemy.width/3 >= a.x){
 					stop = true;
 				}
 			}
@@ -1529,14 +1534,14 @@ function mobStop(enemy){ //앞에 오브젝트가 있는지 검사 -> 있으면 
 	sheeps.forEach((a, i, o)=>{
 		if(enemy.tag=="bear"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
-				if(enemy.x <= a.x + a.width - 32){
+				if(enemy.x <= a.x + a.width - 32 && enemy.x + enemy.width - 16*4 >= a.x){
 					stop = true;
 				}
 			}
 		}
 		else{
 			if(enemy.laneY == a.laneY){
-				if(enemy.x <= a.x + a.width){
+				if(enemy.x <= a.x + a.width && enemy.x + enemy.width/3 >= a.x){
 					stop = true;
 				}
 			}
@@ -1545,14 +1550,14 @@ function mobStop(enemy){ //앞에 오브젝트가 있는지 검사 -> 있으면 
 	squirrels.forEach((a, i, o)=>{
 		if(enemy.tag=="bear"){
 			if(enemy.laneY == a.laneY || enemy.laneY+1 == a.laneY){
-				if(enemy.x <= a.x + a.width - 32){
+				if(enemy.x <= a.x + a.width - 32 && enemy.x + enemy.width - 16*4 >= a.x){
 					stop = true;
 				}
 			}
 		}
 		else{
 			if(enemy.laneY == a.laneY){
-				if(enemy.x <= a.x + a.width){
+				if(enemy.x <= a.x + a.width && enemy.x + enemy.width/3 >= a.x){
 					stop = true;
 				}
 			}
@@ -2454,6 +2459,11 @@ function searchMob(x, y){ //같은 좌표에 중복설치 못하게 막기...
 	})
 	squirrels.forEach((a, i, o)=>{
 		if(a.laneX == x && a.laneY == y){
+			placeIn = true;
+		}
+	})
+	enemies.forEach((a, i, o)=>{
+		if(a.x <= x*32*4 + 24*4 && a.x + a.width >= x*32*4 && a.laneY == y){
 			placeIn = true;
 		}
 	})
