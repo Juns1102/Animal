@@ -5,6 +5,8 @@ var backGround = new Image();
 backGround.src = "./UI/background.png";
 var backGroundUI = new Image();
 backGroundUI.src = "./UI/backgroundUI.png";
+var UIEnd = new Image();
+UIEnd.src = "./UI/UIEnd.png";
 
 //UIPos
 var UI1Pos = [0, 7*32*4];
@@ -63,6 +65,11 @@ var UIbtn7 = new Image();
 UIbtn7.src = "./UI/UIbtn7Up.png";
 var UIempt = new Image();
 UIempt.src = "./UI/empty.png";
+
+var UIYes = new Image();
+UIYes.src = "./UI/Yes1.png";
+var UINo = new Image();
+UINo.src = "./UI/No1.png";
 
 var bgm = new Audio();
 bgm.src = './Sound/wait.mp3';
@@ -243,8 +250,10 @@ var foxAttack2 = new Image();
 foxAttack1.src = "./Entity/Anim/fox_attack_1.png";
 foxAttack2.src = "./Entity/Anim/fox_attack_2.png";
 
-var foxAttackEffect = new Image();
-foxAttackEffect.src = "./UI/empty.png";
+var foxAttackEffect1 = new Image();
+var foxAttackEffect2 = new Image();
+foxAttackEffect1.src = "./Entity/Anim/bite1.png";
+foxAttackEffect2.src = "./Entity/Anim/bite2.png"
 var foxAttackEffects = [];
 
 //벌꿀오소리 애니메이션
@@ -263,8 +272,10 @@ var ratelAttack2 = new Image();
 ratelAttack1.src = "./Entity/Anim/ratel_attack_1.png";
 ratelAttack2.src = "./Entity/Anim/ratel_attack_2.png";
 
-var ratelAttackEffect = new Image();
-ratelAttackEffect.src = "./UI/empty.png";
+var ratelAttackEffect1 = new Image();
+var ratelAttackEffect2 = new Image();
+ratelAttackEffect1.src = "./Entity/Anim/bite1.png";
+ratelAttackEffect2.src = "./Entity/Anim/bite2.png";
 var ratelAttackEffects = [];
 
 //악어 애니메이션
@@ -283,8 +294,10 @@ var crocodileAttack2 = new Image();
 crocodileAttack1.src = "./Entity/Anim/crocodile_attack_1.png";
 crocodileAttack2.src = "./Entity/Anim/crocodile_attack_2.png";
 
-var crocodileAttackEffect = new Image();
-crocodileAttackEffect.src = "./UI/empty.png";
+var crocodileAttackEffect1 = new Image();
+var crocodileAttackEffect2 = new Image();
+crocodileAttackEffect1.src = "./Entity/Anim/croco_Bite1.png";
+crocodileAttackEffect2.src = "./Entity/Anim/croco_Bite2.png";
 var crocodileAttackEffects = [];
 
 //곰 애니메이션
@@ -324,24 +337,60 @@ var phaseCnt = 0;
 var phaseRate = 60*20;
 var round = 0;
 var wait = true;
-var gold = 5000000; //500
+var gold = 50000000; 
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
 var score = 0;
 var hearts = 3;
 
+//능력치
+var chickenHp = [30, 60, 90];
+var chickenMaxCoolTime = [200, 200, 200];
+var eggDamage = [10, 20, 30];
+
+var catHp = [60, 120, 220];
+var catMaxCoolTime = [100, 100, 100];
+var catDamage = [25, 35, 50];
+
+var sheepHp = [1500000, 250, 400];
+
+var squirrelHp = [15, 30, 45];
+var squirrelMaxCoolTime = [300, 300, 300];
+var squirrelDamage = [15, 20, 25];
+
+var kbHp = [30, 30, 30, 30, 30];
+var kbCt = [100, 100, 100, 100, 50];
+var kbSpeed = [4, 4, 5, 5, 7];
+var kbDamage = [15, 15, 30, 30, 45];
+
+var foxHp = [80, 80, 130, 130, 180];
+var foxCt = [200, 200, 200, 200, 200];
+var foxDamage = [22, 22, 30, 30, 40];
+
+var ratelHp = [100, 100, 160, 160, 220];
+var ratelCt = [200, 200, 200, 200, 200];
+var ratelDamage = [30, 30, 40, 40, 50];
+
+var crocsHp = [300, 300, 300, 300, 600];
+var crocsCt = [300, 300, 300, 300, 300];
+var crocsDamage = [45, 45, 45, 45, 70];
+
+var bearHp = [1200, 1200, 1200, 1200, 1200];
+var bearCt = [250, 250, 250, 250, 250];
+var bearDamage = [150, 150, 150, 150, 150];
+
 //몬스터 확률     페이즈
-var animalPer = [[[0, 90, 80, 70, 65],
-				  [0, 10, 15, 20, 20],
-				  [0, 0, 5, 10, 15],
-				  [0, 0, 0, 0, 0],
-				  [100, 0, 0, 0, 0]],
-				[[65, 60, 55, 45, 40], //killerBee
-				 [25, 25, 25, 30, 30], //fox
-			     [10, 15, 17, 20, 23], //ratel
-			     [0, 0, 3, 5, 7], //crocodile
-			     [0, 0, 0, 0, 0]], //bear
+var animalPer = [[[100, 90, 80, 70, 65],//killerBee
+				  [0, 10, 15, 20, 20],  //fox
+				  [0, 0, 5, 10, 15],    //ratel
+				  [0, 0, 0, 0, 0],      //crocodile
+				  [0, 0, 0, 0, 0]],     //bear
+				[[65, 60, 55, 45, 40], 
+				 [25, 25, 25, 30, 30], 
+			     [10, 15, 17, 20, 23],
+			     [0, 0, 3, 5, 7], 
+			     [0, 0, 0, 0, 0]], 
 				[[45, 40, 38, 35, 20], 
 				[30, 30, 30, 30, 30], 
 				[20, 22, 22, 23, 28], 
@@ -358,8 +407,6 @@ var animalPer = [[[0, 90, 80, 70, 65],
 				[0, 0, 3, 5, 25],
 				[0, 0, 0, 0, 10]]];
 
-var chickenHp = [30, 60, 90];
-var chickenMaxCoolTime = [200, 200, 200];
 class Chicken{
 	constructor(){
 		this.hp = 0;
@@ -403,7 +450,6 @@ class Chicken{
 	}
 }
 
-var eggDamage = [10, 20, 30];
 class Egg{
 	constructor(){
 		this.x = 0;
@@ -423,8 +469,6 @@ class Egg{
 	}
 }
 
-var catHp = [60, 120, 220];
-var catMaxCoolTime = [100, 100, 100];
 class Cat{
 	constructor(){
 		this.hp = 0;
@@ -497,7 +541,6 @@ class Cat{
 	}
 }
 
-var catDamage = [25, 35, 50];
 class CatAttack{
 	constructor(){
 		this.x = 0;
@@ -517,7 +560,6 @@ class CatAttack{
 	}
 }
 
-var sheepHp = [150, 250, 400];
 class Sheep{
 	constructor(){
 		this.hp = 0;
@@ -561,8 +603,6 @@ class Sheep{
 	}
 }
 
-var squirrelHp = [15, 30, 45];
-var squirrelMaxCoolTime = [300, 300, 300];
 class Squirrel{
 	constructor(){
 		this.hp = 1;
@@ -635,7 +675,6 @@ class Squirrel{
 	}
 }
 
-var squirrelDamage = [15, 20, 25];
 class SquirrelAttack{
 	constructor(){
 		this.x = 0;
@@ -671,10 +710,6 @@ class SquirrelAttack{
 	}
 }
 
-var kbHp = [30, 30, 30, 30, 30];
-var kbCt = [100, 100, 100, 100, 50];
-var kbSpeed = [4, 4, 5, 5, 7];
-kbDamage = [15, 15, 30, 30, 45];
 class KillBee{
 	constructor(){
 		this.hp = 30;
@@ -695,6 +730,7 @@ class KillBee{
 		this.tag = "killBee";
 		this.stun = 0;
 		this.score = 100;
+		this.attackNum = 0;
 	}
 	draw(){
 		if(this.speed == 0){
@@ -735,7 +771,6 @@ class KillBee{
 	}
 }
 
-
 class KBAttack{
 	constructor(){
 		this.x = 0;
@@ -754,9 +789,6 @@ class KBAttack{
 	}
 }
 
-var foxHp = [80, 80, 130, 130, 180];
-var foxCt = [200, 200, 200, 200, 200];
-var foxDamage = [22, 22, 30, 30, 40];
 class Fox{
 	constructor(){
 		this.hp = 3;
@@ -777,6 +809,7 @@ class Fox{
 		this.tag = "fox";
 		this.stun = 0;
 		this.score = 100;
+		this.attackNum = 0;
 	}
 	draw(){
 		if(this.speed == 0){
@@ -829,15 +862,19 @@ class FoxAttack{
 		this.attack = true;
 		this.damage = 0;
 		this.tag = "foxAttack";
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(foxAttackEffect, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(foxAttackEffect1, this.x - 16*4, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(foxAttackEffect2, this.x - 16*4, this.y);
+		}
 	}
 }
 
-var ratelHp = [100, 100, 160, 160, 220];
-var ratelCt = [200, 200, 200, 200, 200];
-var ratelDamage = [30, 30, 40, 40, 50];
 class Ratel{
 	constructor(){
 		this.hp = 3;
@@ -857,6 +894,7 @@ class Ratel{
 		this.tag = "ratel";
 		this.stun = 0;
 		this.score = 200;
+		this.attackNum = 0;
 	}
 	draw(){
 		if(this.speed == 0){
@@ -909,15 +947,19 @@ class RatelAttack{
 		this.attack = true;
 		this.damage = 0;
 		this.tag = "ratelAttack";
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(ratelAttackEffect, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(ratelAttackEffect1, this.x - 16*4, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(ratelAttackEffect2, this.x - 16*4, this.y);
+		}
 	}
 }
 
-var crocsHp = [300, 300, 300, 300, 600];
-var crocsCt = [300, 300, 300, 300, 300];
-var crocsDamage = [45, 45, 45, 45, 70];
 class Crocodile{
 	constructor(){
 		this.hp = 3;
@@ -937,6 +979,7 @@ class Crocodile{
 		this.tag = "crocodile";
 		this.stun = 0;
 		this.score = 300;
+		this.attackNum = 0;
 	}
 	draw(){
 		if(this.speed == 0){
@@ -989,15 +1032,19 @@ class CrocodileAttack{
 		this.attack = true;
 		this.damage = 0;
 		this.tag = "crocodileAttack";
+		this.anim = 0;
+		this.frame = 0;
 	}
 	draw(){
-		ctx.drawImage(crocodileAttackEffect, this.x, this.y);
+		if(this.frame==0){
+			ctx.drawImage(crocodileAttackEffect1, this.x - 16*4, this.y);
+		}
+		else if(this.frame==1){
+			ctx.drawImage(crocodileAttackEffect2, this.x - 16*4, this.y);
+		}
 	}
 }
 
-var bearHp = [1200, 1200, 1200, 1200, 1200];
-var bearCt = [250, 250, 250, 250, 250];
-var bearDamage = [150, 150, 150, 150, 150];
 class Bear{
 	constructor(){
 		this.hp = 1500;
@@ -1017,6 +1064,7 @@ class Bear{
 		this.tag = "bear";
 		this.stun = 0;
 		this.score = 400;
+		this.attackNum = 0;
 	}
 	draw(){
 		if(this.speed == 0){
@@ -1091,12 +1139,42 @@ function draw(){ //drawUI, drawmob, drawPJT
 		}
 	}
 	else{
-		//drawEnd();
+		drawEnd();
 	}
 }
 
 function drawEnd(){
-	
+	ctx.drawImage(UIEnd, 0, 0);
+	ctx.drawImage(UIYes, 125*4, 148*4);
+	ctx.drawImage(UINo, 125*4 + 32*4 + 7*4, 148*4);
+}
+
+function reset(){
+	chickens.splice(0, chickens.length);
+	eggs.splice(0, eggs.length);
+	cats.splice(0, cats.length);
+	catAttackEffects.splice(0, catAttackEffects.length);
+	sheeps.splice(0, sheeps.length);
+	squirrels.splice(0, squirrels.length);
+	squirrelAttackEffects.splice(0, squirrelAttackEffects.length);
+	enemies.splice(0, enemies.length);
+	kbAttackEffects.splice(0, kbAttackEffects.length);
+	foxAttackEffects.splice(0, foxAttackEffects.length);
+	ratelAttackEffects.splice(0, ratelAttackEffects.length);
+	crocodileAttackEffects.splice(0, crocodileAttackEffects.length);
+	bearAttackEffects.splice(0, bearAttackEffects.length);
+	gold = 500;
+	hearts = 3;
+	round = 0;
+	phase = 0
+	phaseCnt = 0;
+	spawnTimer = 0;
+	goldCnt = 0;
+	chickenLevel = 1;
+	catLevel = 1;
+	sheepLevel = 1;
+	squirrelLevel = 1;
+	wait = true;
 }
 
 function font(){ 
@@ -1278,11 +1356,11 @@ function drawMob(){
 				a.frame = 1;
 				a.anim = 0;
 				var squirrelAttack = new SquirrelAttack();
+				squirrelAttack.level = a.level;
 				squirrelAttack.damage = squirrelDamage[a.level-1];
 				squirrelAttack.x = a.x + 32*4;
 				squirrelAttack.y = a.y;
 				squirrelAttack.laneY = a.laneY;
-				squirrelAttack.level = a.level;
 				squirrelAttack.draw();
 				squirrelAttackEffects.push(squirrelAttack);
 			}
@@ -1313,6 +1391,9 @@ function drawMob(){
 		if(a.x < -32*2*4){
 			o.splice(i, 1)
 			hearts--;
+		}
+		if(a.hp <=0){
+			o.splice(i, 1)
 		}
 		a.anim++;
 		if(a.stun > 0){
@@ -1504,7 +1585,7 @@ function drawPJT(){ //발사체
 		a.draw();
 	})
 	squirrelAttackEffects.forEach((a, i, o)=>{
-		if(a.attack==true && a.anim == 3){
+		if(a.attack==true && a.frame == 0){
 			if(collision(a, enemies) == true){
 				a.attack = false;
 			}
@@ -1534,38 +1615,65 @@ function drawPJT(){ //발사체
 		a.draw();
 	})
 	foxAttackEffects.forEach((a, i, o)=>{
-		if(a.attack==true){
-			if(collision2(a) == true){
+		if(a.attack==true && a.frame == 1){
+			if(collision2(a, enemies) == true){
 				a.attack = false;
 			}
 		}
-		a.holdTime++;
-		if(a.holdTime >= 30){
-			o.splice(i, 1)
+		a.anim++;
+		if(a.frame==1){
+			a.holdTime++;
+		}
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.holdTime >= 30){
+				o.splice(i, 1)
+			}
+			a.anim = 0;
 		}
 		a.draw();
 	})
 	ratelAttackEffects.forEach((a, i, o)=>{
-		if(a.attack==true){
-			if(collision2(a) == true){
+		if(a.attack==true && a.frame == 1){
+			if(collision2(a, enemies) == true){
 				a.attack = false;
 			}
 		}
-		a.holdTime++;
-		if(a.holdTime >= 30){
-			o.splice(i, 1)
+		a.anim++;
+		if(a.frame==1){
+			a.holdTime++;
+		}
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.holdTime >= 30){
+				o.splice(i, 1)
+			}
+			a.anim = 0;
 		}
 		a.draw();
 	})
 	crocodileAttackEffects.forEach((a, i, o)=>{
-		if(a.attack==true){
-			if(collision2(a) == true){
+		if(a.attack==true && a.frame == 1){
+			if(collision2(a, enemies) == true){
 				a.attack = false;
 			}
 		}
-		a.holdTime++;
-		if(a.holdTime >= 30){
-			o.splice(i, 1)
+		a.anim++;
+		if(a.frame==1){
+			a.holdTime++;
+		}
+		if(a.anim >= 30){
+			if(a.frame == 0){
+				a.frame = 1;
+			}
+			else if(a.holdTime >= 30){
+				o.splice(i, 1)
+			}
+			a.anim = 0;
 		}
 		a.draw();
 	})
@@ -1597,7 +1705,7 @@ function drawPJT(){ //발사체
 
 function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 전용)
 	var collide = false;
-	enemy.forEach((a, i, o)=>{
+	enemy.slice().reverse().forEach((a, i, o)=>{
 		var difX = a.x - (team.x + team.width);
 		if(a.tag=="bear"){
 			if(difX < -32 && ((a.laneY == team.laneY) || (a.laneY + 1) == team.laneY)){
@@ -1608,7 +1716,6 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 				if(a.hp <= 0){
 					gold += a.gold;
 					score += a.score;
-					o.splice(i, 1)
 				}
 				collide = true;
 			}
@@ -1630,7 +1737,6 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 				if(a.hp <= 0){
 					gold += a.gold;
 					score += a.score;
-					o.splice(i, 1)
 				}
 				collide = true;
 			}
@@ -1759,6 +1865,13 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					endPhase = false;
 					spawnTimer = 0;
 					eggs.splice(0, eggs.length);
+					catAttackEffects.splice(0, eggs.length);
+					squirrelAttackEffects.splice(0, squirrelAttackEffects.length);
+					kbAttackEffects.splice(0, kbAttackEffects.length);
+					foxAttackEffects.splice(0, foxAttackEffects.length);
+					ratelAttackEffects.splice(0, ratelAttackEffects.length);
+					crocodileAttackEffects.splice(0, crocodileAttackEffects.length);
+					bearAttackEffects.splice(0, bearAttackEffects.length);
 				}
 			}
 		}
@@ -1907,6 +2020,21 @@ function clickPointer(event){ //마우스로 클릭한 지점 읽어오기
 			else{
 				bgmSelect=true;
 			}
+		}
+	}
+	if(hearts <= 0){
+		if(dx >= 129*4 && dx < 129*4 + 24*4 &&
+			dy >= 158*4 && dy < 158*4 + 11*4){
+			reset();
+		}
+		else{
+		}
+		if(dx >= 125*4 + 32*4 + 15*4 && dx < 125*4 + 32*4 + 15*4 + 18*4 &&
+			dy >= 158*4 && dy < 158*4 + 11*4){
+			UINo.src = "./UI/No2.png";
+		}
+		else{
+			UINo.src = "./UI/No1.png";
 		}
 	}
 	if(dy>=UI1Pos[1]){
@@ -2189,6 +2317,22 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 	}
 	else if(UISelect==6){
 		UIempt.src = "./UI/sell.png";
+	}
+	if(hearts <= 0){
+		if(UIemptPos[0] + 64 >= 129*4 && UIemptPos[0] + 64 < 129*4 + 24*4 &&
+			UIemptPos[1] + 64 >= 158*4 && UIemptPos[1] + 64 < 158*4 + 11*4){
+			UIYes.src = "./UI/Yes2.png";
+		}
+		else{
+			UIYes.src = "./UI/Yes1.png";
+		}
+		if(UIemptPos[0] + 64 >= 125*4 + 32*4 + 15*4 && UIemptPos[0] + 64 < 125*4 + 32*4 + 15*4 + 18*4 &&
+			UIemptPos[1] + 64 >= 158*4 && UIemptPos[1] + 64 < 158*4 + 11*4){
+			UINo.src = "./UI/No2.png";
+		}
+		else{
+			UINo.src = "./UI/No1.png";
+		}
 	}
 }
 
