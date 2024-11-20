@@ -1,6 +1,8 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+var titleBackGround = new Image();
+titleBackGround.src = "./UI/title.png";
 var backGround = new Image();
 backGround.src = "./UI/background.png";
 var backGroundUI = new Image();
@@ -76,6 +78,27 @@ bgm.src = './Sound/wait.mp3';
 bgm.autoplay = true;
 bgm.volume = 0.2;
 bgm.loop = true;
+
+//etc...
+var UISelect = 0;
+var spawnTimer = 0;
+var spawnRate = [5*60, 4*60, 4*60, 3*60, 3*60];
+var spawnNum = 0;
+var spawnPosY = 0;
+var phase = 0;
+var phaseCnt = 0;
+var phaseRate = 60*20;
+var round = 0;
+var wait = true;
+var gold = 500; 
+var goldCnt = 0;
+var sellMod = false;
+var endPhase = false;
+var score = 0;
+var hearts = 3;
+var title = true;
+var gameStart = false;
+var tbY = 0;
 
 //닭 공격 효과음
 var popSounds = []; 
@@ -326,23 +349,6 @@ var bearAttackEffect = new Image();
 bearAttackEffect.src = "./Entity/Anim/bear_attack_effect.png";
 var bearAttackEffects = [];
 
-//etc...
-var UISelect = 0;
-var spawnTimer = 0;
-var spawnRate = [5*60, 4*60, 4*60, 3*60, 3*60];
-var spawnNum = 0;
-var spawnPosY = 0;
-var phase = 0;
-var phaseCnt = 0;
-var phaseRate = 60*20;
-var round = 0;
-var wait = true;
-var gold = 50000000; 
-var goldCnt = 0;
-var sellMod = false;
-var endPhase = false;
-var score = 0;
-var hearts = 3;
 
 //능력치
 var chickenHp = [30, 60, 90];
@@ -353,7 +359,7 @@ var catHp = [60, 120, 220];
 var catMaxCoolTime = [100, 100, 100];
 var catDamage = [25, 35, 50];
 
-var sheepHp = [1500000, 250, 400];
+var sheepHp = [150, 250, 400];
 
 var squirrelHp = [15, 30, 45];
 var squirrelMaxCoolTime = [300, 300, 300];
@@ -379,6 +385,11 @@ var crocsDamage = [45, 45, 45, 45, 70];
 var bearHp = [1200, 1200, 1200, 1200, 1200];
 var bearCt = [250, 250, 250, 250, 250];
 var bearDamage = [150, 150, 150, 150, 150];
+
+var chickenGold = [75, 100, 150];
+var catGold = [100, 150, 200];
+var sheepGold = [150, 200, 250];
+var squirrelGold = [400, 500, 600];
 
 //몬스터 확률     페이즈
 var animalPer = [[[100, 90, 80, 70, 65],//killerBee
@@ -1135,23 +1146,57 @@ class BearAttack{
 }
 
 function draw(){ //drawUI, drawmob, drawPJT
-	ctx.drawImage(backGround, 0, 0);
-	if(hearts > 0){
-		drawUI();
-		drawMob();
-		if(wait == false){
-			drawPJT();
-		}
+	if(title == true){
+		drawTitle();
 	}
 	else{
-		drawEnd();
+		if(hearts > 0){
+			drawUI();
+			drawMob();
+			if(wait == false){
+				drawPJT();
+			}
+		}
+		else{
+			drawEnd();
+		}
+	}
+}
+
+function drawTitle(){
+	ctx.drawImage(titleBackGround, 0, tbY);
+	if(gameStart==true){
+		if(tbY != -64*4){
+			tbY-=2;
+		}
+		else{
+			title = false;
+		}
+	}
+	if(bgmSelect == false){
+		bgmImage.src = "./UI/bgmOff.png";
+		bgm.pause();
+	}
+	else{
+		bgmImage.src = "./UI/bgmOn.png";
+		bgm.play();
+	}
+	ctx.drawImage(bgmImage, 32*9*4 + 50, 16 + 16*4);
+	if(gameStart==false){
+		ctx.drawImage(UIbtn7, 32*4*4, 32*4*4);
 	}
 }
 
 function drawEnd(){
+	ctx.drawImage(backGround, 0, 0);
 	ctx.drawImage(UIEnd, 0, 0);
 	ctx.drawImage(UIYes, 125*4, 148*4);
 	ctx.drawImage(UINo, 125*4 + 32*4 + 7*4, 148*4);
+	ctx.textBaseline = "top";
+	ctx.textAlign = "left"
+	ctx.fillStyle = "yellow";
+	ctx.font = "48px Home Video";
+	ctx.fillText(score, 162*4, 108*4);
 }
 
 function reset(){
@@ -1198,6 +1243,7 @@ function font(){
 }
 
 function drawUI(){
+	ctx.drawImage(backGround, 0, 0);
 	ctx.drawImage(backGroundUI, 0, 0);
 	ctx.drawImage(UIbtn1, UI1Pos[0], UI1Pos[1]);
 	ctx.drawImage(UIbtn2, UI2Pos[0], UI2Pos[1]);
@@ -2027,19 +2073,23 @@ function clickPointer(event){ //마우스로 클릭한 지점 읽어오기
 			}
 		}
 	}
+	if(dx >= 32*4*4 && dx < 32*6*4){
+		if(dy >= 32*4*4 && dy < 32*5*4){
+			gameStart = true;
+		}
+	} 
 	if(hearts <= 0){
 		if(dx >= 129*4 && dx < 129*4 + 24*4 &&
 			dy >= 158*4 && dy < 158*4 + 11*4){
 			reset();
 		}
-		else{
-		}
 		if(dx >= 125*4 + 32*4 + 15*4 && dx < 125*4 + 32*4 + 15*4 + 18*4 &&
 			dy >= 158*4 && dy < 158*4 + 11*4){
-			UINo.src = "./UI/No2.png";
-		}
-		else{
-			UINo.src = "./UI/No1.png";
+			title = true;
+			gameStart = false;
+			tbY = 0;
+			bgm.src = './Sound/wait.mp3';
+			reset();
 		}
 	}
 	if(dy>=UI1Pos[1]){
@@ -2340,11 +2390,6 @@ function follow(x, y){ //마우스 커서가 마우스를 따라오게 하기
 		}
 	}
 }
-
-var chickenGold = [75, 100, 150];
-var catGold = [100, 150, 200];
-var sheepGold = [150, 200, 250];
-var squirrelGold = [400, 500, 600];
 
 function placeMob(x, y){ //클릭한 몹을 좌표에 배치하기
 	if(UISelect==1){
