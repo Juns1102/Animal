@@ -177,7 +177,6 @@ var catAttackEffect = new Image();
 catAttackEffect.src = "./Entity/Anim/cat_attack_effect.png";
 var catAttackEffects = [];
 
-
 //양 애니메이션
 var sheepLevel = 1;
 var sheepIdleLv1_1 = new Image();
@@ -276,7 +275,7 @@ foxAttack2.src = "./Entity/Anim/fox_attack_2.png";
 var foxAttackEffect1 = new Image();
 var foxAttackEffect2 = new Image();
 foxAttackEffect1.src = "./Entity/Anim/bite1.png";
-foxAttackEffect2.src = "./Entity/Anim/bite2.png"
+foxAttackEffect2.src = "./Entity/Anim/bite2.png";
 var foxAttackEffects = [];
 
 //벌꿀오소리 애니메이션
@@ -2258,7 +2257,6 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 			UISelect = 0;
 		}
 	}
-	
 }
 
 function UIReset(){ //UIReset
