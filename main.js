@@ -85,12 +85,12 @@ var spawnTimer = 0;
 var spawnRate = [5*60, 4*60, 4*60, 3*60, 3*60];
 var spawnNum = 0;
 var spawnPosY = 0;
-var phase = 4;
+var phase = 0;
 var phaseCnt = 0;
 var phaseRate = 60*20;
-var round = 4;
+var round = 0;
 var wait = true;
-var gold = 500000000; 
+var gold = 500; 
 var goldCnt = 0;
 var sellMod = false;
 var endPhase = false;
@@ -1780,9 +1780,7 @@ function collision(team, enemy){ //공격이 적과 맞았는지 검사(아군 �
 					}
 				}
 				else{
-					console.debug(a.hp, team.damage);
 					a.hp -= team.damage;
-					console.debug(a.hp);
 				}
 				if(team.tag == "squirrelAttack"){
 					a.stun = 30;
@@ -1994,23 +1992,18 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 		if(spawnTimer > spawnRate[phase]){
 			spawnTimer = 0;
 			randomNum = Math.floor(Math.random() * 100) + 1;
-			if(randomNum < animalPer[round][0][phase]){ 
+			if(randomNum < animalPer[round][0][phase]){ //Fox
 				spawnPosY = Math.floor(Math.random() * 4) + 3;
 				var kb = new KillBee();
-				kb.hp = kbHp[round];
-				kb.speed = kbSpeed[round];
-				kb.maxCoolTime = kbCt[round];
 				kb.x = 32*10*4;
 				kb.y = spawnPosY*32*4 - 16;
 				kb.laneY = spawnPosY;
 				enemies.push(kb);
 			}
-			else if(randomNum >= animalPer[round][0][phase] && 
+			else if(randomNum >= animalPer[round][0][phase] && //Ratel
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var fox = new Fox();
-						fox.hp = foxHp[round];
-						fox.maxCoolTime = foxCt[round];
 						fox.x = 32*10*4;
 						fox.y = spawnPosY*32*4 - 16;
 						fox.laneY = spawnPosY;
@@ -2020,8 +2013,6 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var ratel = new Ratel();
-						ratel.hp = ratelHp[round];
-						ratel.maxCoolTime = ratelCt[round];
 						ratel.x = 32*10*4;
 						ratel.y = spawnPosY*32*4 - 16;
 						ratel.laneY = spawnPosY;
@@ -2031,8 +2022,6 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var crocodile = new Crocodile();
-						crocodile.hp = crocsHp[round];
-						crocodile.maxCoolTime = crocsCt[round];
 						crocodile.x = 32*10*4;
 						crocodile.y = spawnPosY*32*4 - 16;
 						crocodile.laneY = spawnPosY;
@@ -2042,8 +2031,6 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase] + animalPer[round][4][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 2;
 						var bear = new Bear();
-						bear.hp = bearHp[round];
-						bear.maxCoolTime = bearCt[round];
 						bear.x = 32*10*4;
 						bear.y = spawnPosY*32*4 - 16;
 						bear.laneY = spawnPosY;
