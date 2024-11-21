@@ -1223,7 +1223,6 @@ function reset(){
 	catLevel = 1;
 	sheepLevel = 1;
 	squirrelLevel = 1;
-	score = 0;
 	wait = true;
 }
 
@@ -2096,7 +2095,7 @@ function clickPointer(event){ //마우스로 클릭한 지점 읽어오기
 		UIChanger(dx, dy);
 	}
 	else{
-		if(dy > 32*4*3 && dy < UI1Pos[1] && dx >= 32*4 && dx <32*4*9){
+		if(dy > 32*4*3 && dy < UI1Pos[1] && dx >= 32*4){
 			placeMob(dx, dy);
 		}
 	}
