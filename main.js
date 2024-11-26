@@ -375,31 +375,31 @@ var chickenMaxCoolTime = [200, 150, 100];
 var eggDamage = [10, 15, 20];
 
 var catHp = [60, 120, 220];
-var catMaxCoolTime = [100, 100, 50];
+var catMaxCoolTime = [100, 85, 70];
 var catDamage = [25, 35, 50];
 
 var sheepHp = [150, 250, 400];
 
 var squirrelHp = [15, 30, 45];
-var squirrelMaxCoolTime = [300, 250, 200];
+var squirrelMaxCoolTime = [200, 175, 250];
 var squirrelDamage = [15, 20, 30];
 
-var kbHp = [30, 30, 40, 40, 50];
-var kbCt = [100, 100, 100, 100, 50];
+var kbHp = [30, 35, 40, 45, 50];
+var kbCt = [100, 90, 80, 70, 60];
 var kbSpeed = [4, 5, 6, 7, 8];
-var kbDamage = [15, 15, 30, 30, 45];
+var kbDamage = [15, 20, 30, 35, 45];
 
 var foxHp = [80, 110, 130, 130, 180];
 var foxCt = [200, 200, 200, 200, 200];
-var foxDamage = [22, 25, 30, 30, 40];
+var foxDamage = [22, 25, 38, 31, 35];
 
-var ratelHp = [100, 140, 160, 160, 220];
+var ratelHp = [120, 145, 170, 195, 220];
 var ratelCt = [200, 200, 200, 200, 200];
 var ratelDamage = [30, 30, 40, 40, 50];
 
 var crocsHp = [300, 300, 300, 450, 600];
 var crocsCt = [300, 300, 300, 300, 300];
-var crocsDamage = [45, 45, 45, 45, 70];
+var crocsDamage = [45, 45, 45, 55, 70];
 
 var bearHp = [1200, 1200, 1200, 1200, 2000];
 var bearCt = [250, 250, 250, 250, 250];
@@ -419,10 +419,10 @@ var animalPer = [[[100, 90, 80, 70, 65],//killerBee
 				  [0, 0, 5, 10, 15],    //ratel
 				  [0, 0, 0, 0, 0],      //crocodile
 				  [0, 0, 0, 0, 0]],     //bear
-				[[65, 60, 55, 45, 40], 
+				[[65, 60, 55, 50, 40], 
 				 [25, 25, 25, 30, 30], 
-			     [10, 15, 17, 20, 23],
-			     [0, 0, 3, 5, 7], 
+			     [10, 15, 20, 20, 30],
+			     [0, 0, 0, 0, 0], 
 			     [0, 0, 0, 0, 0]], 
 				[[45, 40, 38, 35, 20], 
 				[30, 30, 30, 30, 30], 
