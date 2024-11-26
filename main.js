@@ -351,45 +351,46 @@ var bearAttackEffects = [];
 
 
 //능력치
-var chickenHp = [30, 60, 90];
-var chickenMaxCoolTime = [200, 200, 200];
-var eggDamage = [10, 20, 30];
+var chickenHp = [30, 45, 60];
+var chickenMaxCoolTime = [200, 150, 100];
+var eggDamage = [10, 15, 20];
 
 var catHp = [60, 120, 220];
-var catMaxCoolTime = [100, 100, 100];
+var catMaxCoolTime = [100, 100, 50];
 var catDamage = [25, 35, 50];
 
 var sheepHp = [150, 250, 400];
 
 var squirrelHp = [15, 30, 45];
-var squirrelMaxCoolTime = [300, 300, 300];
-var squirrelDamage = [15, 20, 25];
+var squirrelMaxCoolTime = [300, 250, 200];
+var squirrelDamage = [15, 20, 30];
 
-var kbHp = [30, 30, 30, 30, 30];
+var kbHp = [30, 30, 40, 40, 50];
 var kbCt = [100, 100, 100, 100, 50];
-var kbSpeed = [4, 4, 5, 5, 7];
+var kbSpeed = [4, 5, 6, 7, 8];
 var kbDamage = [15, 15, 30, 30, 45];
 
-var foxHp = [80, 80, 130, 130, 180];
+var foxHp = [80, 110, 130, 130, 180];
 var foxCt = [200, 200, 200, 200, 200];
-var foxDamage = [22, 22, 30, 30, 40];
+var foxDamage = [22, 25, 30, 30, 40];
 
-var ratelHp = [100, 100, 160, 160, 220];
+var ratelHp = [100, 140, 160, 160, 220];
 var ratelCt = [200, 200, 200, 200, 200];
 var ratelDamage = [30, 30, 40, 40, 50];
 
-var crocsHp = [300, 300, 300, 300, 600];
+var crocsHp = [300, 300, 300, 450, 600];
 var crocsCt = [300, 300, 300, 300, 300];
 var crocsDamage = [45, 45, 45, 45, 70];
 
-var bearHp = [1200, 1200, 1200, 1200, 1200];
+var bearHp = [1200, 1200, 1200, 1200, 2000];
 var bearCt = [250, 250, 250, 250, 250];
 var bearDamage = [150, 150, 150, 150, 150];
 
-var chickenGold = [75, 100, 150];
+var chickenGold = [75, 150, 250];
 var catGold = [100, 150, 200];
 var sheepGold = [150, 200, 250];
-var squirrelGold = [400, 500, 600];
+var squirrelGold = [300, 450, 600];
+var clearGold = [500, 1000, 1500];
 
 //몬스터 확률     페이즈
 var animalPer = [[[100, 90, 80, 70, 65],//killerBee
@@ -412,10 +413,10 @@ var animalPer = [[[100, 90, 80, 70, 65],//killerBee
 				[45, 43, 41, 38, 33], 
 				[10, 14, 16, 20, 25],
 				[0, 0, 0, 3, 5]],
-				[[10, 10, 10, 10, 10], 
-				[25, 25, 25, 30, 25], 
-				[10, 15, 17, 20, 30], 
-				[0, 0, 3, 5, 25],
+				[[10, 10, 10, 10, 5], 
+				[25, 25, 25, 30, 30], 
+				[10, 15, 17, 20, 35], 
+				[0, 0, 3, 5, 20],
 				[0, 0, 0, 0, 10]]];
 
 class Chicken{
@@ -1909,6 +1910,9 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					round++;
 				}
 				else if(enemies[0]==undefined){
+					if(round <= 2){
+						gold+=clearGold[round];
+					}
 					round++;
 					wait = true;
 					bgm.src = "./Sound/wait.mp3";
@@ -2136,15 +2140,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 					gold -= 2000;
 				}
 			}
-			else if(chickenLevel == 1 && gold >= 75){
+			else if(chickenLevel == 1 && gold >= chickenGold[chickenLevel-1]){
 				UISelect = 1;
 				UIempt.src = UI1SLT[chickenLevel-1];
 			}
-			else if(chickenLevel == 2 && gold >= 100){
+			else if(chickenLevel == 2 && gold >= chickenGold[chickenLevel-1]){
 				UISelect = 1;
 				UIempt.src = UI1SLT[chickenLevel-1];
 			}
-			else if(chickenLevel == 3 && gold >= 150){
+			else if(chickenLevel == 3 && gold >= chickenGold[chickenLevel-1]){
 				UISelect = 1;
 				UIempt.src = UI1SLT[chickenLevel-1];
 			}
@@ -2167,15 +2171,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 					gold -= 2000;
 				}
 			}
-			else if(catLevel == 1 && gold >= 100){
+			else if(catLevel == 1 && gold >= catGold[catLevel-1]){
 				UISelect = 2;
 				UIempt.src = UI2SLT[catLevel-1];
 			}
-			else if(catLevel == 2 && gold >= 150){
+			else if(catLevel == 2 && gold >= catGold[catLevel-1]){
 				UISelect = 2;
 				UIempt.src = UI2SLT[catLevel-1];
 			}
-			else if(catLevel == 3 && gold >= 200){
+			else if(catLevel == 3 && gold >= catGold[catLevel-1]){
 				UISelect = 2;
 				UIempt.src = UI2SLT[catLevel-1];
 			}
@@ -2198,15 +2202,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 					gold -= 2000;
 				}
 			}
-			else if(sheepLevel == 1 && gold >= 150){
+			else if(sheepLevel == 1 && gold >= sheepGold[sheepLevel-1]){
 				UISelect = 3;
 				UIempt.src = UI3SLT[sheepLevel-1];
 			}
-			else if(sheepLevel == 2 && gold >= 200){
+			else if(sheepLevel == 2 && gold >= sheepGold[sheepLevel-1]){
 				UISelect = 3;
 				UIempt.src = UI3SLT[sheepLevel-1];
 			}
-			else if(sheepLevel == 3 && gold >= 250){
+			else if(sheepLevel == 3 && gold >= sheepGold[sheepLevel-1]){
 				UISelect = 3;
 				UIempt.src = UI3SLT[sheepLevel-1];
 			}
@@ -2229,15 +2233,15 @@ function UIChanger(x, y){ //클릭한 UI에 맞는 마우스 커서 생성
 					gold -= 2000;
 				}
 			}
-			else if(squirrelLevel == 1 && gold >= 400){
+			else if(squirrelLevel == 1 && gold >= squirrelGold[squirrelLevel - 1]){
 				UISelect = 4;
 				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
-			else if(squirrelLevel == 2 && gold >= 500){
+			else if(squirrelLevel == 2 && gold >= squirrelGold[squirrelLevel - 1]){
 				UISelect = 4;
 				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
-			else if(squirrelLevel == 3 && gold >= 600){
+			else if(squirrelLevel == 3 && gold >= squirrelGold[squirrelLevel - 1]){
 				UISelect = 4;
 				UIempt.src = UI4SLT[squirrelLevel-1];
 			}
