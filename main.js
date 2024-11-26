@@ -91,10 +91,10 @@ var spawnTimer = 0;
 var spawnRate = [5*60, 4*60, 4*60, 3*60, 3*60];
 var spawnNum = 0;
 var spawnPosY = 0;
-var phase = 0;
+var phase = 4;
 var phaseCnt = 0;
 var phaseRate = 60*20;
-var round = 0;
+var round = 4;
 var wait = true;
 var gold = 500; 
 var goldCnt = 0;
@@ -1250,6 +1250,8 @@ function reset(){
 	squirrelLevel = 1;
 	score = 0;
 	wait = true;
+	value = 1;
+	valueCount = 0;
 }
 
 function font(){ 
@@ -1568,6 +1570,9 @@ function drawMob(){
 		if(a.x <= -32*2*4){
 			o.splice(i, 1)
 			hearts--;
+			if(hearts <= 0){
+				bgm.src = "./Sound/wait.mp3";
+			}
 		}
 		a.draw();
 	})
@@ -2026,7 +2031,9 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 	else{
 		valueCount++;
 		if(valueCount >= 10*60){
+			valueCount = 0;
 			value += 0.2;
+			console.debug("쌔짐");
 		}
 		if(spawnTimer > spawnRate[phase]){
 			spawnTimer = 0;
