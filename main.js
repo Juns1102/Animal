@@ -1,6 +1,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
+//#region Background
 var titleBackGround = new Image();
 titleBackGround.src = "./UI/title.png";
 var backGround = new Image();
@@ -9,8 +10,9 @@ var backGroundUI = new Image();
 backGroundUI.src = "./UI/backgroundUI.png";
 var UIEnd = new Image();
 UIEnd.src = "./UI/UIEnd.png";
+//#endregion
 
-//UIPos
+//#region UIPos
 var UI1Pos = [0, 7*32*4];
 var UI2Pos = [1*32*4, 7*32*4];
 var UI3Pos = [2*32*4, 7*32*4];
@@ -19,8 +21,9 @@ var UI5Pos = [4*32*4, 7*32*4];
 var UI6Pos = [6*32*4, 7*32*4];
 var UI7Pos = [8*32*4, 7*32*4];
 var UIemptPos = [0, 0];
+//#endregion
 
-//UI Image
+//#region UI Image
 var heart = new Image();
 heart.src = "./UI/heart.png"
 var coin = new Image();
@@ -28,12 +31,13 @@ coin.src = "./UI/coin.png"
 var bgmImage = new Image();
 bgmImage.src = "./UI/bgmOff.png"
 var bgmSelect = false;
+//#endregion
 
-//UI Image
+//#region UI Image
 var UIbtn1Up = ["./UI/UIbtn1_1Up.png", "./UI/UIbtn1_2Up.png", "./UI/UIbtn1_3Up.png"]
 var UIbtn1Down = ["./UI/UIbtn1_1Down.png", "./UI/UIbtn1_2Down.png", "./UI/UIbtn1_3Down.png"]
 var UI1SLT = ["./UI/UI1SLT1.png", "./UI/UI1SLT2.png", "./UI/UI1SLT3.png"]
-var UI1G = ["./UI/75G.png", "./UI/100G.png", "./UI/150G.png", "./UI/1000G.png", "./UI/2000G.png"]
+var UI1G = ["./UI/75G.png", "./UI/150G.png", "./UI/250G.png", "./UI/1000G.png", "./UI/2000G.png"]
 
 var UIbtn2Up = ["./UI/UIbtn2_1Up.png", "./UI/UIbtn2_2Up.png", "./UI/UIbtn2_3Up.png"]
 var UIbtn2Down = ["./UI/UIbtn2_1Down.png", "./UI/UIbtn2_2Down.png", "./UI/UIbtn2_3Down.png"]
@@ -48,9 +52,10 @@ var UI3G = ["./UI/150G.png", "./UI/200G.png", "./UI/250G.png", "./UI/1000G.png",
 var UIbtn4Up = ["./UI/UIbtn4_1Up.png", "./UI/UIbtn4_2Up.png", "./UI/UIbtn4_3Up.png"]
 var UIbtn4Down = ["./UI/UIbtn4_1Down.png", "./UI/UIbtn4_2Down.png", "./UI/UIbtn4_3Down.png"]
 var UI4SLT = ["./UI/UI4SLT1.png", "./UI/UI4SLT2.png", "./UI/UI4SLT3.png"]
-var UI4G = ["./UI/400G.png", "./UI/500G.png", "./UI/600G.png", "./UI/1000G.png", "./UI/2000G.png"]
+var UI4G = ["./UI/300G.png", "./UI/450G.png", "./UI/600G.png", "./UI/1000G.png", "./UI/2000G.png"]
+//#endregion
 
-//UI
+//#region UI
 var UIbtn1 = new Image();
 UIbtn1.src = "./UI/UIbtn1_1Up.png";
 var UIbtn2 = new Image();
@@ -78,8 +83,9 @@ bgm.src = './Sound/wait.mp3';
 bgm.autoplay = true;
 bgm.volume = 0.2;
 bgm.loop = true;
+//#endregion
 
-//etc...
+//#region etc...
 var UISelect = 0;
 var spawnTimer = 0;
 var spawnRate = [5*60, 4*60, 4*60, 3*60, 3*60];
@@ -99,32 +105,38 @@ var hearts = 3;
 var title = true;
 var gameStart = false;
 var tbY = 0;
+var value = 1;
+var valueCount = 0;
+//#endregion
 
-//닭 공격 효과음
+//#region 닭 공격 효과음
 var popSounds = []; 
 for(var i=0; i < 20; i++){
 	var popSound = new Audio('./Sound/pop.mp3');
 	popSound.volume = 0.3;
 	popSounds.push(popSound);
 }
+//#endregion
 
-//고양이 공격 효과음
+//#region 고양이 공격 효과음
 var swingSounds = [];
 for(var i=0; i < 20; i++){
 	var swingSound = new Audio('./Sound/swing.mp3');
 	swingSound.volume = 0.4;
 	swingSounds.push(swingSound);
 }
+//#endregion
 
-//다람쥐 공격 효과음
+//#region 다람쥐 공격 효과음
 var sparkSounds = [];
 for(var i=0; i < 20; i++){
 	var sparkSound = new Audio('./Sound/spark.mp3');
 	sparkSound.volume = 0.2;
 	sparkSounds.push(sparkSound);
 }
+//#endregion
 
-//닭 애니메이션
+//#region 닭 애니메이션
 var chickenLevel = 1;
 var chickenIdleLv1_1 = new Image();
 var chickenIdleLv1_2 = new Image();
@@ -143,8 +155,9 @@ var chickens = [];
 var eggImg = new Image();
 eggImg.src = "./Entity/Anim/egg.png";
 var eggs = [];
+//#endregion
 
-//고양이 애니메이션
+//#region 고양이 애니메이션
 var catLevel = 1;
 var catIdleLv1_1 = new Image();
 var catIdleLv1_2 = new Image();
@@ -176,9 +189,9 @@ var cats = [];
 var catAttackEffect = new Image();
 catAttackEffect.src = "./Entity/Anim/cat_attack_effect.png";
 var catAttackEffects = [];
+//#endregion
 
-
-//양 애니메이션
+//#region 양 애니메이션
 var sheepLevel = 1;
 var sheepIdleLv1_1 = new Image();
 var sheepIdleLv1_2 = new Image();
@@ -193,8 +206,9 @@ var sheepIdleLv3_2 = new Image();
 sheepIdleLv3_1.src = "./Entity/Anim/sheep_idle_lv3_1.png";
 sheepIdleLv3_2.src = "./Entity/Anim/sheep_idle_lv3_2.png";
 var sheeps = [];
+//#endregion
 
-//다람쥐 애니메이션
+//#region 다람쥐 애니메이션
 var squirrelLevel = 1;
 var squirrelIdleLv1_1 = new Image();
 var squirrelIdleLv1_2 = new Image();
@@ -234,10 +248,11 @@ squirrelAttackEffect3.src = "./Entity/Anim/thunder_3.png";
 squirrelAttackEffect4.src = "./Entity/Anim/thunder_4.png";
 squirrelAttackEffect5.src = "./Entity/Anim/thunder_5.png";
 var squirrelAttackEffects = [];
+//#endregion
 
 var enemies = [];
 
-//벌 애니메이션
+//#region벌 애니메이션
 var kbIdle1 = new Image();
 var kbIdle2 = new Image();
 kbIdle1.src = "./Entity/Anim/killerBee_idle_1.png";
@@ -256,8 +271,9 @@ kbAttack2.src = "./Entity/Anim/killerBee_attack_2.png";
 var kbAttackEffect = new Image();
 kbAttackEffect.src = "./UI/empty.png";
 var kbAttackEffects = [];
+//#endregion
 
-//여우 애니메이션
+//#region 여우 애니메이션
 var foxIdle1 = new Image();
 var foxIdle2 = new Image();
 foxIdle1.src = "./Entity/Anim/fox_idle_1.png";
@@ -278,8 +294,9 @@ var foxAttackEffect2 = new Image();
 foxAttackEffect1.src = "./Entity/Anim/bite1.png";
 foxAttackEffect2.src = "./Entity/Anim/bite2.png"
 var foxAttackEffects = [];
+//#endregion
 
-//벌꿀오소리 애니메이션
+//#region 벌꿀오소리 애니메이션
 var ratelIdle1 = new Image();
 var ratelIdle2 = new Image();
 ratelIdle1.src = "./Entity/Anim/ratel_idle_1.png";
@@ -300,8 +317,9 @@ var ratelAttackEffect2 = new Image();
 ratelAttackEffect1.src = "./Entity/Anim/bite1.png";
 ratelAttackEffect2.src = "./Entity/Anim/bite2.png";
 var ratelAttackEffects = [];
+//#endregion
 
-//악어 애니메이션
+//#region악어 애니메이션
 var crocodileIdle1 = new Image();
 var crocodileIdle2 = new Image();
 crocodileIdle1.src = "./Entity/Anim/crocodile_idle_1.png";
@@ -322,8 +340,9 @@ var crocodileAttackEffect2 = new Image();
 crocodileAttackEffect1.src = "./Entity/Anim/croco_Bite1.png";
 crocodileAttackEffect2.src = "./Entity/Anim/croco_Bite2.png";
 var crocodileAttackEffects = [];
+//#endregion
 
-//곰 애니메이션
+//#region곰 애니메이션
 var bearImg = new Image();
 bearImg.src = "./Entity/bear.png";
 var bearIdle1 = new Image();
@@ -348,9 +367,9 @@ bearAttack2.src = "./Entity/Anim/bear_attack_2.png";
 var bearAttackEffect = new Image();
 bearAttackEffect.src = "./Entity/Anim/bear_attack_effect.png";
 var bearAttackEffects = [];
+//#endregion
 
-
-//능력치
+//#region 능력치
 var chickenHp = [30, 45, 60];
 var chickenMaxCoolTime = [200, 150, 100];
 var eggDamage = [10, 15, 20];
@@ -391,8 +410,10 @@ var catGold = [100, 150, 200];
 var sheepGold = [150, 200, 250];
 var squirrelGold = [300, 450, 600];
 var clearGold = [500, 1000, 1500];
+//#endregion
 
-//몬스터 확률     페이즈
+//#region 몬스터 확률   
+                 //페이즈
 var animalPer = [[[100, 90, 80, 70, 65],//killerBee
 				  [0, 10, 15, 20, 20],  //fox
 				  [0, 0, 5, 10, 15],    //ratel
@@ -418,6 +439,7 @@ var animalPer = [[[100, 90, 80, 70, 65],//killerBee
 				[10, 15, 17, 20, 35], 
 				[0, 0, 3, 5, 20],
 				[0, 0, 0, 0, 10]]];
+//#endregion
 
 class Chicken{
 	constructor(){
@@ -775,7 +797,7 @@ class KillBee{
 	}
 	attack(){
 		var kbEffect = new KBAttack();
-		kbEffect.damage = kbDamage[round];
+		kbEffect.damage = kbDamage[round] * value;
 		kbEffect.x = this.x - kbEffect.width;
 		kbEffect.y = this.y;
 		kbEffect.laneY = this.laneY;
@@ -855,7 +877,7 @@ class Fox{
 	}
 	attack(){
 		var foxEffect = new FoxAttack();
-		foxEffect.damage = foxDamage[round];
+		foxEffect.damage = foxDamage[round] * value;
 		foxEffect.x = this.x - foxEffect.width;
 		foxEffect.y = this.y;
 		foxEffect.laneY = this.laneY;
@@ -941,7 +963,7 @@ class Ratel{
 	}
 	attack(){
 		var ratelEffect = new RatelAttack();
-		ratelEffect.damage = ratelDamage[round];
+		ratelEffect.damage = ratelDamage[round] * value;
 		ratelEffect.x = this.x - ratelEffect.width;
 		ratelEffect.y = this.y;
 		ratelEffect.laneY = this.laneY;
@@ -1027,7 +1049,7 @@ class Crocodile{
 	}
 	attack(){
 		var crocodileEffect = new CrocodileAttack();
-		crocodileEffect.damage = crocsDamage[round];
+		crocodileEffect.damage = crocsDamage[round] * value;
 		crocodileEffect.x = this.x - crocodileEffect.width;
 		crocodileEffect.y = this.y;
 		crocodileEffect.laneY = this.laneY;
@@ -1119,7 +1141,7 @@ class Bear{
 	}
 	attack(){
 		var bearEffect = new BearAttack();
-		bearEffect.damage = bearDamage[round];
+		bearEffect.damage = bearDamage[round] * value;
 		bearEffect.x = this.x - 32*4;
 		bearEffect.y = this.y;
 		bearEffect.laneY = this.laneY;
@@ -1219,6 +1241,7 @@ function reset(){
 	round = 0;
 	phase = 0
 	phaseCnt = 0;
+	endPhase = false;
 	spawnTimer = 0;
 	goldCnt = 0;
 	chickenLevel = 1;
@@ -1241,7 +1264,12 @@ function font(){
 	ctx.fillStyle = "white";
 	ctx.fillText(score, 32*5*4+32*2 + 10, 32*2-15 + 8);
 	ctx.fillStyle = "white";
-	ctx.fillText((round+1)+"-"+(phase+1), 32*10*4 - 8, 8);
+	if(round<=3){
+		ctx.fillText((round+1)+"-"+(phase+1), 32*10*4 - 8, 8);
+	}
+	if(round>3){
+		ctx.fillText("INF", 32*10*4 - 8, 8);
+	}
 }
 
 function drawUI(){
@@ -1441,10 +1469,6 @@ function drawMob(){
 		a.draw();
 	})
 	enemies.forEach((a, i, o)=>{
-		if(a.x < -32*2*4){
-			o.splice(i, 1)
-			hearts--;
-		}
 		if(a.hp <=0){
 			o.splice(i, 1)
 		}
@@ -1541,6 +1565,10 @@ function drawMob(){
 			}
 		}
 		a.x -= a.speed;
+		if(a.x <= -32*2*4){
+			o.splice(i, 1)
+			hearts--;
+		}
 		a.draw();
 	})
 }
@@ -1923,7 +1951,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					endPhase = false;
 					spawnTimer = 0;
 					eggs.splice(0, eggs.length);
-					catAttackEffects.splice(0, eggs.length);
+					catAttackEffects.splice(0, catAttackEffects.length);
 					squirrelAttackEffects.splice(0, squirrelAttackEffects.length);
 					kbAttackEffects.splice(0, kbAttackEffects.length);
 					foxAttackEffects.splice(0, foxAttackEffects.length);
@@ -1996,14 +2024,18 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 		}
 	}
 	else{
+		valueCount++;
+		if(valueCount >= 10*60){
+			value += 0.2;
+		}
 		if(spawnTimer > spawnRate[phase]){
 			spawnTimer = 0;
 			randomNum = Math.floor(Math.random() * 100) + 1;
 			if(randomNum < animalPer[round][0][phase]){ 
 				spawnPosY = Math.floor(Math.random() * 4) + 3;
 				var kb = new KillBee();
-				kb.hp = kbHp[round];
-				kb.speed = kbSpeed[round];
+				kb.hp = kbHp[round] * value;
+				kb.speed = kbSpeed[round] * value;
 				kb.maxCoolTime = kbCt[round];
 				kb.x = 32*10*4;
 				kb.y = spawnPosY*32*4 - 16;
@@ -2014,7 +2046,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var fox = new Fox();
-						fox.hp = foxHp[round];
+						fox.hp = foxHp[round] * value;
 						fox.maxCoolTime = foxCt[round];
 						fox.x = 32*10*4;
 						fox.y = spawnPosY*32*4 - 16;
@@ -2025,7 +2057,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var ratel = new Ratel();
-						ratel.hp = ratelHp[round];
+						ratel.hp = ratelHp[round] * value;
 						ratel.maxCoolTime = ratelCt[round];
 						ratel.x = 32*10*4;
 						ratel.y = spawnPosY*32*4 - 16;
@@ -2036,7 +2068,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 3;
 						var crocodile = new Crocodile();
-						crocodile.hp = crocsHp[round];
+						crocodile.hp = crocsHp[round] * value;
 						crocodile.maxCoolTime = crocsCt[round];
 						crocodile.x = 32*10*4;
 						crocodile.y = spawnPosY*32*4 - 16;
@@ -2047,7 +2079,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 					randomNum < animalPer[round][0][phase] + animalPer[round][1][phase] + animalPer[round][2][phase] + animalPer[round][3][phase] + animalPer[round][4][phase]){
 						spawnPosY = Math.floor(Math.random() * 4) + 2;
 						var bear = new Bear();
-						bear.hp = bearHp[round];
+						bear.hp = bearHp[round] * value;
 						bear.maxCoolTime = bearCt[round];
 						bear.x = 32*10*4;
 						bear.y = spawnPosY*32*4 - 16;
@@ -2535,6 +2567,4 @@ function searchMob(x, y){ //같은 좌표에 중복설치 못하게 막기...
 
 canvas.addEventListener('mousedown', clickPointer); //마우스 버튼down시 event 발생
 canvas.addEventListener('mouseup', UIReset); //마우스 버튼up시 event 발생
-canvas.addEventListener('mousemove', (e)=> { //마우스 움직일때마다 event 발생
-	follow(e.pageX, e.pageY);
-});
+canvas.addEventListener('mousemove', (e)=> {follow(e.pageX, e.pageY);}); //마우스 움직일때마다 event 발생
