@@ -1098,8 +1098,8 @@ class Bear{
 		this.frameTiming = 30;
 		this.gold = 500;
 		this.onAttack = false;
-		this.speed = 0.5;
-		this.maxSpeed = 0.5;
+		this.speed = 0.3;
+		this.maxSpeed = 0.3;
 		this.tag = "bear";
 		this.stun = 0;
 		this.score = 400;
@@ -2032,7 +2032,7 @@ function mobSpawn(){ //확률에 맞게 랜덤으로 적 스폰
 		valueCount++;
 		if(valueCount >= 10*60){
 			valueCount = 0;
-			value += 0.2;
+			value += 0.1;
 			console.debug("쌔짐");
 		}
 		if(spawnTimer > spawnRate[phase]){
