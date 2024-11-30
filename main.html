@@ -3,19 +3,47 @@
 <head>
 	<meta charset="UTF-8">
 	<title>동물대소동</title>
-	<style>/*
-		*{
-			padding: 0;
+	<style>
+		body {
 			margin: 0;
-		}*/
-		canvas{
+			padding: 0;
+			font-family: Arial, sans-serif;
+			background-color: #f0f0f0;
+			text-align: center;
+		}
+
+		.title {
+			font-size: 48px;
+			color: #333;
+			margin: 20px 0;
+		}
+
+		canvas {
 			display: block;
 			margin: 0 auto;
+			background-color: #fff;
+			border: 2px solid #ccc;
+		}
+		
+		.description {
+			margin: 20px auto;
+			width: 80%;
+			font-size: 18px;
+			line-height: 1.6;
+			color: #555;
 		}
 	</style>
 </head>
 <body>
+	<div class="title">동물특공대</div>
 	<canvas id="canvas" width="1280" height="1024"></canvas>
+	<div class="description">
+		<p>안녕하세요</p>
+		<p>석션칵</p>
+		<p>대신 둥둥</p>
+		<p>이얏호호</p>
+		<p>그르르칵</p>
+	</div>
 	<script src="main.js"></script>
 </body>
 </html>
