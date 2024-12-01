@@ -18,32 +18,103 @@
 			margin: 20px 0;
 		}
 
+		main {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start;
+			margin: 20px 0;
+		}
+
+		aside {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		aside img {
+			height: 1024px;
+			width: auto;
+			margin: 0 20px;
+		}
+
+		section {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
 		canvas {
-			display: block;
-			margin: 0 auto;
 			background-color: #fff;
 			border: 2px solid #ccc;
 		}
-		
-		.description {
+
+		.underimage {
+			width: 1290px;
+			height: 200px;
+			margin-top: 10px;
+			border: 2px solid #ccc;
+		}
+
+		footer {
 			margin: 20px auto;
-			width: 80%;
-			font-size: 18px;
+			width: 100%;
+			font-size: 20px;
 			line-height: 1.6;
 			color: #555;
+		}
+
+		footer details summary {
+			cursor: pointer;
+		}
+
+		footer details details {
+			margin-left: 20px;
 		}
 	</style>
 </head>
 <body>
-	<div class="title">동물특공대</div>
-	<canvas id="canvas" width="1280" height="1024"></canvas>
-	<div class="description">
-		<p>안녕하세요</p>
-		<p>석션칵</p>
-		<p>대신 둥둥</p>
-		<p>이얏호호</p>
-		<p>그르르칵</p>
-	</div>
+	<div class="title">동물대소동</div>
+	<hr class = "two">
+	<main>
+		<aside>
+			<img src="leftimage.jpg" alt="왼쪽 이미지">
+		</aside>
+		<section>
+			<canvas id="canvas" width="1280" height="1024"></canvas>
+			<img src="underimage.jpg" alt="캔버스 아래 이미지" class="underimage">
+		</section>
+		<aside>
+			<img src="rightimage.jpg" alt="오른쪽 이미지">
+		</aside>
+	</main>
+	<footer>
+		<hr class = "one">
+		<details>
+			<summary>게임 규칙</summary>
+			<p>오는 적 막기</p>
+		</details>
+		<details>
+			<summary>동물 종류</summary>
+			<details>
+				<summary>아군 동물</summary>
+				<img src="Entity/Icon/cat.png", alt = "고양이 이미지">
+				<img src="Entity/Icon/chicken.png", alt = "닭 이미지">
+				<img src="Entity/Icon/sheep.png", alt = "양 이미지">
+				<img src="Entity/Icon/squirrel.png", alt = "다람쥐 이미지">
+				<p>고양이 닭 양 다람쥐</p>
+			</details>
+			<details>
+				<summary>적 동물</summary>
+				<img src="Entity/Anim/killerBee_attack_1.png", alt = "말벌 이미지">
+				<img src="Entity/Anim/ratel_attack_2.png", alt = "벌꿀오소리 이미지">
+				<img src="Entity/Anim/fox_attack_1.png", alt = "여우 이미지">
+				<img src="Entity/Anim/crocodile_attack_1.png", alt = "악어 이미지">
+				<img src="Entity/Anim/bear_attack_1.png", alt = "곰 이미지">
+				<p>말벌 벌꿀오소리 여우 악어 곰</p>
+			</details>
+		</details>
+		<hr class = "one">
+	</footer>
 	<script src="main.js"></script>
 </body>
 </html>
