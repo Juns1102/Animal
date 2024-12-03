@@ -381,7 +381,7 @@ var catDamage = [25, 35, 50];
 var sheepHp = [150, 250, 400];
 
 var squirrelHp = [15, 30, 45];
-var squirrelMaxCoolTime = [200, 175, 250];
+var squirrelMaxCoolTime = [200, 175, 150];
 var squirrelDamage = [15, 20, 30];
 
 var kbHp = [30, 35, 40, 45, 50];
