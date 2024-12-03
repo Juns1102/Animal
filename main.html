@@ -12,12 +12,6 @@
 			text-align: center;
 		}
 
-		.title {
-			font-size: 48px;
-			color: #333;
-			margin: 20px 0;
-		}
-
 		main {
 			display: flex;
 			justify-content: center;
@@ -60,14 +54,37 @@
 		}
 
 		nav details {
+			font-size: 20px;
 			margin-bottom: 10px;
 		}
 
-		nav details img{
-			display: block;
-			margin-bottom: 10px;
+		nav details summary{
+			font-size: 25px;
 		}
 
+		.my_box {
+			position: relative; 
+			width: 120px;
+			height: 120px;
+			margin-bottom: 20px;
+			text-align: center;
+		}
+
+		.my_box img {
+			width: auto;
+			height: auto;
+		}
+
+		.my_img {
+			position: absolute; 
+			top: 0;
+			left: 0;
+			display: none; 
+		}
+
+		.my_box:hover .my_img {
+			display: block; 
+		}
 	</style>
 </head>
 <body>
@@ -84,20 +101,32 @@
 		<nav>
 			<details>
 				<summary>게임 규칙</summary>
-				<img src="Entity/Icon/cat.png", alt = "고양이 이미지">
+				<img src="Title.png" alt="타이틀 이미지">
 				<p>디펜스 게임</p>
 				<p>계속해서 늘어나는 골드를 사용하여</p>
 				<p>아군 동물들을 구매하고</p>
 				<p>놓고 싶은 칸에 배치하세요!</p>
 				<p>계속해서 몰려오는 적들을</p>
-				<p>물리쳐서 마을을 방어하세요.</p>
+				<p>물리쳐서 마을을 방어하세요!</p>
 			</details>
 			<details>
 				<summary>동물 종류</summary>
-				<img src="Entity/Icon/cat.png", alt = "고양이 이미지">
-				<img src="Entity/Icon/chicken.png", alt = "닭 이미지">
-				<img src="Entity/Icon/sheep.png", alt = "양 이미지">
-				<img src="Entity/Icon/squirrel.png", alt = "다람쥐 이미지">
+				<div class="my_box">
+					<img src="Entity/Icon/cat.png" alt="고양이 기본 이미지">
+					<img class="my_img" src="Entity/Anim/bite1.png" alt="고양이 설명">
+				</div>
+				<div class="my_box">
+					<img src="Entity/Icon/chicken.png" alt="닭 기본 이미지">
+					<img class="my_img" src="Entity/Anim/chicken_idle_lv3_2.png" alt="닭 설명">
+				</div>
+				<div class="my_box">
+					<img src="Entity/Icon/sheep.png" alt="양 기본 이미지">
+					<img class="my_img" src="Entity/Anim/sheep_idle_lv3_2.png" alt="양 설명">
+				</div>
+				<div class="my_box">
+					<img src="Entity/Icon/squirrel.png" alt="다람쥐 기본 이미지">
+					<img class="my_img" src="Entity/Anim/squirrel_attack_lv3_2.png" alt="다람쥐 설명">
+				</div>
 			</details>
 		</nav>
 	</main>
